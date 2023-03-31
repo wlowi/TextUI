@@ -28,13 +28,23 @@
 #include "Config.h"
 
 #ifdef ARDUINO
+
   #include "TextUILcdSSD1306.h"
   #include "TextUISimpleKbd.h"
+  
 #else
-  #include "EmuTextUILcdSSD1306.h"
+
+  #if LCD_TYPE == SSD1306
+    #include "EmuTextUILcdSSD1306.h"
+    extern EmuTextUILcdSSD1306 *emuLcd;
+  #elif LCD_TYPE == ST7735
+    #include "EmuTextUILcdST7735.h"
+    extern EmuTextUILcdST7735 *emuLcd;  
+  #endif
+
   #include "EmuTextUISimpleKbd.h"
-  extern EmuTextUILcdSSD1306 *emuLcd;
   extern EmuTextUISimpleKbd *emuSimpleKbd;
+
 #endif
 
 #include "screen/HomeScreen.h"

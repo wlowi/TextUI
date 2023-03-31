@@ -25,15 +25,20 @@
 
 #include "Arduino.h"
 
-#include "EmuTextUILcdSSD1306.h"
+#if LCD_TYPE == SSD1306
+  #include "EmuTextUILcdSSD1306.h"
+  EmuTextUILcdSSD1306 *emuLcd;
+#elif LCD_TYPE == ST7735
+  #include "EmuTextUILcdST7735.h"
+  EmuTextUILcdST7735 *emuLcd;
+#endif    
+
 #include "EmuTextUISimpleKbd.h"
 #include "EEPROM.h"
 
 #include "time.h"
 
 EEPROMClass EEPROM(4096);
-
-EmuTextUILcdSSD1306 *emuLcd;
 EmuTextUISimpleKbd *emuSimpleKbd;
 
 extern void setup( void);
@@ -108,7 +113,11 @@ MyFrame::MyFrame()
     wxBoxSizer *hbox = new wxBoxSizer(wxHORIZONTAL);
 
     hbox->AddSpacer(10);
-    emuLcd =  new EmuTextUILcdSSD1306( panel, wxID_ANY);
+#if LCD_TYPE == SSD1306
+    emuLcd = new EmuTextUILcdSSD1306( panel, wxID_ANY);
+#elif LCD_TYPE == ST7735
+    emuLcd = new EmuTextUILcdST7735( panel, wxID_ANY);
+#endif
     hbox->Add( emuLcd);
     hbox->AddSpacer(10);
     emuSimpleKbd = new EmuTextUISimpleKbd( panel);

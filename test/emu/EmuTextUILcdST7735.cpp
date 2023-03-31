@@ -1,5 +1,29 @@
+/*
 
-#include "EmuTextUILcdSSD1306.h"
+  MIT License
+
+  Copyright (c) 2023 wlowi
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+*/
+
+#include "EmuTextUILcdST7735.h"
 
 #define XY_TO_I( x, y) (x + y * width)
 
@@ -11,17 +35,17 @@
  *  16 *  8 = 128
  *  32 *  4 = 128
  */
-static const unsigned int lines[] =  { 0, 8, 4 };
+static const unsigned int lines[] =  { 0, 16, 8, 4 };
 
 /* 160 pixel, Base font width 6
  *   6 * 26 = 156
  *  12 * 13 = 156
  *  24 *  6 = 144
  */
-static const unsigned int columns[] = { 0, 21, 10 };
+static const unsigned int columns[] = { 0, 26, 13, 6 };
 
 /* standard ascii 5x7 font */
-static const unsigned char  font5x7[] = {
+static const uint8_t  font5x7[] = {
     0x00, 0x00, 0x00, 0x00, 0x00,   
     0x3E, 0x5B, 0x4F, 0x5B, 0x3E, 	
     0x3E, 0x6B, 0x4F, 0x6B, 0x3E, 	
@@ -279,31 +303,30 @@ static const unsigned char  font5x7[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 
 };
 
-EmuTextUILcdSSD1306::EmuTextUILcdSSD1306( wxWindow *parent, wxWindowID id)
-    : TextUILcd(), wxPanel( parent, id, wxDefaultPosition, wxSize(128*2,64*2))
+EmuTextUILcdST7735::EmuTextUILcdST7735( wxWindow *parent, wxWindowID id)
+    : TextUILcd(), wxPanel( parent, id, wxDefaultPosition, wxSize(160*2,128*2))
 {
-    this->width = 128;
-    this->height = 64;
+    this->width = 160;
+    this->height = 128;
     this->pixSz = 2;
     textX = 0; // text cursor position
     textY = 0;
     buffer = new pixel[width*height];
 
-    Connect(wxEVT_PAINT, wxPaintEventHandler(EmuTextUILcdSSD1306::OnPaint));
-    Connect(wxEVT_SIZE, wxSizeEventHandler(EmuTextUILcdSSD1306::OnSize)); 
+    Connect(wxEVT_PAINT, wxPaintEventHandler(EmuTextUILcdST7735::OnPaint));
+    Connect(wxEVT_SIZE, wxSizeEventHandler(EmuTextUILcdST7735::OnSize)); 
 
-    setFg( 255, 255, 255);
-    setBg( 0, 0, 0);
-    setFontSize( 1);
+    normalColors();
+    setFontSize( TEXTUI_FONT_SMALL);
     clear();
 }
 
-void EmuTextUILcdSSD1306::OnSize( wxSizeEvent& event)
+void EmuTextUILcdST7735::OnSize( wxSizeEvent& event)
 {
     Refresh();
 }
 
-void EmuTextUILcdSSD1306::OnPaint( wxPaintEvent& event)
+void EmuTextUILcdST7735::OnPaint( wxPaintEvent& event)
 {
     unsigned int x;
     unsigned int y;
@@ -331,12 +354,7 @@ void EmuTextUILcdSSD1306::OnPaint( wxPaintEvent& event)
     }
 }
 
-bool EmuTextUILcdSSD1306::colorSupport() {
-
-    return false;
-}
-
-void EmuTextUILcdSSD1306::clear()
+void EmuTextUILcdST7735::clear()
 {
     unsigned int x;
     unsigned int y;
@@ -352,7 +370,7 @@ void EmuTextUILcdSSD1306::clear()
     Refresh();
 }
 
-void EmuTextUILcdSSD1306::clearEOL()
+void EmuTextUILcdST7735::clearEOL()
 {
     unsigned int x;
     unsigned int y;
@@ -366,52 +384,67 @@ void EmuTextUILcdSSD1306::clearEOL()
     Refresh();
 }
 
-void EmuTextUILcdSSD1306::setBg( unsigned char r, unsigned char g, unsigned char b)
+bool EmuTextUILcdST7735::colorSupport() {
+
+    return true;
+}
+
+void EmuTextUILcdST7735::setBg( unsigned char r, unsigned char g, unsigned char b)
 {
     bgCol565 = rgbToCol565( r, g ,b);
     bgCol = wxColor( r, g, b);
 }
 
-void EmuTextUILcdSSD1306::setFg( unsigned char r, unsigned char g, unsigned char b)
+void EmuTextUILcdST7735::setFg( unsigned char r, unsigned char g, unsigned char b)
 {
     fgCol565 = rgbToCol565( r, g ,b);
     fgCol = wxColor( r, g, b);
 }
 
-void EmuTextUILcdSSD1306::normalColors() {
+void EmuTextUILcdST7735::normalColors() {
 
     setBg(0,0,0);
     setFg(255,255,255);
 }
 
-void EmuTextUILcdSSD1306::selectedColors() {
+void EmuTextUILcdST7735::selectedColors() {
 
     setBg(255,255,0);
     setFg(0,0,0);
 }
 
-void EmuTextUILcdSSD1306::setInvert( bool inv) {
+void EmuTextUILcdST7735::setInvert( bool inv) {
+
+    if( inv) {
+        selectedColors();
+    } else {
+        normalColors();
+    }
 
 }
 
-void EmuTextUILcdSSD1306::setFontSize( uint8_t sz)
+void EmuTextUILcdST7735::setFontSize( uint8_t sz)
 {
-    if( sz < 1) { fontSz = 1; }
-    else if( sz > 2) { fontSz = 2; }
-    else { fontSz = sz; }
+    if( sz == TEXTUI_FONT_SMALL) {
+        fontSz = 1;
+    } else if( sz == TEXTUI_FONT_MEDIUM) {
+        fontSz = 2;    
+    } else {
+        fontSz = 3;
+    }
 }
 
-uint16_t EmuTextUILcdSSD1306::getRows() {
+uint16_t EmuTextUILcdST7735::getRows() {
 
     return lines[fontSz];
 }
 
-uint16_t EmuTextUILcdSSD1306::getColumns() {
+uint16_t EmuTextUILcdST7735::getColumns() {
 
     return columns[fontSz];
 }
 
-void EmuTextUILcdSSD1306::setCursor( uint8_t r, uint8_t c)
+void EmuTextUILcdST7735::setCursor( uint8_t r, uint8_t c)
 {
     textX = c * FONT_W;
     textY = r * FONT_H;
@@ -420,19 +453,19 @@ void EmuTextUILcdSSD1306::setCursor( uint8_t r, uint8_t c)
     if( textY > height) { textY = height; }
 }
 
-void EmuTextUILcdSSD1306::setRow( uint8_t r)
+void EmuTextUILcdST7735::setRow( uint8_t r)
 {
     textY = r * FONT_H;
     if( textY > height) { textY = height; }
 }
 
-void EmuTextUILcdSSD1306::setColumn( uint8_t c)
+void EmuTextUILcdST7735::setColumn( uint8_t c)
 {
     textX = c * FONT_W;
     if( textX > width) { textX = width; }
 }
 
-void EmuTextUILcdSSD1306::printChar( const char ch)
+void EmuTextUILcdST7735::printChar( const char ch)
 {
     wxClientDC dc(this);
     dc.SetLogicalScale( pixSz, pixSz);
@@ -440,14 +473,52 @@ void EmuTextUILcdSSD1306::printChar( const char ch)
     printChar( dc, ch);
 }
 
+/*
+void EmuTextUILcdST7735::setPixel( unsigned int x, unsigned int y)
+{
+    if( x >= width || y >= height) {
+        return;
+    }
+
+    wxClientDC dc(this);
+    dc.SetLogicalScale( pixSz, pixSz);
+
+    dc.SetPen(wxPen(fgCol));
+    dc.SetBrush(wxBrush(fgCol));
+
+    buffer[ XY_TO_I(x,y) ] = fgCol565;
+    setPixelOnDC( dc, x, y);    
+}
+
+void EmuTextUILcdST7735::setPixel( unsigned int x, unsigned int y, unsigned char r, unsigned char g, unsigned char b)
+{
+    if( x >= width || y >= height) {
+        return;
+    }
+
+    wxClientDC dc(this);
+    dc.SetLogicalScale( pixSz, pixSz);
+
+    pixel col565 = rgbToCol565( r, g, b);
+    wxColor col = wxColor( r, g, b);
+
+    dc.SetPen(wxPen(col));
+    dc.SetBrush(wxBrush(col));
+
+    buffer[ XY_TO_I(x,y) ] = col565;
+    setPixelOnDC( dc, x, y);
+}
+
+*/
+
 /* private */
 
-void EmuTextUILcdSSD1306::setPixelOnDC( wxDC &dc, unsigned int x, unsigned int y)
+void EmuTextUILcdST7735::setPixelOnDC( wxDC &dc, unsigned int x, unsigned int y)
 {
     dc.DrawRectangle( x, y, 1, 1);
 }
 
-pixel EmuTextUILcdSSD1306::colToCol565( const wxColor &col)
+pixel EmuTextUILcdST7735::colToCol565( const wxColor &col)
 {
     pixel col565 = ((col.Red() >> 3) << 11)
                  | ((col.Green() >> 2) << 5)
@@ -456,7 +527,7 @@ pixel EmuTextUILcdSSD1306::colToCol565( const wxColor &col)
     return col565;
 }
 
-pixel EmuTextUILcdSSD1306::rgbToCol565( unsigned char r, unsigned char g, unsigned char b)
+pixel EmuTextUILcdST7735::rgbToCol565( unsigned char r, unsigned char g, unsigned char b)
 {
   pixel col565 = ((r >> 3) << 11)
                | ((g >> 2) << 5)
@@ -465,7 +536,7 @@ pixel EmuTextUILcdSSD1306::rgbToCol565( unsigned char r, unsigned char g, unsign
   return col565;  
 }
 
-wxColor EmuTextUILcdSSD1306::col565ToCol( pixel col565)
+wxColor EmuTextUILcdST7735::col565ToCol( pixel col565)
 {
     unsigned char r = ((col565 >> 11) & 0x1f) << 3;
     unsigned char g = ((col565 >> 5) & 0x3f) << 2;
@@ -474,7 +545,7 @@ wxColor EmuTextUILcdSSD1306::col565ToCol( pixel col565)
     return wxColor( r, g, b);
 }
 
-void EmuTextUILcdSSD1306::printChar( wxDC &dc, char ch)
+void EmuTextUILcdST7735::printChar( wxDC &dc, char ch)
 {
     unsigned int x;
     unsigned int sz;
@@ -491,7 +562,7 @@ void EmuTextUILcdSSD1306::printChar( wxDC &dc, char ch)
     }
 }
 
-void EmuTextUILcdSSD1306::charLine( wxDC &dc, char l)
+void EmuTextUILcdST7735::charLine( wxDC &dc, uint8_t l)
  {
     unsigned int y;
     unsigned int sz;
@@ -523,5 +594,6 @@ void EmuTextUILcdSSD1306::charLine( wxDC &dc, char l)
 
     textX++;
 }
+
 
 

@@ -1,6 +1,6 @@
 
-#ifndef _EmuTextUILcdSSD1306_h_
-#define _EmuTextUILcdSSD1306_h_
+#ifndef _EmuTextUILcdST7735_h_
+#define _EmuTextUILcdST7735_h_
 
 #include <wx/wxprec.h>
  
@@ -12,7 +12,7 @@
 
 typedef uint16_t pixel;
 
-class EmuTextUILcdSSD1306 : public TextUILcd, public wxPanel
+class EmuTextUILcdST7735 : public TextUILcd, public wxPanel
 {
     private:
         wxWindow *parent;
@@ -22,8 +22,9 @@ class EmuTextUILcdSSD1306 : public TextUILcd, public wxPanel
         pixel *buffer;
         pixel fgCol565;
         pixel bgCol565;
-		wxColor fgCol;
-		wxColor bgCol;
+        
+	wxColor fgCol;
+	wxColor bgCol;
         unsigned int fontSz; // 1 - 3
         unsigned int textX;
         unsigned int textY;
@@ -33,20 +34,20 @@ class EmuTextUILcdSSD1306 : public TextUILcd, public wxPanel
         pixel rgbToCol565( unsigned char r, unsigned char g, unsigned char b);
         wxColor col565ToCol( pixel col565);
         void printChar( wxDC &dc, char ch);
-		void charLine( wxDC &dc, char l);
+	void charLine( wxDC &dc, uint8_t l);
 
     public:
-        EmuTextUILcdSSD1306( wxWindow *parent, wxWindowID id);
+        EmuTextUILcdST7735( wxWindow *parent, wxWindowID id);
 
         void OnSize( wxSizeEvent& event);
         void OnPaint( wxPaintEvent& event);
-
-        bool colorSupport();
 
         /* Clear screen and move cursor to top-left position */
         void clear();
         /* Clear to end of line but do not move the cursor */
         void clearEOL();
+
+	bool colorSupport();
 
         void setBg( unsigned char r, unsigned char g, unsigned char b);
         void setFg( unsigned char r, unsigned char g, unsigned char b);

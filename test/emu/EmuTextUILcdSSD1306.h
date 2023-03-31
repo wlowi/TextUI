@@ -42,7 +42,7 @@ class EmuTextUILcdSSD1306 : public TextUILcd, public wxPanel
         pixel rgbToCol565( unsigned char r, unsigned char g, unsigned char b);
         wxColor col565ToCol( pixel col565);
         void printChar( wxDC &dc, char ch);
-		void charLine( wxDC &dc, uint8_t l);
+	void charLine( wxDC &dc, uint8_t l);
 
     public:
         EmuTextUILcdSSD1306( wxWindow *parent, wxWindowID id);
