@@ -62,10 +62,11 @@
 
 #define TEXTUI_TEXT_BACK "<<<<"
 
-#define REFRESH_OK 0
-#define REFRESH_FULL 1
-#define REFRESH_ROW 2
-#define REFRESH_CELL 3
+#define REFRESH_OK     0
+#define REFRESH_FULL   1
+#define REFRESH_SCREEN 2
+#define REFRESH_ROW    3
+#define REFRESH_CELL   4
 
 #define MODE_RENDER 0
 #define MODE_EDIT 1
@@ -201,7 +202,7 @@ public:
     virtual void setColumn(uint8_t c) = 0;
 
     virtual void printChar(char ch) = 0;
-    
+
     void printInt(int val);
     void printInt(int val, uint8_t width);
     void printInt(int val, uint8_t width, char filler);
@@ -463,7 +464,7 @@ public:
     /* Cancel edit for this table */
     void cancelEdit(TextUIScreen *toCancel);
     boolean inEditMode();
-    
+    void forceRefresh() { refresh = REFRESH_SCREEN; }
     uint8_t current() const;
 };
 
@@ -505,6 +506,8 @@ public:
     Event *getEvent();
     void handle(Event *ev);
 
+    void forceRefresh() { refresh = REFRESH_SCREEN; }
+    
     void toHome();
     void toScreen(TextUIScreen *scr);
     void switchScreen(TextUIScreen *scr);

@@ -60,6 +60,8 @@ const uint8_t Columns[ROW_COUNT] = {
 DataScreen::DataScreen()
 {
     currentData = new ppm_t;
+    memset( currentData, 0, sizeof( ppm_t));
+
     update();
 }
 
