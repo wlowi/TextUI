@@ -521,7 +521,9 @@ public:
     boolean isReversedNav();
 
     boolean inEditMode();
-    
+    /* Cancel edit for this table */
+    void cancelEdit(TextUIScreen *toCancel);
+
     Event *getEvent();
     void handle(Event *ev);
 

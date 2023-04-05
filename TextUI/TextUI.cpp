@@ -97,6 +97,12 @@ boolean TextUI::inEditMode() {
   return handler.inEditMode();
 }
 
+/* Cancel edit for this table */
+void TextUI::cancelEdit(TextUIScreen *toCancel) {
+
+  handler.cancelEdit( toCancel);
+}
+
 void TextUI::handle( Event *ev) {
 
   if( CURRENT_SCREEN == nullptr || display == nullptr) {
