@@ -30,13 +30,13 @@
 #include "Arduino.h"
 
 #if defined(ARDUINO)
-#define LOG(f)
-#define LOGV(f, ...)
+#define UILOG(f)
+#define UILOGV(f, ...)
 #else
 #include "stdio.h"
 #include <cstring>
-#define LOG(f) printf(f)
-#define LOGV(f, ...) printf(f, __VA_ARGS__)
+#define UILOG(f) printf(f)
+#define UILOGV(f, ...) printf(f, __VA_ARGS__)
 #endif
 
 #define EVENT_TYPE_NONE 0
@@ -232,8 +232,12 @@ public:
     void printFixFloat2(fixfloat2_t val, uint8_t width);
 };
 
+/* NOTE: 
+ * If you add a new type please update Cell::isEditable()
+ */
 enum CellEditType_t
 {
+    BLANK_T,
     BOOLEAN_T,
     INT8_T,
     INT16_T,
@@ -267,7 +271,7 @@ class Cell
 {
 
 private:
-    CellEditType_t type;
+    CellEditType_t type = BLANK_T;
     CellType_t value;
     int32_t numericMin;
     int32_t numericMax;
@@ -275,6 +279,7 @@ private:
     uint8_t screenCol;
 
 public:
+    void setBlank();
     void setBool(uint8_t screenX, bool v);
     void setInt8(uint8_t screenX, int8_t v, uint8_t width, int16_t nmin, int16_t nmax);
     void setInt16(uint8_t screenX, int16_t v, uint8_t width, int16_t nmin, int16_t nmax);
@@ -339,7 +344,7 @@ public:
     }
 
     /* Return true if values of the row are editable */
-    virtual bool isRowEditable(uint8_t row) { return false; }
+    virtual bool isRowEditable(uint8_t row) { return true; }
     /* Return true if the value of this cell is editable */
     virtual bool isColEditable(uint8_t row, uint8_t col) { return false; }
 
@@ -377,6 +382,10 @@ public:
     virtual bool hasChanged(uint8_t row, uint8_t col) { return false; }
     virtual void getValue(uint8_t row, uint8_t col, Cell *cell) = 0;
     virtual void setValue(uint8_t row, uint8_t col, Cell *cell) {/* default implementation does nothing */};
+
+    virtual void userCall( uint8_t type, uint16_t intParam, void *context)
+    {
+    }
 };
 
 class TextUIMenu : public TextUIScreen
@@ -384,21 +393,26 @@ class TextUIMenu : public TextUIScreen
 
 private:
     const char *header;
+    bool useGoBackItem = false;
     TextUIScreen *first = nullptr;
     TextUIScreen *last = nullptr;
 
 public:
     TextUIMenu(const char *hdr);
+    TextUIMenu(const char *hdr, bool goBackItem);
 
     void addScreen(TextUIScreen *screenPtr);
 
     uint8_t getScreenCount();
     TextUIScreen *getFirstScreen();
+    TextUIScreen *getNextScreen( TextUIScreen *scr);
     TextUIScreen *getScreen(uint8_t idx);
 
     /* From TextUIScreen */
     const char *getHeader();
     const char *getMenuName();
+
+    bool goBackItem() { return useGoBackItem; }
 
     bool isRowExecutable(uint8_t row);
     void rowExecute(TextUI *ui, uint8_t row);
@@ -408,6 +422,11 @@ public:
 
     uint8_t getColCount(uint8_t row);
     void getValue(uint8_t row, uint8_t col, Cell *cell);
+
+    /* calls userCall() for all entries in the menu.
+     * Can be used for initialization, reset ...
+     */
+    void callUserCall( uint8_t type, uint16_t intParam, void *context);
 };
 
 class TextUIHandler
@@ -486,8 +505,8 @@ private:
 
     TextUILcd *display = nullptr;
     TextUIInput *inputQueue = nullptr;
-    uiTimer_t timer_msec;
-    unsigned long nextTimer_msec;
+    uiTimer_t timer_msec = 0;
+    unsigned long nextTimer_msec = 0;
 
 public:
     void setTimer(uiTimer_t msec);

@@ -31,6 +31,11 @@ TextUIMenu::TextUIMenu( const char *hdr) : header( hdr)
 
 }
 
+TextUIMenu::TextUIMenu( const char *hdr, bool goBackItem) : header( hdr), useGoBackItem( goBackItem)
+{
+
+}
+
 void TextUIMenu::addScreen( TextUIScreen *screenPtr) {
 
     screenPtr->menuNext = nullptr;
@@ -46,6 +51,11 @@ void TextUIMenu::addScreen( TextUIScreen *screenPtr) {
 TextUIScreen *TextUIMenu::getFirstScreen() {
 
     return first;
+}
+
+TextUIScreen *TextUIMenu::getNextScreen( TextUIScreen *scr) {
+
+    return (scr == nullptr) ? nullptr : scr->menuNext;
 }
 
 /*
@@ -106,7 +116,9 @@ bool TextUIMenu::isRowExecutable( uint8_t row) {
 void TextUIMenu::rowExecute( TextUI *ui, uint8_t row ) {
 
     TextUIScreen *mod = getScreen( row);
-    ui->pushScreen( mod); 
+    if( mod != nullptr) {
+        ui->pushScreen( mod);
+    } 
 }
 
 uint8_t TextUIMenu::getRowCount() {
@@ -117,7 +129,7 @@ uint8_t TextUIMenu::getRowCount() {
 const char *TextUIMenu::getRowName( uint8_t row) {
 
     TextUIScreen *mod = getScreen( row);
-    return mod->getMenuName();
+    return (mod == nullptr) ? nullptr : mod->getMenuName();
 }
 
 uint8_t TextUIMenu::getColCount( uint8_t row) {
@@ -127,4 +139,14 @@ uint8_t TextUIMenu::getColCount( uint8_t row) {
 
 void TextUIMenu::getValue( uint8_t row, uint8_t col, Cell *cell) {
     // Nothing
+}
+
+void TextUIMenu::callUserCall( uint8_t type, uint16_t intParam, void *context) {
+
+    TextUIScreen *current = first;
+
+    while( current != nullptr) {
+        current->userCall( type, intParam, context);
+        current = current->menuNext;
+    }
 }

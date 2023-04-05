@@ -48,7 +48,7 @@ void TextUIHandler::clear(TextUI *ui)
 void TextUIHandler::set(TextUI *ui, TextUIScreen *scr)
 {
 
-    LOG("TextUIHandler::set()\n");
+    UILOG("TextUIHandler::set()\n");
 
     clear(ui);
     screen = scr;
@@ -67,7 +67,7 @@ void TextUIHandler::set(TextUI *ui, TextUIScreen *scr)
 void TextUIHandler::set(TextUI *ui, TextUIScreen *scr, uint8_t currentSelected)
 {
 
-    LOGV("TextUIHandler::set( currentSelected=%d)\n", currentSelected);
+    UILOGV("TextUIHandler::set( currentSelected=%d)\n", currentSelected);
 
     set(ui, scr);
 
@@ -97,10 +97,15 @@ void TextUIHandler::process(TextUI *ui, TextUILcd *lcd, Event *event)
      */
     screen->handleEvent(ui, event);
 
+    /* Screen has no rows and does its own painting,
+     * we can quit here.
+     */
+    if( tableRows == 0) return;
+
     if (event->pending() && (event->getType() == EVENT_TYPE_KEY))
     {
 
-        LOGV("TextUIHandler::process(): tableRow=%d\n", tableRow);
+        UILOGV("TextUIHandler::process(): tableRow=%d\n", tableRow);
 
         switch (mode)
         {
@@ -122,7 +127,7 @@ void TextUIHandler::process(TextUI *ui, TextUILcd *lcd, Event *event)
 
                     if (screen->isRowExecutable(row))
                     {
-                        LOGV("SelectList::process(): Is Row Executable (row=%d) => Y\n", row);
+                        UILOGV("SelectList::process(): Is Row Executable (row=%d) => Y\n", row);
                         screen->rowExecute(ui, row);
                         refresh = REFRESH_ROW;
                     }
@@ -196,7 +201,7 @@ void TextUIHandler::onDemandRefresh(TextUILcd *lcd)
         {
             if (screen->hasChanged(row, col))
             {
-                LOGV("TextUIHandler::onDemandRefresh(): hasChanged [%d, %d]\n", row, col);
+                UILOGV("TextUIHandler::onDemandRefresh(): hasChanged [%d, %d]\n", row, col);
                 refresh = REFRESH_CELL;
                 refreshLine(lcd, tRow);
                 refresh = REFRESH_OK;
@@ -259,7 +264,7 @@ void TextUIHandler::firstEditableCol(uint8_t row)
 
     if (screen->isRowEditable(row))
     {
-        LOGV("SelectList::firstEditableCol(): Is Row Editable (row=%d) => Y\n", row);
+        UILOGV("SelectList::firstEditableCol(): Is Row Editable (row=%d) => Y\n", row);
 
         if (screen->getColCount(row) > 0)
         {
@@ -277,7 +282,7 @@ void TextUIHandler::skipNonEditableCol(uint8_t row)
     {
         if (tableCol >= screen->getColCount(row))
         {
-            LOG("SelectList::skipNonEditableCol(): End edit\n");
+            UILOG("SelectList::skipNonEditableCol(): End edit\n");
             mode = MODE_RENDER;
             tableCol = 0;
             break;
@@ -285,19 +290,20 @@ void TextUIHandler::skipNonEditableCol(uint8_t row)
         else if (!screen->isColEditable(row, tableCol))
         {
             tableCol++;
-            LOGV("SelectList::skipNonEditableCol(): Next col=%d\n", tableCol);
+            UILOGV("SelectList::skipNonEditableCol(): Next col=%d\n", tableCol);
             continue;
         }
         else
         { /* Get next cell to edit */
+            editCell.setBlank();
             screen->getValue(row, tableCol, &editCell);
             if (!editCell.isEditable())
             {
                 tableCol++;
-                LOGV("SelectList::skipNonEditableCol(): Next col=%d\n", tableCol);
+                UILOGV("SelectList::skipNonEditableCol(): Next col=%d\n", tableCol);
                 continue;
             }
-            LOGV("SelectList::skipNonEditableCol(): Edit col=%d\n", tableCol);
+            UILOGV("SelectList::skipNonEditableCol(): Edit col=%d\n", tableCol);
             break;
         }
     }
@@ -346,7 +352,7 @@ uint8_t TextUIHandler::current() const
 void TextUIHandler::updateScreen(TextUILcd *lcd)
 {
 
-    // LOG("SelectList::updateScreen():\n");
+    // UILOG("SelectList::updateScreen():\n");
 
     const char *header = screen->getHeader();
 
@@ -365,7 +371,7 @@ void TextUIHandler::updateScreen(TextUILcd *lcd)
 void TextUIHandler::updateTable(TextUILcd *lcd)
 {
 
-    // LOG("SelectList::updateTable():\n");
+    // UILOG("SelectList::updateTable():\n");
 
     screen->startRefresh();
 
@@ -431,7 +437,7 @@ bool TextUIHandler::adjustTopRow(TextUILcd *lcd)
 void TextUIHandler::refreshLine(TextUILcd *lcd, uint8_t row)
 {
 
-    // LOGV("SelectList::refreshLine(): row=%d tableRows=%d refr=%d\n", row, tableRows, refresh);
+    // UILOGV("SelectList::refreshLine(): row=%d tableRows=%d refr=%d\n", row, tableRows, refresh);
 
     lcd->setCursor(row - tableTopRow + screenHeaderOffs, 0);
 
@@ -489,7 +495,7 @@ void TextUIHandler::printLine(TextUILcd *lcd, uint8_t row)
     {
         edit = (mode == MODE_EDIT && row == tableRow && col == tableCol);
 
-        LOGV("TextUIHandler::printLine(): edit=%d [%d, %d] [%d, %d]\n", edit, tableRow, tableCol, row, col);
+        UILOGV("TextUIHandler::printLine(): edit=%d [%d, %d] [%d, %d]\n", edit, tableRow, tableCol, row, col);
         
         if (edit)
         {

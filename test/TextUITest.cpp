@@ -131,7 +131,7 @@ void processKey( Event *e) {
   Serial.print( e->getKey());
   Serial.print( F("\n"));
 #else
-  LOGV("ProcessKey k=%d c=%d\n", e->getKey(), e->getCount());
+  UILOGV("ProcessKey k=%d c=%d\n", e->getKey(), e->getCount());
 #endif
 
 /*
@@ -155,7 +155,7 @@ void processPPM() {
 #ifdef ARDUINO
   Serial.print( F("ProcessPPM\n"));
 #else
-  LOG("ProcessPPM\n");
+  UILOG("ProcessPPM\n");
 #endif
 
 }
@@ -165,7 +165,7 @@ void updateUI() {
 #ifdef ARDUINO
   Serial.print( F("Timer: updateUI\n"));
 #else
-  LOG("Timer: updateUI\n");
+  UILOG("Timer: updateUI\n");
 #endif
 
   dataScreen.update();
