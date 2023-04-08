@@ -117,6 +117,7 @@ void TextUIMenu::rowExecute( TextUI *ui, uint8_t row ) {
 
     TextUIScreen *mod = getScreen( row);
     if( mod != nullptr) {
+        setSelection( row);
         ui->pushScreen( mod);
     } 
 }
@@ -139,14 +140,4 @@ uint8_t TextUIMenu::getColCount( uint8_t row) {
 
 void TextUIMenu::getValue( uint8_t row, uint8_t col, Cell *cell) {
     // Nothing
-}
-
-void TextUIMenu::callUserCall( uint8_t type, uint16_t intParam, void *context) {
-
-    TextUIScreen *current = first;
-
-    while( current != nullptr) {
-        current->userCall( type, intParam, context);
-        current = current->menuNext;
-    }
 }

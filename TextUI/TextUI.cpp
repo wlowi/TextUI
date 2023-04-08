@@ -59,26 +59,62 @@ void TextUI::setHomeScreen( TextUIScreen *scr) {
     
 Event *TextUI::getEvent() {
 
-  if( timer_msec && (millis() > nextTimer_msec)) {
-    
-    nextTimer_msec = millis() + timer_msec;
-    event.setTimerEvent();
-    
-  } else {
+  unsigned long now = millis();
+  TextUIInput *lastInput;
+  
+  event.setNoEvent(); 
+  
+  /* First check input queues.
+   * Queues are checked round robin.
+   * If there are two queues and the first queue had an event pending,
+   * next time the second queue is checked first. 
+   */
+  if( currentInput == nullptr)
+  {
+    currentInput = inputQueue;
+  }
 
-    TextUIInput *in = inputQueue;
-  
-    event.setNoEvent(); 
-  
-    while( in != nullptr) {
-      if( in->pending() ) {
-        in->setEvent( &event);
+  if( currentInput != nullptr)
+  {
+    lastInput = currentInput;
+
+    do
+    {
+      if( currentInput->pending() )
+      {
+        currentInput->setEvent( &event);
+        currentInput = currentInput->getNext();
+        if( currentInput == nullptr)
+        {
+          currentInput = inputQueue;
+        }
+
         break;
       }
-      in = in->getNext();
+
+      currentInput = currentInput->getNext();
+      if( currentInput == nullptr)
+      {
+        currentInput = inputQueue;
+      }
+
+    } while( currentInput != lastInput);
+  }
+
+  if( event.getType() == EVENT_TYPE_NONE ) {
+    if( timer_msec && (now >= nextTimer_msec)) {
+    
+      nextTimer_msec = now + timer_msec;
+      event.setTimerEvent();
+    
+    } else if( now >= nextTick_msec ) {
+
+      nextTick_msec = now + EVENT_TICK_msec;
+      event.setTickEvent();
+
     }
   }
-  
+
   return &event;
 }
 
@@ -110,7 +146,12 @@ void TextUI::handle( Event *ev) {
   }
 
   if( refresh == REFRESH_FULL) {
-    handler.set( this, CURRENT_SCREEN);
+    if( itemPopped) {
+      handler.set( this, CURRENT_SCREEN, CURRENT_SCREEN->getSelection());
+      itemPopped = false;
+    } else {
+      handler.set( this, CURRENT_SCREEN);
+    }
     refresh = REFRESH_OK;
   } else if( refresh == REFRESH_SCREEN) {
     handler.forceRefresh();
@@ -167,4 +208,5 @@ void TextUI::popScreen() {
   UILOGV("popScreen(): %d\n", stackPtr);
 
   refresh = REFRESH_FULL;
+  itemPopped = true;
 }

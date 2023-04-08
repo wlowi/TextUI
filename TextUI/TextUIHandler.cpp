@@ -71,11 +71,13 @@ void TextUIHandler::set(TextUI *ui, TextUIScreen *scr, uint8_t currentSelected)
 
     set(ui, scr);
 
-    if (currentSelected >= screen->getRowCount())
-    {
-        currentSelected = screen->getRowCount() - 1;
+    if( screen->getRowCount() > 0) {
+        if (currentSelected >= screen->getRowCount())
+        {
+            currentSelected = screen->getRowCount() - 1;
+        }
+        tableRow = useBackItem ? currentSelected + 1 : currentSelected;
     }
-    tableRow = useBackItem ? currentSelected + 1 : currentSelected;
 }
 
 void TextUIHandler::process(TextUI *ui, TextUILcd *lcd, Event *event)
@@ -102,7 +104,7 @@ void TextUIHandler::process(TextUI *ui, TextUILcd *lcd, Event *event)
      */
     if( tableRows == 0) return;
 
-    if (event->pending() && (event->getType() == EVENT_TYPE_KEY))
+    if (event->getType() == EVENT_TYPE_KEY)
     {
 
         UILOGV("TextUIHandler::process(): tableRow=%d\n", tableRow);
@@ -174,6 +176,15 @@ void TextUIHandler::process(TextUI *ui, TextUILcd *lcd, Event *event)
             refresh = REFRESH_OK;
         }
     }
+    else if (mode == MODE_EDIT && event->getType() == EVENT_TYPE_TICK)
+    { /* Periodic check if a cell was updated in the background */
+        editCurrentCell(event);
+        if( refresh != REFRESH_OK) {
+            updateRow(lcd);
+            event->markProcessed();
+            refresh = REFRESH_OK;
+        }
+    }
     else
     {
         onDemandRefresh(lcd);
@@ -228,7 +239,7 @@ void TextUIHandler::editCurrentCell(Event *event)
         refresh = REFRESH_OK;
     }
 
-    if (event->pending())
+    if (event->getType() == EVENT_TYPE_KEY)
     {
         switch (event->getKey())
         {

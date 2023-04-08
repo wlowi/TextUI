@@ -24,59 +24,56 @@
   SOFTWARE.
 */
 
-#ifndef _TextUILcdSSD1306_h
-#define _TextUILcdSSD1306_h
+#ifndef _TextUILcdST7735_h_
+#define _TextUILcdST7735_h_
 
 #include "TextUI.h"
 
-#undef TEXTUI_LCD_USE_AVRI2C
+typedef uint16_t pixel;
 
-#ifdef TEXTUI_LCD_USE_AVRI2C
-  #include "SSD1306AsciiAvrI2c.h"
-#else
-  #include "SSD1306AsciiWire.h"
-#endif
+class TextUILcdST7735 : public TextUILcd
+{
+    private:
+        unsigned int width;
+        unsigned int height;
+        pixel fgCol565;
+        pixel bgCol565;
+        bool invers;
+        unsigned int fontSz; // 1 - 3
+        unsigned int textX;
+        unsigned int textY;
 
-const uint8_t DISPLAY_I2C_ADDRESS = 0x3C;
+        pixel rgbToCol565( uint8_t r, uint8_t g, uint8_t b);
 
-class TextUILcdSSD1306 : public TextUILcd {
-
-  private:
-#ifdef TEXTUI_LCD_USE_AVRI2C
-    SSD1306AsciiAvrI2c lcd;
-#else
-    SSD1306AsciiWire lcd;
-#endif
-
-  public:
-    TextUILcdSSD1306();
+    public:
+      TextUILcdST7735();
     
-    void clear();
-    void clearEOL();
+      void clear();
+      void clearEOL();
 
-    bool colorSupport();
+      bool colorSupport();
     
-    void setBg( uint8_t r, uint8_t g, uint8_t b);
-    void setFg( uint8_t r, uint8_t g, uint8_t b);
+      void setBg( uint8_t r, uint8_t g, uint8_t b);
+      void setFg( uint8_t r, uint8_t g, uint8_t b);
 
-    void normalColors();
-    void selectedColors();
-    void editColors();
+      void normalColors();
+      void selectedColors();
+      void editColors();
 
-    void setInvert( bool inv);
+      void setInvert( bool inv);
 
-    /* FONT_SMALL .. FONT_LARGE */
-    void setFontSize( uint8_t sz);
+      /* FONT_SMALL .. FONT_LARGE */
+      void setFontSize( uint8_t sz);
     
-    uint16_t getRows();
-    uint16_t getColumns();
+      uint16_t getRows();
+      uint16_t getColumns();
 
-    /* row and column in characters */
-    void setCursor( uint8_t r, uint8_t c);
-    void setRow( uint8_t r);
-    void setColumn( uint8_t c);
+      /* row and column in characters */
+      void setCursor( uint8_t r, uint8_t c);
+      void setRow( uint8_t r);
+      void setColumn( uint8_t c);
 
-    void printChar( char ch);
+      void printChar( char ch);
 };
 
 #endif

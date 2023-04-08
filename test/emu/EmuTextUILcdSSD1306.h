@@ -62,6 +62,7 @@ class EmuTextUILcdSSD1306 : public TextUILcd, public wxPanel
 
         void normalColors();
         void selectedColors();
+	void editColors();
 
         void setInvert( bool inv);
 

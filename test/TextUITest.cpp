@@ -110,7 +110,7 @@ void loop() {
   
   switch( e->getType()) {
 
-    case EVENT_TYPE_IRQ:
+    case EVENT_TYPE_TICK:
       processPPM();
       break;
       

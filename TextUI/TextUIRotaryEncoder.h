@@ -1,4 +1,5 @@
 /*
+  TXos. A remote control transmitter OS.
 
   MIT License
 
@@ -23,58 +24,29 @@
   SOFTWARE.
 */
 
-/*
- * Arduino.h
- * Dummy defines for simulation.
- */
+#ifndef _TextUIRotaryEncoder_h_
+#define _TextUIRotaryEncoder_h_
 
-#ifndef _Arduino_h_
-#define _Arduino_h_
+#include "TextUI.h"
 
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <cstring>
+class TextUIRotaryEncoder : public TextUIInput
+ {
 
-#define SSD1306        1
-#define SH1106         2
-#define ST7735         3
-#define LCD_TYPE  ST7735
+    private:
 
-#ifndef NULL
-#define NULL __null
-#endif
+    public:
+        TextUIRotaryEncoder();
 
-#define HIGH 0x1
-#define LOW  0x0
-
-#define INPUT 0x0
-#define OUTPUT 0x1
-
-#define A0 0
-#define A1 1
-#define A2 2
-#define A3 3
-#define A4 4
-#define A5 5
-#define A6 6
-#define A7 7
-
-typedef uint8_t byte;
-
-typedef bool boolean;
-
-#define delay( s)
-
-extern unsigned long millis();
-
-/* From AVR atomic.h */
-
-#define ATOMIC_BLOCK( s )
-#define ATOMIC_RESTORESTATE
-#define ATOMIC_FORCEON
-
-#define __FlashStringHelper char
-#define F( b ) b
+        
+        /* Returns true if there is an event pending.
+         * setEvent() clears pending state.
+         * 
+         * Note that there may be multiple events pending
+         * for different keys. setEvent() clears the pending
+         * state only for the key returned.
+         */
+        bool pending();
+        void setEvent(Event *e);
+};
 
 #endif

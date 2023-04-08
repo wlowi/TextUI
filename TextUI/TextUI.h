@@ -29,20 +29,29 @@
 
 #include "Arduino.h"
 
-#if defined(ARDUINO)
-#define UILOG(f)
-#define UILOGV(f, ...)
+// #define TEXTUI_DEBUG
+
+#ifdef TEXTUI_DEBUG
+    #if defined(ARDUINO)
+        #define UILOG(f)
+        #define UILOGV(f, ...)
+    #else
+        #include "stdio.h"
+        #include <cstring>
+        #define UILOG(f) printf(f)
+        #define UILOGV(f, ...) printf(f, __VA_ARGS__)
+    #endif
 #else
-#include "stdio.h"
-#include <cstring>
-#define UILOG(f) printf(f)
-#define UILOGV(f, ...) printf(f, __VA_ARGS__)
+    #define UILOG(f)
+    #define UILOGV(f, ...)
 #endif
 
-#define EVENT_TYPE_NONE 0
-#define EVENT_TYPE_IRQ 1
+#define EVENT_TYPE_NONE  0
+#define EVENT_TYPE_TICK  1
 #define EVENT_TYPE_TIMER 2
-#define EVENT_TYPE_KEY 3
+#define EVENT_TYPE_KEY   3
+
+#define EVENT_TICK_msec  100
 
 #define KEY_NONE  0
 #define KEY_UP    1
@@ -96,11 +105,11 @@ public:
         eventPending = false;
     }
 
-    void setIRQEvent()
+    void setTickEvent()
     {
-        eventType = EVENT_TYPE_IRQ;
+        eventType = EVENT_TYPE_TICK;
         key = KEY_NONE;
-        count = 0;
+        count = EVENT_TICK_msec;
         eventPending = true;
     }
 
@@ -189,6 +198,7 @@ public:
 
     virtual void normalColors() = 0;
     virtual void selectedColors() = 0;
+    virtual void editColors() = 0;
 
     virtual void setInvert(bool inv) = 0;
 
@@ -318,11 +328,16 @@ class TextUIScreen
 
 protected:
     TextUIScreen *menuNext;
+    /* Last selected item (row number) */
+    uint8_t selection = 0;
 
 public:
     /* This is the name of the module if it appears within a menu */
     virtual const char *getHeader() = 0;
     virtual const char *getMenuName() = 0;
+
+    void setSelection( uint8_t sel) { selection = sel; }
+    uint8_t getSelection() { return selection; }
 
     virtual bool goBackItem() { return false; }
 
@@ -382,10 +397,6 @@ public:
     virtual bool hasChanged(uint8_t row, uint8_t col) { return false; }
     virtual void getValue(uint8_t row, uint8_t col, Cell *cell) = 0;
     virtual void setValue(uint8_t row, uint8_t col, Cell *cell) {/* default implementation does nothing */};
-
-    virtual void userCall( uint8_t type, uint16_t intParam, void *context)
-    {
-    }
 };
 
 class TextUIMenu : public TextUIScreen
@@ -422,11 +433,6 @@ public:
 
     uint8_t getColCount(uint8_t row);
     void getValue(uint8_t row, uint8_t col, Cell *cell);
-
-    /* calls userCall() for all entries in the menu.
-     * Can be used for initialization, reset ...
-     */
-    void callUserCall( uint8_t type, uint16_t intParam, void *context);
 };
 
 class TextUIHandler
@@ -502,11 +508,13 @@ private:
 
     uint8_t refresh = REFRESH_FULL;
     boolean reversedNav = false;
-
+    boolean itemPopped = false;
     TextUILcd *display = nullptr;
     TextUIInput *inputQueue = nullptr;
+    TextUIInput *currentInput = nullptr;
     uiTimer_t timer_msec = 0;
     unsigned long nextTimer_msec = 0;
+    unsigned long nextTick_msec = 0;
 
 public:
     void setTimer(uiTimer_t msec);
@@ -523,7 +531,7 @@ public:
     boolean inEditMode();
     /* Cancel edit for this table */
     void cancelEdit(TextUIScreen *toCancel);
-
+    
     Event *getEvent();
     void handle(Event *ev);
 

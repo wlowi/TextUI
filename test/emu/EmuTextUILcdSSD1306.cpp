@@ -445,6 +445,11 @@ void EmuTextUILcdSSD1306::selectedColors() {
     fgBrush = whiteBrush;
 }
 
+void EmuTextUILcdSSD1306::editColors() {
+
+    selectedColors();
+}
+
 void EmuTextUILcdSSD1306::setInvert( bool inv) {
 
     if( inv) {
