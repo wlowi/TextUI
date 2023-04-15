@@ -111,16 +111,19 @@ void loop() {
   switch( e->getType()) {
 
     case EVENT_TYPE_TICK:
-      processPPM();
-      break;
+        processPPM();
+        break;
       
     case EVENT_TYPE_TIMER:
-      updateUI();
-      break;
+        updateUI();
+        break;
       
     case EVENT_TYPE_KEY:
-      processKey( e);
-      break;
+        processKey( e);
+        break;
+
+    case EVENT_TYPE_NONE:
+        break;
   }
 }
 
@@ -155,7 +158,7 @@ void processPPM() {
 #ifdef ARDUINO
   Serial.print( F("ProcessPPM\n"));
 #else
-  UILOG("ProcessPPM\n");
+  // UILOG("ProcessPPM\n");
 #endif
 
 }

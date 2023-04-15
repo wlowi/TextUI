@@ -39,7 +39,7 @@
 #define SSD1306        1
 #define SH1106         2
 #define ST7735         3
-#define LCD_TYPE  ST7735
+#define LCD_TYPE  SSD1306
 
 #ifndef NULL
 #define NULL __null

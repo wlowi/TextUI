@@ -36,8 +36,8 @@ CXXINC += -I. -Iemu
 
 # Objects
 
-#EMU_OBJ = emu/EEPROM.o emu/EmuTextUILcdSSD1306.o emu/EmuTextUILcdST7735.o emu/EmuTextUISimpleKbd.o
-EMU_OBJ = emu/EEPROM.o emu/EmuTextUILcdST7735.o emu/EmuTextUISimpleKbd.o
+EMU_OBJ = emu/EEPROM.o emu/EmuTextUILcdSSD1306.o emu/EmuTextUILcdST7735.o emu/EmuTextUISimpleKbd.o
+#EMU_OBJ = emu/EEPROM.o emu/EmuTextUILcdST7735.o emu/EmuTextUISimpleKbd.o
 
 UI_OBJ = TextUI.o TextUIHandler.o TextUILcd.o TextUIMenu.o Cell.o
 

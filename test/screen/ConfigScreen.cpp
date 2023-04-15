@@ -154,8 +154,17 @@ uint8_t ConfigScreen::getColCount(uint8_t row)
 
 bool ConfigScreen::hasChanged(uint8_t row, uint8_t col) {
 
+  static int cnt = 0;
+  fixfloat1_t voltage;
+  
   if( (row == 5) && (col == 1)) {    
-    fixfloat1_t voltage = 50;
+  
+    if( cnt++ == 10) {
+      voltage = 55;
+      cnt = 0;
+    } else {
+      voltage = 50;
+    }
     if( lastVppm != voltage) {
       lastVppm = voltage;
       return true;
@@ -163,7 +172,7 @@ bool ConfigScreen::hasChanged(uint8_t row, uint8_t col) {
   }
   
   if( (row == 6) && (col == 1)) {    
-    fixfloat1_t voltage = 80;
+    voltage = 80;
     if( lastVcc != voltage) {
       lastVcc = voltage;
       return true;

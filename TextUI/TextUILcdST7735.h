@@ -39,7 +39,7 @@ class TextUILcdST7735 : public TextUILcd
         pixel fgCol565;
         pixel bgCol565;
         bool invers;
-        unsigned int fontSz; // 1 - 3
+        uint8_t fontSz; // 1 - 3
         unsigned int textX;
         unsigned int textY;
 
@@ -63,10 +63,10 @@ class TextUILcdST7735 : public TextUILcd
       void setInvert( bool inv);
 
       /* FONT_SMALL .. FONT_LARGE */
-      void setFontSize( uint8_t sz);
+      void setFontSize( FontSize_t sz);
     
-      uint16_t getRows();
-      uint16_t getColumns();
+      uint8_t getRows();
+      uint8_t getColumns();
 
       /* row and column in characters */
       void setCursor( uint8_t r, uint8_t c);

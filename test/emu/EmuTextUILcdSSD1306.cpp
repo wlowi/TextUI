@@ -55,13 +55,13 @@
  *   8 * 8 = 64
  *  16 * 4 = 64
  */
-static const unsigned int lines[] =  { 0, 8, 4 };
+static const uint8_t lines[] =  { 0, 8, 4 };
 
 /* 128 pixel, Base font width 6
  *   6 * 21 = 126
  *  12 * 10 = 120
  */
-static const unsigned int columns[] = { 0, 21, 10 };
+static const uint8_t columns[] = { 0, 21, 10 };
 
 /* standard ascii 5x7 font */
 static const uint8_t font5x7[] = {
@@ -460,7 +460,7 @@ void EmuTextUILcdSSD1306::setInvert( bool inv) {
 
 }
 
-void EmuTextUILcdSSD1306::setFontSize( uint8_t sz)
+void EmuTextUILcdSSD1306::setFontSize( FontSize_t sz)
 {
     if( sz == TEXTUI_FONT_SMALL) {
         fontSz = 1;
@@ -469,12 +469,12 @@ void EmuTextUILcdSSD1306::setFontSize( uint8_t sz)
     }
 }
 
-uint16_t EmuTextUILcdSSD1306::getRows() {
+uint8_t EmuTextUILcdSSD1306::getRows() {
 
     return lines[fontSz];
 }
 
-uint16_t EmuTextUILcdSSD1306::getColumns() {
+uint8_t EmuTextUILcdSSD1306::getColumns() {
 
     return columns[fontSz];
 }

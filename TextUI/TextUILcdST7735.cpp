@@ -39,14 +39,14 @@
  *  16 *  8 = 128
  *  32 *  4 = 128
  */
-static const unsigned int lines[] =  { 0, 16, 8, 4 };
+static const uint8_t lines[] =  { 0, 16, 8, 4 };
 
 /* 160 pixel, Base font width 6
  *   6 * 26 = 156
  *  12 * 13 = 156
  *  24 *  6 = 144
  */
-static const unsigned int columns[] = { 0, 26, 13, 6 };
+static const uint8_t columns[] = { 0, 26, 13, 6 };
 
 #define TFT_CS        10
 #define TFT_RST        -1 // Or set to -1 and connect to Arduino RESET pin
@@ -123,7 +123,7 @@ void TextUILcdST7735::setInvert( bool inv) {
     invers = inv;
 }
 
-void TextUILcdST7735::setFontSize( uint8_t sz)
+void TextUILcdST7735::setFontSize( FontSize_t sz)
 {
     if( sz == TEXTUI_FONT_SMALL) {
         fontSz = 1;
@@ -136,12 +136,12 @@ void TextUILcdST7735::setFontSize( uint8_t sz)
     tft.setTextSize( fontSz);
 }
 
-uint16_t TextUILcdST7735::getRows() {
+uint8_t TextUILcdST7735::getRows() {
 
     return lines[fontSz];
 }
 
-uint16_t TextUILcdST7735::getColumns() {
+uint8_t TextUILcdST7735::getColumns() {
 
     return columns[fontSz];
 }

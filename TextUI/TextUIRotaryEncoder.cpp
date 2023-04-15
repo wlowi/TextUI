@@ -26,6 +26,8 @@
 
 #include "TextUIRotaryEncoder.h"
 
+#include <util/atomic.h>
+
 static volatile byte oldVal;
 
 static volatile unsigned long buttonDown_msec;
@@ -47,20 +49,26 @@ static volatile int enc;
 #define ROTARYENC_BUTTON_SHORT_MSEC  10
 #define ROTARYENC_BUTTON_LONG_MSEC  300
 
-#define PIN_CLK     A12
-#define PIN_DIR     A13
-#define PIN_SWITCH  A14
+#define PIN_CLK     2
+#define PIN_DIR     3
+#define PIN_SWITCH  4
 
-/* PK0 A8  PCINT16
- * PK1 A9  PCINT17
- * PK2 A10 PCINT18
- * PK3 A11 PCINT19
- * PK4 A12 PCINT20
- * PK5 A13 PCINT21
- * PK6 A14 PCINT22
- * PK7 A15 PCINT23
+/* Nano:
+ *  PCINT0 PCINT0-7    (Port B0 - B5)  (Pin D8 - D13)
+ *  PCINT1 PCINT8-14   (Port C0 - C5)  (Pin A0 - A5)
+ *  PCINT2 PCINT16-23  (Port D0 - D7)  (Pin D0 - D7)
+ *
+ * Mega2560:
+ *  PK0 A8  PCINT16
+ *  PK1 A9  PCINT17
+ *  PK2 A10 PCINT18
+ *  PK3 A11 PCINT19
+ *  PK4 A12 PCINT20
+ *  PK5 A13 PCINT21
+ *  PK6 A14 PCINT22
+ *  PK7 A15 PCINT23
  */
-#define ROTARYENC_PCINT_MASK  (_BV(PCINT20) | _BV(PCINT21) | _BV(PCINT22))
+#define ROTARYENC_PCINT_MASK  (_BV(PCINT18) | _BV(PCINT19) | _BV(PCINT20))
 
 ISR( PCINT2_vect)
 {
