@@ -128,7 +128,7 @@ var NAVTREEINDEX0 =
 "class_text_u_i_lcd_s_t7735.html#a23438d0f63160ddbfcb87ea6e8072a3d":[0,0,8,8],
 "class_text_u_i_lcd_s_t7735.html#a304ce726f1dcfb4dc64e158cbd2261c4":[0,0,8,7],
 "class_text_u_i_lcd_s_t7735.html#a49122e627e91e741fe838ae3b5c26e74":[0,0,8,14],
-"class_text_u_i_lcd_s_t7735.html#a4ebbb7dca5bc5cbb4f7ca4cddb386600":[0,0,8,0],
+"class_text_u_i_lcd_s_t7735.html#a5654a6071ba39d7c84daec60e93222a5":[0,0,8,0],
 "class_text_u_i_lcd_s_t7735.html#a5c2c11481f04129692daa78acbfb2a3d":[0,0,8,1],
 "class_text_u_i_lcd_s_t7735.html#a6bb01c7458ac2e72b142ce544c905364":[0,0,8,3],
 "class_text_u_i_lcd_s_t7735.html#a7127bc892ba47957191c8d55badd2e7b":[0,0,8,6],

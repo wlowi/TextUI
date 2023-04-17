@@ -60,7 +60,8 @@ ConfigScreen configScreen;
 
 const uint8_t BUTTON_COUNT = 3;
 uint8_t buttons[BUTTON_COUNT] = { 14, 15, 16 };
-uint8_t keys[BUTTON_COUNT] = { KEY_UP, KEY_ENTER, KEY_DOWN };
+uint8_t shortKeys[BUTTON_COUNT] = { KEY_UP, KEY_ENTER, KEY_DOWN };
+uint8_t longKeys[BUTTON_COUNT] = { KEY_NONE, KEY_BACK, KEY_CLEAR };
 
 TextUILcd *lcd;
 
@@ -89,7 +90,7 @@ void setup() {
 
 #ifdef ARDUINO
   textUI.setDisplay( new TextUILcdSSD1306());
-  textUI.setInput( new TextUISimpleKbd( BUTTON_COUNT, buttons, keys));
+  textUI.setInput( new TextUISimpleKbd( BUTTON_COUNT, buttons, shortKeys, longKeys));
 #else
   textUI.setDisplay( emuLcd);
   textUI.setInput( emuSimpleKbd);

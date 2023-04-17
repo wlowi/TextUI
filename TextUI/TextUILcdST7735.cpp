@@ -26,9 +26,6 @@
 
 #include "TextUILcdST7735.h"
 
-#include <Adafruit_GFX.h>    // Core graphics library
-#include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
-// #include <Adafruit_ST7789.h> // Hardware-specific library for ST7789
 #include <SPI.h>
 
 #define FONT_H (8 * fontSz)
@@ -48,19 +45,15 @@ static const uint8_t lines[] =  { 0, 16, 8, 4 };
  */
 static const uint8_t columns[] = { 0, 26, 13, 6 };
 
-#define TFT_CS        10
-#define TFT_RST        -1 // Or set to -1 and connect to Arduino RESET pin
-#define TFT_DC         9
-
-Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
-
-TextUILcdST7735::TextUILcdST7735()
+TextUILcdST7735::TextUILcdST7735( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst)
 {
-    tft.initR(INITR_BLACKTAB);
-    tft.setRotation( 3);
+    tft = new Adafruit_ST7735(tft_cs, tft_dc, tft_rst);
+
+    tft->initR(INITR_BLACKTAB);
+    tft->setRotation( 3);
     
-    width = tft.width();
-    height = tft.height();
+    width = tft->width();
+    height = tft->height();
 
     textX = 0; // text cursor position
     textY = 0;
@@ -76,13 +69,13 @@ TextUILcdST7735::TextUILcdST7735()
 
 void TextUILcdST7735::clear()
 {
-    tft.fillScreen( invers ? fgCol565 : bgCol565);
+    tft->fillScreen( invers ? fgCol565 : bgCol565);
     textX = textY = 0;
 }
 
 void TextUILcdST7735::clearEOL()
 {
-    tft.fillRect( textX, textY, width - textX, 8*fontSz, invers ? fgCol565 : bgCol565);
+    tft->fillRect( textX, textY, width - textX, 8*fontSz, invers ? fgCol565 : bgCol565);
 }
 
 bool TextUILcdST7735::colorSupport() {
@@ -133,7 +126,7 @@ void TextUILcdST7735::setFontSize( FontSize_t sz)
         fontSz = 3;
     }
 
-    tft.setTextSize( fontSz);
+    tft->setTextSize( fontSz);
 }
 
 uint8_t TextUILcdST7735::getRows() {
@@ -154,26 +147,26 @@ void TextUILcdST7735::setCursor(  uint8_t r, uint8_t c)
     if( textX > width) { textX = width; }
     if( textY > height) { textY = height; }
 
-    tft.setCursor( textX, textY);
+    tft->setCursor( textX, textY);
 }
 
 void TextUILcdST7735::setRow( uint8_t r)
 {
     textY = r * FONT_H;
     if( textY > height) { textY = height; }
-    tft.setCursor( textX, textY);
+    tft->setCursor( textX, textY);
 }
 
 void TextUILcdST7735::setColumn( uint8_t c)
 {
     textX = c * FONT_W;
     if( textX > width) { textX = width; }
-    tft.setCursor( textX, textY);
+    tft->setCursor( textX, textY);
 }
 
 void TextUILcdST7735::printChar( char ch)
 {
-    tft.drawChar( textX, textY, ch, invers ? bgCol565 : fgCol565, invers ? fgCol565 : bgCol565, fontSz);
+    tft->drawChar( textX, textY, ch, invers ? bgCol565 : fgCol565, invers ? fgCol565 : bgCol565, fontSz);
     textX += FONT_W;
 }
 

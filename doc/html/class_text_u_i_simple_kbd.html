@@ -89,6 +89,11 @@ $(document).ready(function(){initNavTree('class_text_u_i_simple_kbd.html',''); i
 <div class="title">TextUISimpleKbd Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A driver for buttons attached to Arduino input pins.  
+ <a href="class_text_u_i_simple_kbd.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_text_u_i_simple_kbd_8h_source.html">TextUISimpleKbd.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for TextUISimpleKbd:</div>
 <div class="dyncontent">
@@ -101,8 +106,8 @@ Inheritance diagram for TextUISimpleKbd:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9c26684d903418a17d5ad9016f810bd4"><td class="memItemLeft" align="right" valign="top"><a id="a9c26684d903418a17d5ad9016f810bd4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TextUISimpleKbd</b> (uint8_t count, uint8_t ports[], uint8_t skey[], uint8_t lkey[])</td></tr>
+<tr class="memitem:a9c26684d903418a17d5ad9016f810bd4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_simple_kbd.html#a9c26684d903418a17d5ad9016f810bd4">TextUISimpleKbd</a> (uint8_t count, uint8_t ports[], uint8_t skey[], uint8_t lkey[])</td></tr>
+<tr class="memdesc:a9c26684d903418a17d5ad9016f810bd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_text_u_i_simple_kbd.html" title="A driver for buttons attached to Arduino input pins.">TextUISimpleKbd</a> object.  <a href="class_text_u_i_simple_kbd.html#a9c26684d903418a17d5ad9016f810bd4">More...</a><br /></td></tr>
 <tr class="separator:a9c26684d903418a17d5ad9016f810bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6e366d870560db092380be253a1f340"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_simple_kbd.html#ae6e366d870560db092380be253a1f340">pending</a> ()</td></tr>
 <tr class="memdesc:ae6e366d870560db092380be253a1f340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for pending event.  <a href="class_text_u_i_simple_kbd.html#ae6e366d870560db092380be253a1f340">More...</a><br /></td></tr>
@@ -111,6 +116,75 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9ef89c8468c0b43a591e0bf05ac94677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set event if there is an event pending.  <a href="class_text_u_i_simple_kbd.html#a9ef89c8468c0b43a591e0bf05ac94677">More...</a><br /></td></tr>
 <tr class="separator:a9ef89c8468c0b43a591e0bf05ac94677"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A driver for buttons attached to Arduino input pins. </p>
+<p>The driver distinguishes between short and long press of a button. It also supports auto repeat.</p>
+<p>A short press (shorter than BUTTON_LONG_TIMEOUT_msec, currently 250 mSec) creates an <a class="el" href="class_event.html" title="The event class.">Event</a> with a corresponding short key defined during construction of the driver.</p>
+<p>A long press (between BUTTON_LONG_TIMEOUT_msec and BUTTON_REPEAT_TIMEOUT_msec) creates an <a class="el" href="class_event.html" title="The event class.">Event</a> with a corresponding long key defined during construction of the driver.</p>
+<p>If the button is pressed longer than BUTTON_REPEAT_TIMEOUT_msec, the short key <a class="el" href="class_event.html" title="The event class.">Event</a> is repeated every BUTTON_REPEAT_SPEED_msec (currently 50 mSec) until the button is released.</p>
+<p>Example: <br  />
+ </p><pre class="fragment">#include "TextUI.h"
+#include "TextUISimpleKbd.h"
+
+const uint8_t BUTTON_COUNT = 3;
+uint8_t buttons[BUTTON_COUNT] = { 14, 15, 16 };
+uint8_t shortKeys[BUTTON_COUNT] = { KEY_UP, KEY_ENTER, KEY_DOWN };
+uint8_t longKeys[BUTTON_COUNT] = { KEY_NONE, KEY_BACK, KEY_CLEAR };
+
+TextUI textUI;
+textUI.setInput( new TextUISimpleKbd( BUTTON_COUNT, buttons, shortKeys, longKeys));
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9c26684d903418a17d5ad9016f810bd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c26684d903418a17d5ad9016f810bd4">&#9670;&nbsp;</a></span>TextUISimpleKbd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TextUISimpleKbd::TextUISimpleKbd </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>ports</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>skey</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>lkey</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="class_text_u_i_simple_kbd.html" title="A driver for buttons attached to Arduino input pins.">TextUISimpleKbd</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">count</td><td>uint8_t: Number of elements in ports, skey and lkey arrays </td></tr>
+    <tr><td class="paramname">ports</td><td>uint8_t[]: Arduino port numbers </td></tr>
+    <tr><td class="paramname">skey</td><td>uint8_t[]: <a class="el" href="class_event.html" title="The event class.">Event</a> key for short press </td></tr>
+    <tr><td class="paramname">lkey</td><td>uint8_t[]: <a class="el" href="class_event.html" title="The event class.">Event</a> key for long press </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae6e366d870560db092380be253a1f340"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae6e366d870560db092380be253a1f340">&#9670;&nbsp;</a></span>pending()</h2>

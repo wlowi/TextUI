@@ -89,6 +89,11 @@ $(document).ready(function(){initNavTree('class_text_u_i_lcd_s_t7735.html',''); 
 <div class="title">TextUILcdST7735 Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A driver for TFT displays with ST7735 controller.  
+ <a href="class_text_u_i_lcd_s_t7735.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_text_u_i_lcd_s_t7735_8h_source.html">TextUILcdST7735.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for TextUILcdST7735:</div>
 <div class="dyncontent">
@@ -101,6 +106,9 @@ Inheritance diagram for TextUILcdST7735:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a5654a6071ba39d7c84daec60e93222a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd_s_t7735.html#a5654a6071ba39d7c84daec60e93222a5">TextUILcdST7735</a> (uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst)</td></tr>
+<tr class="memdesc:a5654a6071ba39d7c84daec60e93222a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_text_u_i_lcd_s_t7735.html" title="A driver for TFT displays with ST7735 controller.">TextUILcdST7735</a> driver.  <a href="class_text_u_i_lcd_s_t7735.html#a5654a6071ba39d7c84daec60e93222a5">More...</a><br /></td></tr>
+<tr class="separator:a5654a6071ba39d7c84daec60e93222a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c2c11481f04129692daa78acbfb2a3d"><td class="memItemLeft" align="right" valign="top"><a id="a5c2c11481f04129692daa78acbfb2a3d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd_s_t7735.html#a5c2c11481f04129692daa78acbfb2a3d">clear</a> ()</td></tr>
 <tr class="memdesc:a5c2c11481f04129692daa78acbfb2a3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the display. <br /></td></tr>
@@ -211,6 +219,64 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:ae505df0bb95f36da11df5ce30cb38dc4 inherit pub_methods_class_text_u_i_lcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print fixed float.  <a href="class_text_u_i_lcd.html#ae505df0bb95f36da11df5ce30cb38dc4">More...</a><br /></td></tr>
 <tr class="separator:ae505df0bb95f36da11df5ce30cb38dc4 inherit pub_methods_class_text_u_i_lcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A driver for TFT displays with ST7735 controller. </p>
+<p>Example: </p><pre class="fragment"> #include "TextUI.h"
+ #include "TextUILcdST7735.h"
+
+ #define TFT_CS        10
+ #define TFT_DC         9
+ #define TFT_RST       -1 // Or set to -1 and connect to Arduino RESET pin
+ // It also uses the board specific hardware SPI pins.
+
+ TextUI textUi;
+ textUi.setDisplay( new TextUILcdST7735( TFT_CS, TFT_DC, TFT_RST));
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5654a6071ba39d7c84daec60e93222a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5654a6071ba39d7c84daec60e93222a5">&#9670;&nbsp;</a></span>TextUILcdST7735()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TextUILcdST7735::TextUILcdST7735 </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>tft_cs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>tft_dc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>tft_rst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="class_text_u_i_lcd_s_t7735.html" title="A driver for TFT displays with ST7735 controller.">TextUILcdST7735</a> driver. </p>
+<p>This driver used the board specific hardware SPI interface and its corresponding pins.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tft_cs</td><td>uint8_t: Chip select </td></tr>
+    <tr><td class="paramname">tft_dc</td><td>uint8_t: Data/Command select </td></tr>
+    <tr><td class="paramname">tft_rst</td><td>uint8_t: Reset pin ( can be -1 ) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6bb01c7458ac2e72b142ce544c905364"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6bb01c7458ac2e72b142ce544c905364">&#9670;&nbsp;</a></span>colorSupport()</h2>
