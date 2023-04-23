@@ -26,12 +26,12 @@
 
 #include "TextUILcdSSD1306.h"
 
-TextUILcdSSD1306::TextUILcdSSD1306() {
+TextUILcdSSD1306::TextUILcdSSD1306( const DevType *device ) {
 
 #ifdef TEXTUI_LCD_USE_AVRI2C
 
   delay(100);
-  lcd.begin(&SH1106_128x64, DISPLAY_I2C_ADDRESS);
+  lcd.begin( device, DISPLAY_I2C_ADDRESS);
 
 #else
 
@@ -41,16 +41,14 @@ TextUILcdSSD1306::TextUILcdSSD1306() {
   Wire.beginTransmission( DISPLAY_I2C_ADDRESS);
   
   if (Wire.endTransmission() == 0) {
-    // lcd.begin(&SH1106_128x64, DISPLAY_I2C_ADDRESS);
-    lcd.begin(&Adafruit128x64, DISPLAY_I2C_ADDRESS);
+    lcd.begin( device, DISPLAY_I2C_ADDRESS);
   }
 
 #endif
   delay(100);
   
-  lcd.setContrast( 200);
   lcd.setFont(Adafruit5x7);
-  setFontSize( TEXTUI_FONT_MEDIUM);           // Normal 1:1 pixel scale
+  setFontSize( TEXTUI_FONT_SMALL);           // Normal 1:1 pixel scale
 
   clear();
   setCursor(0, 0);

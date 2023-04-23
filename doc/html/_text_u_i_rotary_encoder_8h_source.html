@@ -117,32 +117,45 @@ $(document).ready(function(){initNavTree('_text_u_i_rotary_encoder_8h_source.htm
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;TextUI.h&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_text_u_i_rotary_encoder.html">   32</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_text_u_i_rotary_encoder.html">TextUIRotaryEncoder</a> : <span class="keyword">public</span> <a class="code" href="class_text_u_i_input.html">TextUIInput</a></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <a class="code" href="class_text_u_i_rotary_encoder.html">TextUIRotaryEncoder</a>();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="comment">/* Returns true if there is an event pending.</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">         * setEvent() clears pending state.</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">         * </span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">         * Note that there may be multiple events pending</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">         * for different keys. setEvent() clears the pending</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">         * state only for the key returned.</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">         */</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_text_u_i_rotary_encoder.html#ada372904452736966707fc887a1da596">pending</a>();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_text_u_i_rotary_encoder.html#a937dcaac7ae706e9ff0068d33eff5765">setEvent</a>(<a class="code" href="class_event.html">Event</a> *e);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_text_u_i_rotary_encoder.html">   40</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_text_u_i_rotary_encoder.html">TextUIRotaryEncoder</a> : <span class="keyword">public</span> <a class="code" href="class_text_u_i_input.html">TextUIInput</a></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;{</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        uint8_t pinClock;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        uint8_t pinDir;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        uint8_t pinButton;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">byte</span> oldVal;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> buttonDown_msec;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">boolean</span> buttonIsDown;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">byte</span> button;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">volatile</span> <span class="keywordtype">int</span> enc;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <a class="code" href="class_text_u_i_rotary_encoder.html#ae8d77c1fc64ca1ba6fbc74f4251d825e">TextUIRotaryEncoder</a>( uint8_t pinClock, uint8_t pinDir, uint8_t pinButton);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_text_u_i_rotary_encoder.html#a72a0981a2f97e9ff374dda6dfc476c9d">runISR</a>();</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="comment">/* Returns true if there is an event pending.</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">         * setEvent() clears pending state.</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">         * </span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">         * Note that there may be multiple events pending</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">         * for different keys. setEvent() clears the pending</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">         * state only for the key returned.</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">         */</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_text_u_i_rotary_encoder.html#ada372904452736966707fc887a1da596">pending</a>();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_text_u_i_rotary_encoder.html#a937dcaac7ae706e9ff0068d33eff5765">setEvent</a>(<a class="code" href="class_event.html">Event</a> *e);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;};</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclass_event_html"><div class="ttname"><a href="class_event.html">Event</a></div><div class="ttdoc">The event class.</div><div class="ttdef"><b>Definition:</b> TextUI.h:114</div></div>
 <div class="ttc" id="aclass_text_u_i_input_html"><div class="ttname"><a href="class_text_u_i_input.html">TextUIInput</a></div><div class="ttdoc">Base class for all input devices.</div><div class="ttdef"><b>Definition:</b> TextUI.h:212</div></div>
-<div class="ttc" id="aclass_text_u_i_rotary_encoder_html"><div class="ttname"><a href="class_text_u_i_rotary_encoder.html">TextUIRotaryEncoder</a></div><div class="ttdef"><b>Definition:</b> TextUIRotaryEncoder.h:33</div></div>
-<div class="ttc" id="aclass_text_u_i_rotary_encoder_html_a937dcaac7ae706e9ff0068d33eff5765"><div class="ttname"><a href="class_text_u_i_rotary_encoder.html#a937dcaac7ae706e9ff0068d33eff5765">TextUIRotaryEncoder::setEvent</a></div><div class="ttdeci">void setEvent(Event *e)</div><div class="ttdoc">Set event if there is an event pending.</div><div class="ttdef"><b>Definition:</b> TextUIRotaryEncoder.cpp:152</div></div>
-<div class="ttc" id="aclass_text_u_i_rotary_encoder_html_ada372904452736966707fc887a1da596"><div class="ttname"><a href="class_text_u_i_rotary_encoder.html#ada372904452736966707fc887a1da596">TextUIRotaryEncoder::pending</a></div><div class="ttdeci">bool pending()</div><div class="ttdoc">Check for pending event.</div><div class="ttdef"><b>Definition:</b> TextUIRotaryEncoder.cpp:147</div></div>
+<div class="ttc" id="aclass_text_u_i_rotary_encoder_html"><div class="ttname"><a href="class_text_u_i_rotary_encoder.html">TextUIRotaryEncoder</a></div><div class="ttdoc">A driver for rotary encoder.</div><div class="ttdef"><b>Definition:</b> TextUIRotaryEncoder.h:41</div></div>
+<div class="ttc" id="aclass_text_u_i_rotary_encoder_html_a72a0981a2f97e9ff374dda6dfc476c9d"><div class="ttname"><a href="class_text_u_i_rotary_encoder.html#a72a0981a2f97e9ff374dda6dfc476c9d">TextUIRotaryEncoder::runISR</a></div><div class="ttdeci">void runISR()</div><div class="ttdoc">Pin change interrupt handler.</div><div class="ttdef"><b>Definition:</b> TextUIRotaryEncoder.cpp:113</div></div>
+<div class="ttc" id="aclass_text_u_i_rotary_encoder_html_a937dcaac7ae706e9ff0068d33eff5765"><div class="ttname"><a href="class_text_u_i_rotary_encoder.html#a937dcaac7ae706e9ff0068d33eff5765">TextUIRotaryEncoder::setEvent</a></div><div class="ttdeci">void setEvent(Event *e)</div><div class="ttdoc">Set event if there is an event pending.</div><div class="ttdef"><b>Definition:</b> TextUIRotaryEncoder.cpp:164</div></div>
+<div class="ttc" id="aclass_text_u_i_rotary_encoder_html_ada372904452736966707fc887a1da596"><div class="ttname"><a href="class_text_u_i_rotary_encoder.html#ada372904452736966707fc887a1da596">TextUIRotaryEncoder::pending</a></div><div class="ttdeci">bool pending()</div><div class="ttdoc">Check for pending event.</div><div class="ttdef"><b>Definition:</b> TextUIRotaryEncoder.cpp:159</div></div>
+<div class="ttc" id="aclass_text_u_i_rotary_encoder_html_ae8d77c1fc64ca1ba6fbc74f4251d825e"><div class="ttname"><a href="class_text_u_i_rotary_encoder.html#ae8d77c1fc64ca1ba6fbc74f4251d825e">TextUIRotaryEncoder::TextUIRotaryEncoder</a></div><div class="ttdeci">TextUIRotaryEncoder(uint8_t pinClock, uint8_t pinDir, uint8_t pinButton)</div><div class="ttdoc">Construct a new TextUIRotaryEncoder object.</div><div class="ttdef"><b>Definition:</b> TextUIRotaryEncoder.cpp:76</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -30,12 +30,22 @@
 
 #include "HomeScreen.h"
 
+#define PIN_CLK     2
+#define PIN_DIR     3
+#define PIN_BUTTON  4
+
 TextUI textUI;
 
 void setup()
 {
-    textUI.setDisplay( new TextUILcdSSD1306());
-    textUI.setInput( new TextUIRotaryEncoder());
+    // textUI.setDisplay( new TextUILcdSSD1306( &SH1106_128x64));
+
+    /* SH1306 Controller */
+    textUI.setDisplay( new TextUILcdSSD1306( &Adafruit128x64));
+
+    textUI.getDisplay()->setFontSize( TEXTUI_FONT_MEDIUM);
+
+    textUI.setInput( new TextUIRotaryEncoder( PIN_CLK, PIN_DIR, PIN_BUTTON));
 
     textUI.setHomeScreen( new HomeScreen());
 }

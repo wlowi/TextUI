@@ -1,6 +1,6 @@
 var class_text_u_i_lcd_s_s_d1306 =
 [
-    [ "TextUILcdSSD1306", "class_text_u_i_lcd_s_s_d1306.html#ad29854c244ae5a93cc78ad2c192ea072", null ],
+    [ "TextUILcdSSD1306", "class_text_u_i_lcd_s_s_d1306.html#ab0a0d7ae075cdb7df6db80d91843101b", null ],
     [ "clear", "class_text_u_i_lcd_s_s_d1306.html#affe61815a99ce61d343b74492108d156", null ],
     [ "clearEOL", "class_text_u_i_lcd_s_s_d1306.html#a58b6ac725c0890c79e765f8595228b26", null ],
     [ "colorSupport", "class_text_u_i_lcd_s_s_d1306.html#ab1ccd1ce91f86bbf15ecba8bfc75645d", null ],

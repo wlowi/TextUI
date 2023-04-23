@@ -31,20 +31,6 @@
 #define FONT_H (8 * fontSz)
 #define FONT_W (6 * fontSz)
 
-/* 128 pixel, Base font height 8
- *   8 * 16 = 128
- *  16 *  8 = 128
- *  32 *  4 = 128
- */
-static const uint8_t lines[] =  { 0, 16, 8, 4 };
-
-/* 160 pixel, Base font width 6
- *   6 * 26 = 156
- *  12 * 13 = 156
- *  24 *  6 = 144
- */
-static const uint8_t columns[] = { 0, 26, 13, 6 };
-
 TextUILcdST7735::TextUILcdST7735( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst)
 {
     tft = new Adafruit_ST7735(tft_cs, tft_dc, tft_rst);
@@ -131,12 +117,12 @@ void TextUILcdST7735::setFontSize( FontSize_t sz)
 
 uint8_t TextUILcdST7735::getRows() {
 
-    return lines[fontSz];
+    return height / FONT_H;
 }
 
 uint8_t TextUILcdST7735::getColumns() {
 
-    return columns[fontSz];
+    return width / FONT_W;
 }
 
 void TextUILcdST7735::setCursor(  uint8_t r, uint8_t c)

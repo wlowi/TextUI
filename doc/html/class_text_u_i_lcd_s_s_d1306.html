@@ -89,6 +89,11 @@ $(document).ready(function(){initNavTree('class_text_u_i_lcd_s_s_d1306.html','')
 <div class="title">TextUILcdSSD1306 Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A driver for OLED displays with SSD1306 / SH1106 and similar controller.  
+ <a href="class_text_u_i_lcd_s_s_d1306.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_text_u_i_lcd_s_s_d1306_8h_source.html">TextUILcdSSD1306.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for TextUILcdSSD1306:</div>
 <div class="dyncontent">
@@ -101,6 +106,9 @@ Inheritance diagram for TextUILcdSSD1306:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ab0a0d7ae075cdb7df6db80d91843101b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd_s_s_d1306.html#ab0a0d7ae075cdb7df6db80d91843101b">TextUILcdSSD1306</a> (const DevType *device)</td></tr>
+<tr class="memdesc:ab0a0d7ae075cdb7df6db80d91843101b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_text_u_i_lcd_s_s_d1306.html" title="A driver for OLED displays with SSD1306 / SH1106 and similar controller.">TextUILcdSSD1306</a> driver.  <a href="class_text_u_i_lcd_s_s_d1306.html#ab0a0d7ae075cdb7df6db80d91843101b">More...</a><br /></td></tr>
+<tr class="separator:ab0a0d7ae075cdb7df6db80d91843101b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affe61815a99ce61d343b74492108d156"><td class="memItemLeft" align="right" valign="top"><a id="affe61815a99ce61d343b74492108d156"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd_s_s_d1306.html#affe61815a99ce61d343b74492108d156">clear</a> ()</td></tr>
 <tr class="memdesc:affe61815a99ce61d343b74492108d156"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the display. <br /></td></tr>
@@ -211,6 +219,44 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:ae505df0bb95f36da11df5ce30cb38dc4 inherit pub_methods_class_text_u_i_lcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print fixed float.  <a href="class_text_u_i_lcd.html#ae505df0bb95f36da11df5ce30cb38dc4">More...</a><br /></td></tr>
 <tr class="separator:ae505df0bb95f36da11df5ce30cb38dc4 inherit pub_methods_class_text_u_i_lcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A driver for OLED displays with SSD1306 / SH1106 and similar controller. </p>
+<p>This drivers requires the SSD1306Ascii lilbrary.</p>
+<p>Example: </p><pre class="fragment"> #include "TextUI.h"
+ #include "TextUILcdSSD1306.h"
+
+ TextUI textUi;
+ textUi.setDisplay( new TextUILcdSSD1306( &amp;SH1106_128x64));
+ // Use Adafruit128x64 for SSD1306 controllers
+ // For others see Arduino/libraries/SSD1306Ascii/src/SSD1306init.h
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab0a0d7ae075cdb7df6db80d91843101b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0a0d7ae075cdb7df6db80d91843101b">&#9670;&nbsp;</a></span>TextUILcdSSD1306()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TextUILcdSSD1306::TextUILcdSSD1306 </td>
+          <td>(</td>
+          <td class="paramtype">const DevType *&#160;</td>
+          <td class="paramname"><em>device</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="class_text_u_i_lcd_s_s_d1306.html" title="A driver for OLED displays with SSD1306 / SH1106 and similar controller.">TextUILcdSSD1306</a> driver. </p>
+<p>For device structures see Arduino/libraries/SSD1306Ascii/src/SSD1306init.h</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">device</td><td>Pointer to a OLED controller device structure. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab1ccd1ce91f86bbf15ecba8bfc75645d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab1ccd1ce91f86bbf15ecba8bfc75645d">&#9670;&nbsp;</a></span>colorSupport()</h2>

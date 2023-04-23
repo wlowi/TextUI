@@ -89,6 +89,11 @@ $(document).ready(function(){initNavTree('class_text_u_i_rotary_encoder.html',''
 <div class="title">TextUIRotaryEncoder Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A driver for rotary encoder.  
+ <a href="class_text_u_i_rotary_encoder.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_text_u_i_rotary_encoder_8h_source.html">TextUIRotaryEncoder.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for TextUIRotaryEncoder:</div>
 <div class="dyncontent">
@@ -101,6 +106,13 @@ Inheritance diagram for TextUIRotaryEncoder:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ae8d77c1fc64ca1ba6fbc74f4251d825e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_rotary_encoder.html#ae8d77c1fc64ca1ba6fbc74f4251d825e">TextUIRotaryEncoder</a> (uint8_t pinClock, uint8_t pinDir, uint8_t pinButton)</td></tr>
+<tr class="memdesc:ae8d77c1fc64ca1ba6fbc74f4251d825e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_text_u_i_rotary_encoder.html" title="A driver for rotary encoder.">TextUIRotaryEncoder</a> object.  <a href="class_text_u_i_rotary_encoder.html#ae8d77c1fc64ca1ba6fbc74f4251d825e">More...</a><br /></td></tr>
+<tr class="separator:ae8d77c1fc64ca1ba6fbc74f4251d825e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72a0981a2f97e9ff374dda6dfc476c9d"><td class="memItemLeft" align="right" valign="top"><a id="a72a0981a2f97e9ff374dda6dfc476c9d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_rotary_encoder.html#a72a0981a2f97e9ff374dda6dfc476c9d">runISR</a> ()</td></tr>
+<tr class="memdesc:a72a0981a2f97e9ff374dda6dfc476c9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pin change interrupt handler. <br /></td></tr>
+<tr class="separator:a72a0981a2f97e9ff374dda6dfc476c9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada372904452736966707fc887a1da596"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_rotary_encoder.html#ada372904452736966707fc887a1da596">pending</a> ()</td></tr>
 <tr class="memdesc:ada372904452736966707fc887a1da596"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for pending event.  <a href="class_text_u_i_rotary_encoder.html#ada372904452736966707fc887a1da596">More...</a><br /></td></tr>
 <tr class="separator:ada372904452736966707fc887a1da596"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -108,6 +120,97 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a937dcaac7ae706e9ff0068d33eff5765"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set event if there is an event pending.  <a href="class_text_u_i_rotary_encoder.html#a937dcaac7ae706e9ff0068d33eff5765">More...</a><br /></td></tr>
 <tr class="separator:a937dcaac7ae706e9ff0068d33eff5765"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A driver for rotary encoder. </p>
+<p>The driver uses pin change interrupt 2 (PNINT2). This is fixed and cannot be changed unless the code in TextUIRotaryEncoder.cpp is modified.</p>
+<p>For a detailed description of supported pins see documentation of the constructor. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae8d77c1fc64ca1ba6fbc74f4251d825e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8d77c1fc64ca1ba6fbc74f4251d825e">&#9670;&nbsp;</a></span>TextUIRotaryEncoder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TextUIRotaryEncoder::TextUIRotaryEncoder </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pinClock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pinDir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>pinButton</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="class_text_u_i_rotary_encoder.html" title="A driver for rotary encoder.">TextUIRotaryEncoder</a> object. </p>
+<p>Generated events:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Action   </th><th class="markdownTableHeadNone"><a class="el" href="class_event.html" title="The event class.">Event</a>    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">turn   </td><td class="markdownTableBodyNone">KEY_UP    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">turn   </td><td class="markdownTableBodyNone">KEY_DOWN    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">short press   </td><td class="markdownTableBodyNone">KEY_ENTER    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">long press   </td><td class="markdownTableBodyNone">KEY_CLEAR   </td></tr>
+</table>
+<p>Note: All 3 pins must be connected to the same pin change interrupt.</p>
+<p>Currently the pin change interrupt is fixed to PCINT2. All pins must be connected to PCINT2.</p>
+<p>Arduino Nano (ATmega328):</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Interrupt   </th><th class="markdownTableHeadNone">Chip Port   </th><th class="markdownTableHeadNone">Arduino Pin    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">PCINT0 PCINT0-7   </td><td class="markdownTableBodyNone">(Port B0 - B7)   </td><td class="markdownTableBodyNone">(PCINT0-5: Pin D8 - D13)    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">PCINT1 PCINT8-14   </td><td class="markdownTableBodyNone">(Port C0 - C6)   </td><td class="markdownTableBodyNone">(PCINT8-13: Pin A0 - A5)    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">PCINT2 PCINT16-23   </td><td class="markdownTableBodyNone">(Port D0 - D7)   </td><td class="markdownTableBodyNone">(PCINT16-23: Pin D0 - D7)   </td></tr>
+</table>
+<p>Arduino Mega 2560:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Interrupt   </th><th class="markdownTableHeadNone">Chip Port   </th><th class="markdownTableHeadNone">Arduino Pin    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">PCINT0 PCINT0-7   </td><td class="markdownTableBodyNone">(Port B0 - B7)   </td><td class="markdownTableBodyNone">(PCINT4-7: Pin D10 - D13)    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">PCINT1 PCINT8   </td><td class="markdownTableBodyNone">(Port E0)   </td><td class="markdownTableBodyNone">(PCINT8: Pin D0)    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">PCINT1 PCINT9-15   </td><td class="markdownTableBodyNone">(Port J0 - J6)   </td><td class="markdownTableBodyNone">(PCINT9-10: Pin D15, D14)    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">PCINT2 PCINT16-23   </td><td class="markdownTableBodyNone">(Port K0 - K7)   </td><td class="markdownTableBodyNone">(PCINT16-23: Pin A8 -A15)   </td></tr>
+</table>
+<p>Example: </p><div class="fragment"><div class="line">OK:   <span class="keyword">new</span> <a class="code" href="class_text_u_i_rotary_encoder.html#ae8d77c1fc64ca1ba6fbc74f4251d825e">TextUIRotaryEncoder</a>( A8, A9, A10) </div>
+<div class="ttc" id="aclass_text_u_i_rotary_encoder_html_ae8d77c1fc64ca1ba6fbc74f4251d825e"><div class="ttname"><a href="class_text_u_i_rotary_encoder.html#ae8d77c1fc64ca1ba6fbc74f4251d825e">TextUIRotaryEncoder::TextUIRotaryEncoder</a></div><div class="ttdeci">TextUIRotaryEncoder(uint8_t pinClock, uint8_t pinDir, uint8_t pinButton)</div><div class="ttdoc">Construct a new TextUIRotaryEncoder object.</div><div class="ttdef"><b>Definition:</b> TextUIRotaryEncoder.cpp:76</div></div>
+</div><!-- fragment --><div class="fragment"><div class="line">Not OK:   <span class="keyword">new</span> <a class="code" href="class_text_u_i_rotary_encoder.html#ae8d77c1fc64ca1ba6fbc74f4251d825e">TextUIRotaryEncoder</a>( D14, A9, A10)</div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pinClock</td><td>Arduino pin of clock line. </td></tr>
+    <tr><td class="paramname">pinDir</td><td>Arduino pin of direction line. </td></tr>
+    <tr><td class="paramname">pinButton</td><td>Arduino button pin. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="ada372904452736966707fc887a1da596"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ada372904452736966707fc887a1da596">&#9670;&nbsp;</a></span>pending()</h2>
