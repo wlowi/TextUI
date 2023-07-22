@@ -34,8 +34,19 @@
 TextUILcdST7735::TextUILcdST7735( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst)
 {
     tft = new Adafruit_ST7735(tft_cs, tft_dc, tft_rst);
-
     tft->initR(INITR_BLACKTAB);
+    initTFT();
+}
+
+TextUILcdST7735::TextUILcdST7735( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst, uint8_t option)
+{
+    tft = new Adafruit_ST7735(tft_cs, tft_dc, tft_rst);
+    tft->initR(option);
+    initTFT();
+}
+
+void TextUILcdST7735::initTFT()
+{
     tft->setRotation( 3);
     
     width = tft->width();

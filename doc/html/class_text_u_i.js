@@ -2,7 +2,7 @@ var class_text_u_i =
 [
     [ "cancelEdit", "class_text_u_i.html#a1b7334da6b68b46317f28ae840b960b1", null ],
     [ "forceRefresh", "class_text_u_i.html#a2a2839416f4b83be0c633c000c67610e", null ],
-    [ "getDisplay", "class_text_u_i.html#a3fbfb58ea26e7f7297564a848bf1f103", null ],
+    [ "getDisplay", "class_text_u_i.html#aeab54b89c16cf6c022b1a935a69a7274", null ],
     [ "getEvent", "class_text_u_i.html#a4e316eef15b9ec4a65e9762de9e19ef9", null ],
     [ "handle", "class_text_u_i.html#aa5b473d22f5d616eb9429d5c601f1a5b", null ],
     [ "inEditMode", "class_text_u_i.html#a212509886d28e4981610f0cb6ee73079", null ],

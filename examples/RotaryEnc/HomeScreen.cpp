@@ -39,6 +39,13 @@ HomeScreen::HomeScreen() {
   count = 0;
 }
 
+void HomeScreen::activate( TextUI *ui) {
+
+  TextUILcd *lcd = ui->getDisplay();
+  rows = lcd->getRows();
+  cols = lcd->getColumns();
+}
+
 void HomeScreen::handleEvent(TextUI *ui, Event *e) {
 
   if( e->getType() == EVENT_TYPE_KEY) {
@@ -76,11 +83,35 @@ void HomeScreen::endRefresh() {
   refresh = false;
 }
 
+uint8_t HomeScreen::getRowCount() {
+  return 3;
+}
+
+const char *HomeScreen::getRowName( uint8_t row) {
+  return "";
+}
+
+uint8_t HomeScreen::getColCount( uint8_t row) {
+  return 2;
+}
+
 void HomeScreen::getValue(uint8_t row, uint8_t col, Cell *cell) {
 
   if( col == 0) {
-    cell->setLabel( 0, key, 5);
+    if( row == 0) {
+      cell->setLabel( 0, key, 5);
+    } else if( row == 1) {
+      cell->setLabel( 0, "rows", 5);
+    } else if( row == 2) {
+      cell->setLabel( 0, "cols", 5);
+    }
   } else if( col == 1) {
-    cell->setInt8( 6, count, 4, 0, 255);
+    if( row == 0) {
+      cell->setInt8( 6, count, 4, 0, 255);
+    } else if( row == 1) {
+      cell->setInt16( 6, rows, 4, 0, 255);
+    } else if( row == 2) {
+      cell->setInt16( 6, cols, 4, 0, 255);
+    }
   }
 }

@@ -34,18 +34,22 @@ class HomeScreen : public TextUIScreen
     const char *key;
     uint8_t count;
     bool refresh = false;
+    uint16_t rows;
+    uint16_t cols;
       
   public:
     HomeScreen();
+
+    void activate( TextUI *ui);
     
     const char *getHeader() { return "RotEncText"; }
     const char *getMenuName() { return nullptr; }
 
     void handleEvent( TextUI *ui, Event *e);
 
-    uint8_t getRowCount() { return 1; }
-    const char *getRowName( uint8_t row) { return ""; }
-    uint8_t getColCount( uint8_t row) { return 2; }
+    uint8_t getRowCount();
+    const char *getRowName( uint8_t row);
+    uint8_t getColCount( uint8_t row);
 
     bool needsRefresh();
     void endRefresh();

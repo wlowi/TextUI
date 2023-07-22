@@ -25,23 +25,52 @@
 
 #include "TextUI.h"
 
-#include "TextUILcdSSD1306.h"
+/* Enable one of these: */
+// #define USE_SSD1306
+#define USE_ST7735
+
+
+#ifdef USE_SSD1306
+# include "TextUILcdSSD1306.h"
+#endif
+
+#ifdef USE_ST7735
+# include "TextUILcdST7735.h"
+# define PIN_TFT_CS  10
+# define PIN_TFT_DC   9
+# define PIN_TFT_RST -1
+
+/* Pins for Arduino Nano:
+ *  CS               10
+ *  A0/DC             9
+ *  RESET            -1 (unused, TFT connected to reset)
+ *  SDA/MOSI         11
+ *  SCK              13
+ */
+ 
+#endif
+
 #include "TextUIRotaryEncoder.h"
-
-#include "HomeScreen.h"
-
 #define PIN_CLK     2
 #define PIN_DIR     3
 #define PIN_BUTTON  4
+
+#include "HomeScreen.h"
 
 TextUI textUI;
 
 void setup()
 {
+#ifdef USE_SSD1306
     // textUI.setDisplay( new TextUILcdSSD1306( &SH1106_128x64));
-
     /* SH1306 Controller */
     textUI.setDisplay( new TextUILcdSSD1306( &Adafruit128x64));
+#endif
+#ifdef USE_ST7735
+    // INTR_144GREENTAB       TFT 128x128 pixel, 1.44 inch
+    // INTR_BLACKTAB          TFT 160x128 pixel; 1.8 inch
+    textUI.setDisplay( new TextUILcdST7735(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST, INITR_144GREENTAB));
+#endif
 
     textUI.getDisplay()->setFontSize( TEXTUI_FONT_MEDIUM);
 

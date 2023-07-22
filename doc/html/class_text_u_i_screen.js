@@ -4,10 +4,10 @@ var class_text_u_i_screen =
     [ "deactivate", "class_text_u_i_screen.html#a6fd60daf243762c066d2f7ce69506c6a", null ],
     [ "endRefresh", "class_text_u_i_screen.html#ad5a5457a09d90bb19aa517dda16d9e68", null ],
     [ "getColCount", "class_text_u_i_screen.html#a0c18d374793b58b02a33876871290027", null ],
-    [ "getHeader", "class_text_u_i_screen.html#a74417c1b2f31f144f0e153d8b4cb92eb", null ],
-    [ "getMenuName", "class_text_u_i_screen.html#af5ac857036c85b3772517b8eaa3a719c", null ],
+    [ "getHeader", "class_text_u_i_screen.html#abef413a08a110d612b0a261d7f6d635f", null ],
+    [ "getMenuName", "class_text_u_i_screen.html#a6aad21f6cf7fded4f60efccfd4132ccb", null ],
     [ "getRowCount", "class_text_u_i_screen.html#a7e7af40b3db3dd9b6a5bfddbad99c29a", null ],
-    [ "getRowName", "class_text_u_i_screen.html#a38380d9a4f078c9d1eba250ef74553d2", null ],
+    [ "getRowName", "class_text_u_i_screen.html#aaab99a5ec51272a35c37145c61d97104", null ],
     [ "getSelection", "class_text_u_i_screen.html#a3ba62e398f8c3861df0059ac3c7c2328", null ],
     [ "getValue", "class_text_u_i_screen.html#a55bffd9c292cc9ee7bc62888084ac786", null ],
     [ "goBackItem", "class_text_u_i_screen.html#aa4cd6e5ef573af872c52342dc05f6585", null ],
@@ -22,6 +22,5 @@ var class_text_u_i_screen =
     [ "rowExecute", "class_text_u_i_screen.html#aecf8e4a5ba8f5a8db88f8ba69bebce32", null ],
     [ "setSelection", "class_text_u_i_screen.html#ac8e05451db5b4d2c99edd5d05a06f302", null ],
     [ "setValue", "class_text_u_i_screen.html#a66866f91b38eebc41178cd0b48a85ac4", null ],
-    [ "startRefresh", "class_text_u_i_screen.html#ae6179bfca22c7051e82ad33f31ce8df6", null ],
-    [ "TextUIMenu", "class_text_u_i_screen.html#a2c02044cebd8f2a9e24322718a6029d9", null ]
+    [ "startRefresh", "class_text_u_i_screen.html#ae6179bfca22c7051e82ad33f31ce8df6", null ]
 ];

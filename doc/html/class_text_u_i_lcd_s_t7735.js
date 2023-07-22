@@ -1,6 +1,7 @@
 var class_text_u_i_lcd_s_t7735 =
 [
     [ "TextUILcdST7735", "class_text_u_i_lcd_s_t7735.html#a5654a6071ba39d7c84daec60e93222a5", null ],
+    [ "TextUILcdST7735", "class_text_u_i_lcd_s_t7735.html#a8587dd752f2261915277aa885266cafb", null ],
     [ "clear", "class_text_u_i_lcd_s_t7735.html#a5c2c11481f04129692daa78acbfb2a3d", null ],
     [ "clearEOL", "class_text_u_i_lcd_s_t7735.html#ae0c1cdd2b8a5a30d07022d81012d117b", null ],
     [ "colorSupport", "class_text_u_i_lcd_s_t7735.html#a6bb01c7458ac2e72b142ce544c905364", null ],
