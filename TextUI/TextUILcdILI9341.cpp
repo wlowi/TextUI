@@ -24,29 +24,23 @@
   SOFTWARE.
 */
 
-#include "TextUILcdST7735.h"
+#include "TextUILcdILI9341.h"
 
 #include <SPI.h>
 
 #define FONT_H (font_h)
 #define FONT_W (font_w)
 
-TextUILcdST7735::TextUILcdST7735( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst)
+TextUILcdILI9341::TextUILcdILI9341( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst)
 {
-    tft = new Adafruit_ST7735(tft_cs, tft_dc, tft_rst);
-    tft->initR(INITR_BLACKTAB);
+    tft = new Adafruit_ILI9341(tft_cs, tft_dc, tft_rst);
     initTFT();
 }
 
-TextUILcdST7735::TextUILcdST7735( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst, uint8_t option)
+void TextUILcdILI9341::initTFT()
 {
-    tft = new Adafruit_ST7735(tft_cs, tft_dc, tft_rst);
-    tft->initR(option);
-    initTFT();
-}
+    tft->begin();
 
-void TextUILcdST7735::initTFT()
-{
     tft->setRotation( 3);
     
     width = tft->width();
@@ -64,56 +58,56 @@ void TextUILcdST7735::initTFT()
     setCursor(0, 0);
 }
 
-void TextUILcdST7735::clear()
+void TextUILcdILI9341::clear()
 {
     tft->fillScreen( invers ? fgCol565 : bgCol565);
     textX = textY = 0;
 }
 
-void TextUILcdST7735::clearEOL()
+void TextUILcdILI9341::clearEOL()
 {
     tft->fillRect( textX, textY, width - textX, 8*fontSz, invers ? fgCol565 : bgCol565);
 }
 
-bool TextUILcdST7735::colorSupport() {
+bool TextUILcdILI9341::colorSupport() {
 
   return true;
 }
 
-void TextUILcdST7735::setBg( uint8_t r, uint8_t g, uint8_t b)
+void TextUILcdILI9341::setBg( uint8_t r, uint8_t g, uint8_t b)
 {
     bgCol565 = rgbToCol565( r, g ,b);
 }
 
-void TextUILcdST7735::setFg( uint8_t r, uint8_t g, uint8_t b)
+void TextUILcdILI9341::setFg( uint8_t r, uint8_t g, uint8_t b)
 {
     fgCol565 = rgbToCol565( r, g ,b);
 }
 
-void TextUILcdST7735::normalColors() {
+void TextUILcdILI9341::normalColors() {
 
     setBg(0,0,0);
     setFg(255,255,255);
 }
 
-void TextUILcdST7735::selectedColors() {
+void TextUILcdILI9341::selectedColors() {
 
     setBg(255,255,0);
     setFg(0,0,0);
 }
 
-void TextUILcdST7735::editColors() {
+void TextUILcdILI9341::editColors() {
 
     setBg(255,255,255);
     setFg(0,0,0);
 }
 
-void TextUILcdST7735::setInvert( bool inv) {
+void TextUILcdILI9341::setInvert( bool inv) {
 
     invers = inv;
 }
 
-void TextUILcdST7735::setFontSize( FontSize_t sz)
+void TextUILcdILI9341::setFontSize( FontSize_t sz)
 {
     int16_t x1 = 0;
     int16_t y1 = 0;
@@ -130,17 +124,17 @@ void TextUILcdST7735::setFontSize( FontSize_t sz)
     tft->getTextBounds("W", 0, 0, &x1, &y1, &font_w, &font_h);
 }
 
-uint8_t TextUILcdST7735::getRows() {
+uint8_t TextUILcdILI9341::getRows() {
 
     return height / FONT_H;
 }
 
-uint8_t TextUILcdST7735::getColumns() {
+uint8_t TextUILcdILI9341::getColumns() {
 
     return width / FONT_W;
 }
 
-void TextUILcdST7735::setCursor(  uint8_t r, uint8_t c)
+void TextUILcdILI9341::setCursor(  uint8_t r, uint8_t c)
 {
     textX = c * FONT_W;
     textY = r * FONT_H;
@@ -151,21 +145,21 @@ void TextUILcdST7735::setCursor(  uint8_t r, uint8_t c)
     tft->setCursor( textX, textY);
 }
 
-void TextUILcdST7735::setRow( uint8_t r)
+void TextUILcdILI9341::setRow( uint8_t r)
 {
     textY = r * FONT_H;
     if( textY > height) { textY = height; }
     tft->setCursor( textX, textY);
 }
 
-void TextUILcdST7735::setColumn( uint8_t c)
+void TextUILcdILI9341::setColumn( uint8_t c)
 {
     textX = c * FONT_W;
     if( textX > width) { textX = width; }
     tft->setCursor( textX, textY);
 }
 
-void TextUILcdST7735::printChar( char ch)
+void TextUILcdILI9341::printChar( char ch)
 {
     tft->drawChar( textX, textY, ch, invers ? bgCol565 : fgCol565, invers ? fgCol565 : bgCol565, fontSz);
     textX += FONT_W;
@@ -173,7 +167,7 @@ void TextUILcdST7735::printChar( char ch)
 
 /* private */
 
-pixel TextUILcdST7735::rgbToCol565( uint8_t r, uint8_t g, uint8_t b)
+pixel TextUILcdILI9341::rgbToCol565( uint8_t r, uint8_t g, uint8_t b)
 {
     pixel col565 = ((r >> 3) << 11)
                 | ((g >> 2) << 5)

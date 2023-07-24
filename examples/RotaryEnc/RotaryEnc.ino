@@ -25,10 +25,18 @@
 
 #include "TextUI.h"
 
+/* ******************** */
 /* Enable one of these: */
-// #define USE_SSD1306
-#define USE_ST7735
 
+/* OLED 0.96 or 1.3 inch. SSD1306 or SH1106 controller */
+#define USE_SSD1306
+
+/* TFT 128x128 / 160x80 / 160x128 */
+// #define USE_ST7735
+
+/* TFT 320x240 */
+// #define USE_ILI9341
+/* ******************** */
 
 #ifdef USE_SSD1306
 # include "TextUILcdSSD1306.h"
@@ -36,6 +44,22 @@
 
 #ifdef USE_ST7735
 # include "TextUILcdST7735.h"
+# define PIN_TFT_CS  10
+# define PIN_TFT_DC   9
+# define PIN_TFT_RST -1
+
+/* Pins for Arduino Nano:
+ *  CS               10
+ *  A0/DC             9
+ *  RESET            -1 (unused, TFT connected to reset)
+ *  SDA/MOSI         11
+ *  SCK              13
+ */
+ 
+#endif
+
+#ifdef USE_ILI9341
+# include "TextUILcdILI9341.h"
 # define PIN_TFT_CS  10
 # define PIN_TFT_DC   9
 # define PIN_TFT_RST -1
@@ -62,14 +86,20 @@ TextUI textUI;
 void setup()
 {
 #ifdef USE_SSD1306
+    /* SH1106 Controller */
     // textUI.setDisplay( new TextUILcdSSD1306( &SH1106_128x64));
-    /* SH1306 Controller */
+    /* SSD1306 Controller */
     textUI.setDisplay( new TextUILcdSSD1306( &Adafruit128x64));
 #endif
+
 #ifdef USE_ST7735
     // INTR_144GREENTAB       TFT 128x128 pixel, 1.44 inch
     // INTR_BLACKTAB          TFT 160x128 pixel; 1.8 inch
     textUI.setDisplay( new TextUILcdST7735(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST, INITR_144GREENTAB));
+#endif
+
+#ifdef USE_ILI9341
+    textUI.setDisplay( new TextUILcdILI9341(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST));
 #endif
 
     textUI.getDisplay()->setFontSize( TEXTUI_FONT_MEDIUM);

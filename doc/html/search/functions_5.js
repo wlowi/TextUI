@@ -2,7 +2,7 @@ var searchData=
 [
   ['getbool_0',['getBool',['../class_cell.html#abd0e214dfc66b6d8e9c8ea88750ae01e',1,'Cell']]],
   ['getcolcount_1',['getColCount',['../class_text_u_i_screen.html#a0c18d374793b58b02a33876871290027',1,'TextUIScreen::getColCount()'],['../class_text_u_i_menu.html#a438c5f5ad8b9ac7c61ee12dfc28b39be',1,'TextUIMenu::getColCount()']]],
-  ['getcolumns_2',['getColumns',['../class_text_u_i_lcd.html#a844d155f83e695d6a27b6481a8a61576',1,'TextUILcd::getColumns()'],['../class_text_u_i_lcd_s_s_d1306.html#abfbce16678adc91de76cdf2a9232dc68',1,'TextUILcdSSD1306::getColumns()'],['../class_text_u_i_lcd_s_t7735.html#ab4e75164c39326c78b175100c4fd82f6',1,'TextUILcdST7735::getColumns()']]],
+  ['getcolumns_2',['getColumns',['../class_text_u_i_lcd.html#a844d155f83e695d6a27b6481a8a61576',1,'TextUILcd::getColumns()'],['../class_text_u_i_lcd_i_l_i9341.html#a86237ed734a5382a4ebcec0b7322489e',1,'TextUILcdILI9341::getColumns()'],['../class_text_u_i_lcd_s_s_d1306.html#abfbce16678adc91de76cdf2a9232dc68',1,'TextUILcdSSD1306::getColumns()'],['../class_text_u_i_lcd_s_t7735.html#ab4e75164c39326c78b175100c4fd82f6',1,'TextUILcdST7735::getColumns()']]],
   ['getcount_3',['getCount',['../class_event.html#adb7dc3bca1cdd213ba00cf0e6f2eaffc',1,'Event']]],
   ['getdisplay_4',['getDisplay',['../class_text_u_i.html#aeab54b89c16cf6c022b1a935a69a7274',1,'TextUI']]],
   ['getevent_5',['getEvent',['../class_text_u_i.html#a4e316eef15b9ec4a65e9762de9e19ef9',1,'TextUI']]],
@@ -19,7 +19,7 @@ var searchData=
   ['getnextscreen_16',['getNextScreen',['../class_text_u_i_menu.html#a192c6a38d337b3099c6c0c565ffb0414',1,'TextUIMenu']]],
   ['getrowcount_17',['getRowCount',['../class_text_u_i_screen.html#a7e7af40b3db3dd9b6a5bfddbad99c29a',1,'TextUIScreen::getRowCount()'],['../class_text_u_i_menu.html#a3ff8fc51ced958e4f20a4dff2ce18e56',1,'TextUIMenu::getRowCount()']]],
   ['getrowname_18',['getRowName',['../class_text_u_i_screen.html#aaab99a5ec51272a35c37145c61d97104',1,'TextUIScreen::getRowName()'],['../class_text_u_i_menu.html#ad404541c9ebc8227e8958d13fbb782c4',1,'TextUIMenu::getRowName()']]],
-  ['getrows_19',['getRows',['../class_text_u_i_lcd.html#a3fee0481500ecf72a7d73f69d65ee506',1,'TextUILcd::getRows()'],['../class_text_u_i_lcd_s_s_d1306.html#a69ef300f92d36758b7b0247b93e92a2b',1,'TextUILcdSSD1306::getRows()'],['../class_text_u_i_lcd_s_t7735.html#a7127bc892ba47957191c8d55badd2e7b',1,'TextUILcdST7735::getRows()']]],
+  ['getrows_19',['getRows',['../class_text_u_i_lcd_s_t7735.html#a7127bc892ba47957191c8d55badd2e7b',1,'TextUILcdST7735::getRows()'],['../class_text_u_i_lcd_s_s_d1306.html#a69ef300f92d36758b7b0247b93e92a2b',1,'TextUILcdSSD1306::getRows()'],['../class_text_u_i_lcd_i_l_i9341.html#aa8ee51f12b4bee82e02c26b6633f5748',1,'TextUILcdILI9341::getRows()'],['../class_text_u_i_lcd.html#a3fee0481500ecf72a7d73f69d65ee506',1,'TextUILcd::getRows()']]],
   ['getscreen_20',['getScreen',['../class_text_u_i_menu.html#a3fa0d5518075d55be9841a336de5939b',1,'TextUIMenu']]],
   ['getscreencount_21',['getScreenCount',['../class_text_u_i_menu.html#a39877722adcf770964e56e748a4617c0',1,'TextUIMenu']]],
   ['getselection_22',['getSelection',['../class_text_u_i_screen.html#a3ba62e398f8c3861df0059ac3c7c2328',1,'TextUIScreen']]],

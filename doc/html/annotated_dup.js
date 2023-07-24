@@ -7,6 +7,7 @@ var annotated_dup =
     [ "TextUIHandler", "class_text_u_i_handler.html", "class_text_u_i_handler" ],
     [ "TextUIInput", "class_text_u_i_input.html", "class_text_u_i_input" ],
     [ "TextUILcd", "class_text_u_i_lcd.html", "class_text_u_i_lcd" ],
+    [ "TextUILcdILI9341", "class_text_u_i_lcd_i_l_i9341.html", "class_text_u_i_lcd_i_l_i9341" ],
     [ "TextUILcdSSD1306", "class_text_u_i_lcd_s_s_d1306.html", "class_text_u_i_lcd_s_s_d1306" ],
     [ "TextUILcdST7735", "class_text_u_i_lcd_s_t7735.html", "class_text_u_i_lcd_s_t7735" ],
     [ "TextUIMenu", "class_text_u_i_menu.html", "class_text_u_i_menu" ],

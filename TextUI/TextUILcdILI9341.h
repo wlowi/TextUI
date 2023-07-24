@@ -24,23 +24,23 @@
   SOFTWARE.
 */
 
-#ifndef _TextUILcdST7735_h_
-#define _TextUILcdST7735_h_
+#ifndef _TextUILcdILI9341_h_
+#define _TextUILcdILI9341_h_
 
 #include "TextUI.h"
 
-#include <Adafruit_GFX.h>    // Core graphics library
-#include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
+#include <Adafruit_GFX.h>     // Core graphics library
+#include <Adafruit_ILI9341.h> // Hardware-specific library for ILI9341
 
 typedef uint16_t pixel;
 
 /**
- * @brief A driver for TFT displays with ST7735 controller.
+ * @brief A driver for TFT displays with ILI9341 controller.
  * 
  * Example:
  * 
  *      #include "TextUI.h"
- *      #include "TextUILcdST7735.h"
+ *      #include "TextUILcdILI9341.h"
  * 
  *      #define TFT_CS        10
  *      #define TFT_DC         9
@@ -48,12 +48,12 @@ typedef uint16_t pixel;
  *      // It also uses the board specific hardware SPI pins.
  * 
  *      TextUI textUi;
- *      textUi.setDisplay( new TextUILcdST7735( TFT_CS, TFT_DC, TFT_RST));
+ *      textUi.setDisplay( new TextUILcdILI9341( TFT_CS, TFT_DC, TFT_RST));
  */
-class TextUILcdST7735 : public TextUILcd
+class TextUILcdILI9341 : public TextUILcd
 {
     private:
-        Adafruit_ST7735 *tft;
+        Adafruit_ILI9341 *tft;
 
         unsigned int width;
         unsigned int height;
@@ -71,45 +71,16 @@ class TextUILcdST7735 : public TextUILcd
 
     public:
       /**
-       * @brief Construct a new TextUILcdST7735 driver.
+       * @brief Construct a new TextUILcdILI9341 driver.
        * 
        * This driver used the board specific hardware SPI interface 
        * and its corresponding pins.
-       * 
-       * Default display type is INITR_BLACKTAB supporting 160x128 pixel
-       * 
+       *        * 
        * @param tft_cs uint8_t: Chip select
        * @param tft_dc uint8_t: Data/Command select
        * @param tft_rst uint8_t: Reset pin ( can be -1 )
        */
-      TextUILcdST7735( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst);
-
-      /**
-       * @brief Construct a new TextUILcdST7735 driver.
-       * 
-       * This driver used the board specific hardware SPI interface 
-       * and its corresponding pins.
-       * 
-       * Display type options:
-       * ~~~~
-       *   INITR_GREENTAB           160x128
-       *   INITR_144GREENTAB        128x128
-       *   INITR_18GREENTAB         160x128
-       *   INITR_REDTAB             160x128
-       *   INITR_18REDTAB           160x128
-       *   INITR_BLACKTAB           160x128
-       *   INITR_18BLACKTAB         160x128
-       *   INITR_MINI160x80         160x80
-       *   INTTR_HALLOWING          128x128
-       *   INITR_MINI160x80_PLUGIN  160x80
-       * ~~~~
-       * 
-       * @param tft_cs uint8_t: Chip select
-       * @param tft_dc uint8_t: Data/Command select
-       * @param tft_rst uint8_t: Reset pin ( can be -1 )
-       * @param options uint8_t: Display type option
-       */
-      TextUILcdST7735( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst, uint8_t option);
+      TextUILcdILI9341( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst);
     
       void clear();
       void clearEOL();

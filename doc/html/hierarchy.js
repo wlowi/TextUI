@@ -10,6 +10,7 @@ var hierarchy =
       [ "TextUISimpleKbd", "class_text_u_i_simple_kbd.html", null ]
     ] ],
     [ "TextUILcd", "class_text_u_i_lcd.html", [
+      [ "TextUILcdILI9341", "class_text_u_i_lcd_i_l_i9341.html", null ],
       [ "TextUILcdSSD1306", "class_text_u_i_lcd_s_s_d1306.html", null ],
       [ "TextUILcdST7735", "class_text_u_i_lcd_s_t7735.html", null ]
     ] ],
