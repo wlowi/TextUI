@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['textui_0',['TextUI',['../class_text_u_i.html',1,'']]],
+  ['textui_0',['TextUI',['../class_text_u_i.html',1,'TextUI'],['../class_text_u_i.html#a3dfa8f3abeefb05b63825f2d08c60e59',1,'TextUI::TextUI(uint8_t bufferSize)'],['../class_text_u_i.html#a76538e9bb0f3379216b1d5858404b874',1,'TextUI::TextUI()']]],
   ['textuihandler_1',['TextUIHandler',['../class_text_u_i_handler.html',1,'']]],
   ['textuiinput_2',['TextUIInput',['../class_text_u_i_input.html',1,'']]],
   ['textuilcd_3',['TextUILcd',['../class_text_u_i_lcd.html#a0eb065d353f32982833a5d3d4d264380',1,'TextUILcd::TextUILcd()'],['../class_text_u_i_lcd.html',1,'TextUILcd']]],

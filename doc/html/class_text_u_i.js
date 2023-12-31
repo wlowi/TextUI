@@ -1,5 +1,7 @@
 var class_text_u_i =
 [
+    [ "TextUI", "class_text_u_i.html#a76538e9bb0f3379216b1d5858404b874", null ],
+    [ "TextUI", "class_text_u_i.html#a3dfa8f3abeefb05b63825f2d08c60e59", null ],
     [ "cancelEdit", "class_text_u_i.html#a1b7334da6b68b46317f28ae840b960b1", null ],
     [ "forceRefresh", "class_text_u_i.html#a2a2839416f4b83be0c633c000c67610e", null ],
     [ "getDisplay", "class_text_u_i.html#aeab54b89c16cf6c022b1a935a69a7274", null ],

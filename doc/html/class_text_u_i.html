@@ -85,6 +85,7 @@ $(document).ready(function(){initNavTree('class_text_u_i.html',''); initResizabl
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_text_u_i-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">TextUI Class Reference</div></div>
 </div><!--header-->
@@ -97,6 +98,12 @@ $(document).ready(function(){initNavTree('class_text_u_i.html',''); initResizabl
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a76538e9bb0f3379216b1d5858404b874"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i.html#a76538e9bb0f3379216b1d5858404b874">TextUI</a> ()</td></tr>
+<tr class="memdesc:a76538e9bb0f3379216b1d5858404b874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize <a class="el" href="class_text_u_i.html" title="Main user interface class.">TextUI</a> but do not initialize temporary text buffer.  <a href="class_text_u_i.html#a76538e9bb0f3379216b1d5858404b874">More...</a><br /></td></tr>
+<tr class="separator:a76538e9bb0f3379216b1d5858404b874"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dfa8f3abeefb05b63825f2d08c60e59"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i.html#a3dfa8f3abeefb05b63825f2d08c60e59">TextUI</a> (uint8_t bufferSize)</td></tr>
+<tr class="memdesc:a3dfa8f3abeefb05b63825f2d08c60e59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize <a class="el" href="class_text_u_i.html" title="Main user interface class.">TextUI</a> and temporary text buffer with this size.  <a href="class_text_u_i.html#a3dfa8f3abeefb05b63825f2d08c60e59">More...</a><br /></td></tr>
+<tr class="separator:a3dfa8f3abeefb05b63825f2d08c60e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8d31a6ca97522686984569ede623db6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i.html#ac8d31a6ca97522686984569ede623db6">setTimer</a> (uiTimer_t msec)</td></tr>
 <tr class="memdesc:ac8d31a6ca97522686984569ede623db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set timer interval in milliseconds.  <a href="class_text_u_i.html#ac8d31a6ca97522686984569ede623db6">More...</a><br /></td></tr>
 <tr class="separator:ac8d31a6ca97522686984569ede623db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,10 +156,64 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>forceRefresh</b> ()</
 <tr class="memitem:a2bc02cd3ef5664b30d75e255b1f3c679"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i.html#a2bc02cd3ef5664b30d75e255b1f3c679">popScreen</a> ()</td></tr>
 <tr class="memdesc:a2bc02cd3ef5664b30d75e255b1f3c679"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch to previous active screen.  <a href="class_text_u_i.html#a2bc02cd3ef5664b30d75e255b1f3c679">More...</a><br /></td></tr>
 <tr class="separator:a2bc02cd3ef5664b30d75e255b1f3c679"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af6fde64a9d0b0f615b5f423fc0d931e4"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i.html#af6fde64a9d0b0f615b5f423fc0d931e4">copyToBuffer</a> (const char *PROGMEM v)</td></tr>
+<tr class="memdesc:af6fde64a9d0b0f615b5f423fc0d931e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy PROGMEM string to temporary buffer.  <a href="class_text_u_i.html#af6fde64a9d0b0f615b5f423fc0d931e4">More...</a><br /></td></tr>
+<tr class="separator:af6fde64a9d0b0f615b5f423fc0d931e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Main user interface class. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a76538e9bb0f3379216b1d5858404b874" name="a76538e9bb0f3379216b1d5858404b874"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76538e9bb0f3379216b1d5858404b874">&#9670;&nbsp;</a></span>TextUI() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TextUI::TextUI </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize <a class="el" href="class_text_u_i.html" title="Main user interface class.">TextUI</a> but do not initialize temporary text buffer. </p>
+<p >It will be initialilzed on first usage in <a class="el" href="class_text_u_i.html#af6fde64a9d0b0f615b5f423fc0d931e4" title="Copy PROGMEM string to temporary buffer.">copyToBuffer()</a> with a default size. </p>
+
+</div>
+</div>
+<a id="a3dfa8f3abeefb05b63825f2d08c60e59" name="a3dfa8f3abeefb05b63825f2d08c60e59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dfa8f3abeefb05b63825f2d08c60e59">&#9670;&nbsp;</a></span>TextUI() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TextUI::TextUI </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>bufferSize</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize <a class="el" href="class_text_u_i.html" title="Main user interface class.">TextUI</a> and temporary text buffer with this size. </p>
+<p >See <a class="el" href="class_text_u_i.html#af6fde64a9d0b0f615b5f423fc0d931e4" title="Copy PROGMEM string to temporary buffer.">copyToBuffer()</a> for usage.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bufferSize</td><td>Temporary text buffer size in characters. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a1b7334da6b68b46317f28ae840b960b1" name="a1b7334da6b68b46317f28ae840b960b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1b7334da6b68b46317f28ae840b960b1">&#9670;&nbsp;</a></span>cancelEdit()</h2>
 
@@ -176,6 +237,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>forceRefresh</b> ()</
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="af6fde64a9d0b0f615b5f423fc0d931e4" name="af6fde64a9d0b0f615b5f423fc0d931e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6fde64a9d0b0f615b5f423fc0d931e4">&#9670;&nbsp;</a></span>copyToBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * TextUI::copyToBuffer </td>
+          <td>(</td>
+          <td class="paramtype">const char *PROGMEM&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copy PROGMEM string to temporary buffer. </p>
+<p >Usage Example:</p>
+<p >const char s1[] PROGMEM = "Peter"; const char s2[] PROGMEM = "Paul"; const char s3[] PROGMEM = "Mary";</p>
+<p >const char* const Names[ROW_COUNT] PROGMEM = { s1, s2, s3 };</p>
+<p ><a class="el" href="class_text_u_i.html#af6fde64a9d0b0f615b5f423fc0d931e4" title="Copy PROGMEM string to temporary buffer.">TextUI::copyToBuffer</a>( (const char*)pgm_read_ptr( &amp;Names[row]));</p>
+<p >or</p>
+<p ><a class="el" href="class_text_u_i.html#af6fde64a9d0b0f615b5f423fc0d931e4" title="Copy PROGMEM string to temporary buffer.">TextUI::copyToBuffer</a>( (const char*)F("A fixed String.")); </p>
 
 </div>
 </div>
