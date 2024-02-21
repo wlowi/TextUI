@@ -77,4 +77,8 @@ extern unsigned long millis();
 #define __FlashStringHelper char
 #define F( b ) b
 
+#define PROGMEM
+
+#define pgm_read_byte( p ) *(p)
+
 #endif

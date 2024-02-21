@@ -84,6 +84,7 @@ enum Refresh_t {
     REFRESH_OK,
     REFRESH_FULL,
     REFRESH_SCREEN,
+    REFRESH_SCREEN_SET_ROW,
     REFRESH_ROW
 };
 
@@ -1265,6 +1266,13 @@ public:
      * @brief Force screen refresh.
      */
     void forceRefresh() { refresh = REFRESH_SCREEN; }
+
+    /**
+     * @brief Set current row and force screen refresh.
+     * 
+     * @param currRow new current row
+     */
+    void forceRefresh( uint8_t currRow) { refresh = REFRESH_SCREEN; tableRow = currRow; }
 };
 
 /**
@@ -1285,6 +1293,7 @@ private:
 #define CURRENT_SCREEN (screenStack[stackPtr])
 
     Refresh_t refresh = REFRESH_FULL;
+    uint8_t newCurrentRow = 0;
     boolean reversedNav = false;
     boolean itemPopped = false;
     TextUILcd *display = nullptr;
@@ -1410,7 +1419,14 @@ public:
      * 
      */
     void forceRefresh() { refresh = REFRESH_SCREEN; }
-    
+
+    /**
+     * @brief Set current row and force a screen refresh.
+     *
+     * @param currRow New current row.
+     */
+    void forceRefresh( uint8_t currRow ) { refresh = REFRESH_SCREEN_SET_ROW; newCurrentRow = currRow; }
+
     /**
      * @brief Activate the 'home screen'.
      * 

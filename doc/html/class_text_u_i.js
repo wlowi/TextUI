@@ -4,6 +4,7 @@ var class_text_u_i =
     [ "TextUI", "class_text_u_i.html#a3dfa8f3abeefb05b63825f2d08c60e59", null ],
     [ "cancelEdit", "class_text_u_i.html#a1b7334da6b68b46317f28ae840b960b1", null ],
     [ "forceRefresh", "class_text_u_i.html#a2a2839416f4b83be0c633c000c67610e", null ],
+    [ "forceRefresh", "class_text_u_i.html#a4e99db96a94d24732073e45fbb081667", null ],
     [ "getDisplay", "class_text_u_i.html#aeab54b89c16cf6c022b1a935a69a7274", null ],
     [ "getEvent", "class_text_u_i.html#a4e316eef15b9ec4a65e9762de9e19ef9", null ],
     [ "handle", "class_text_u_i.html#aa5b473d22f5d616eb9429d5c601f1a5b", null ],
