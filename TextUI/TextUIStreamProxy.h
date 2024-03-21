@@ -29,21 +29,58 @@
 
 #include "TextUI.h"
 
+
+/*
+ * The following commands will set the state to PRINT_MODE
+ *
+ *  Shortcuts for predefined color settings
+ *  N
+ *  S
+ *  E
+ * 
+ *  Set Cursor
+ *  @
+ * 
+ *  Set Row
+ *  R
+ * 
+ *  Set Column
+ *  C
+ * 
+ *  Clear Screen
+ *  X
+ * 
+ *  Clear End Of Line
+ *  L
+ * 
+ */
+
+
 /* current mode */
 const uint8_t COMMAND_MODE = 0;
 const uint8_t PRINT_MODE = 1;
 
+const char CMD_ATTN = '\n';
 /* commands */
 const char CMD_QUERY = '?';
+const char CMD_QUERY_RESULT = '=';
+const char CMD_KBD = '/';
+
 const char CMD_COMMAND = '!';
 /* Set cursor and switch to print mode */
 const char CMD_SET_CURSOR = '@';
 const char CMD_SET_ROW = 'R';
 const char CMD_SET_COLUMN = 'C';
+const char CMD_SET_NORMAL = 'N';
+const char CMD_SET_SELECTED = 'S';
+const char CMD_SET_EDIT = 'E';
+const char CMD_CLEAR = 'X';
+const char CMD_CLEAREOL = 'L';
+
 /* Switch to print mode */
 const char CMD_PRINT = '.';
 /* End of current command, switch to COMMAND_MODE */
-const char CMD_END = '\n';
+const char CMD_END = CMD_ATTN;
 
 const char FIRST_PRINTABLE = ' ';
 
@@ -55,12 +92,6 @@ using commandType_t = uint16_t;
 #define COMMAND_CH1(cmd)  ((char)((cmd >> 8) & 0xff))
 #define COMMAND_CH2(cmd)  ((char)(cmd & 0xff))
 
-
-#define COMMAND_CLEAR                COMMAND_TYPE( 'C','L' )
-#define COMMAND_CLEAR_EOL            COMMAND_TYPE( 'C','E' )
-#define COMMAND_NORMAL_COLORS        COMMAND_TYPE( 'N','C' )
-#define COMMAND_SELECTED_COLORS      COMMAND_TYPE( 'S','C' )
-#define COMMAND_EDIT_COLORS          COMMAND_TYPE( 'E','C' )
 #define COMMAND_SET_INVERT           COMMAND_TYPE( 'I','V' )
 #define COMMAND_SET_FONTSIZE         COMMAND_TYPE( 'F','S' )
 #define COMMAND_SET_FG               COMMAND_TYPE( 'F','G' )
@@ -82,12 +113,22 @@ private:
 
     uint8_t currentMode;
 
+    uint8_t key = KEY_NONE;
+    uint8_t count = 0;
+    bool eventPending = false;
+
+    uint8_t data;
+    bool dataPending = false;
+
+    void checkInput();
+    uint8_t receiveData();
+
     void toCommandMode();
     void toPrintMode();
 
-    void simpleCommand( commandType_t cmd);
+    void simpleCommand( char cmd);
 
-    void byteCommand( commandType_t cmd, uint8_t u);
+    void byteCommand1( commandType_t cmd, uint8_t u);
     void byteCommand2( commandType_t cmd, uint8_t u, uint8_t v);
     void byteCommand3( commandType_t cmd, uint8_t u, uint8_t v, uint8_t w);
 
@@ -96,6 +137,8 @@ private:
     void send( char ch);
     void sendByte( uint8_t ch);
 
+    void sync();
+    
 public:
     TextUIStreamProxy( Stream& s);
 

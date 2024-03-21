@@ -24,6 +24,7 @@
 */
 
 #include "TextUI.h"
+#include "TextUIStreamProxy.h"
 
 /* ******************** */
 /* Enable one of these: */
@@ -55,7 +56,7 @@
  *  SDA/MOSI         11
  *  SCK              13
  */
- 
+
 #endif
 
 #ifdef USE_ILI9341
@@ -71,7 +72,7 @@
  *  SDA/MOSI         11
  *  SCK              13
  */
- 
+
 #endif
 
 #include "TextUIRotaryEncoder.h"
@@ -81,39 +82,236 @@
 #define PIN_DIR     3
 #define PIN_BUTTON  4
 
-#include "HomeScreen.h"
+bool readByte(uint8_t* b);
 
 TextUI textUI;
+uint8_t currentMode;
+TextUILcd* display;
 
-void setup()
-{
+void setup() {
+
+    Serial.begin(19200, SERIAL_8N1);
+    Serial.setTimeout(100);
+
 #ifdef USE_SSD1306
     /* SH1106 Controller */
     // textUI.setDisplay( new TextUILcdSSD1306( &SH1106_128x64));
     /* SSD1306 Controller */
-    textUI.setDisplay( new TextUILcdSSD1306( &Adafruit128x64));
+    display = new TextUILcdSSD1306(&Adafruit128x64);
 #endif
 
 #ifdef USE_ST7735
     // INTR_144GREENTAB       TFT 128x128 pixel, 1.44 inch
     // INTR_BLACKTAB          TFT 160x128 pixel; 1.8 inch
-    textUI.setDisplay( new TextUILcdST7735(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST, INITR_144GREENTAB));
+    display = new TextUILcdST7735(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST, INITR_144GREENTAB);
 #endif
 
 #ifdef USE_ILI9341
-    textUI.setDisplay( new TextUILcdILI9341(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST));
+    display = new TextUILcdILI9341(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST);
 #endif
 
-    textUI.getDisplay()->setFontSize( TEXTUI_FONT_SMALL);
+    textUI.setDisplay(display);
+    display->setFontSize(TEXTUI_FONT_SMALL);
 
-    textUI.setInput( new TextUIRotaryEncoder( PIN_CLK, PIN_DIR, PIN_BUTTON));
+    textUI.setInput(new TextUIRotaryEncoder(PIN_CLK, PIN_DIR, PIN_BUTTON));
 
-    textUI.setHomeScreen( new HomeScreen());
+    currentMode = COMMAND_MODE;
+
+    display->clear();
+    display->printStr("UserTerm");
 }
 
-void loop()
-{
-    Event *e = textUI.getEvent();
+void loop() {
 
-    textUI.handle(e);
+    Event* e = textUI.getEvent();
+
+    if (e->getType() == EVENT_TYPE_KEY) {
+        Serial.write(CMD_KBD);
+        Serial.write(e->getKey());
+        Serial.write(e->getCount());
+        Serial.write(CMD_END);
+    }
+
+    e->markProcessed();
+
+    processSerial();
+}
+
+void processSerial() {
+
+    while (Serial.available()) {
+
+        switch (currentMode) {
+        case COMMAND_MODE:
+            processCommandMode();
+            break;
+
+        case PRINT_MODE:
+            processPrintMode();
+            break;
+        }
+    }
+}
+
+void processCommandMode() {
+
+    int ch = Serial.read();
+    uint8_t r;
+    uint8_t c;
+
+    switch (ch) {
+    case CMD_ATTN:
+        currentMode = COMMAND_MODE;
+        break;
+
+    case CMD_QUERY: // '?'
+        processQueryCommand();
+        break;
+
+    case CMD_COMMAND: // '!'
+        processSetCommand();
+        break;
+
+    case CMD_SET_CURSOR: // '@'
+        if (readByte(&r) && readByte(&c)) {
+            display->setCursor(r, c);
+        }
+        currentMode = PRINT_MODE;
+        break;
+
+    case CMD_SET_ROW: // 'R'
+        if (readByte(&r)) {
+            display->setRow(r);
+        }
+        currentMode = PRINT_MODE;
+        break;
+
+    case CMD_SET_COLUMN: // 'C' 
+        if (readByte(&c)) {
+            display->setColumn(c);
+        }
+        currentMode = PRINT_MODE;
+        break;
+
+    case CMD_SET_NORMAL: // 'N'
+        display->normalColors();
+        currentMode = PRINT_MODE;
+        break;
+
+    case CMD_SET_SELECTED: // 'S'
+        display->selectedColors();
+        currentMode = PRINT_MODE;
+        break;
+
+    case CMD_SET_EDIT: // 'E'
+        display->editColors();
+        currentMode = PRINT_MODE;
+        break;
+
+    case CMD_CLEAR: // 'X'
+        display->clear();
+        currentMode = PRINT_MODE;
+        break;
+
+    case CMD_CLEAREOL: // 'L'
+        display->clearEOL();
+        currentMode = PRINT_MODE;
+        break;
+
+    case CMD_PRINT: // '.'
+        currentMode = PRINT_MODE;
+        break;
+    }
+}
+
+void processPrintMode() {
+
+    int ch = Serial.read();
+
+    if (ch == CMD_ATTN) {
+        currentMode = COMMAND_MODE;
+    }
+    else {
+        if (IS_PRINTABLE(ch)) {
+            display->printChar(ch);
+        }
+    }
+}
+
+void processSetCommand() {
+
+    uint8_t c1;
+    uint8_t c2;
+
+    if (readByte(&c1) && readByte(&c2)) {
+
+        commandType_t cmd = COMMAND_TYPE(c1, c2);
+
+        uint8_t r;
+        uint8_t g;
+        uint8_t b;
+
+        switch (cmd) {
+        case COMMAND_SET_INVERT:
+            if (readByte(&b)) {
+                display->setInvert((bool)b);
+            }
+            break;
+
+        case COMMAND_SET_FONTSIZE:
+            if (readByte(&b)) {
+                display->setFontSize((FontSize_t)b);
+            }
+            break;
+
+        case COMMAND_SET_FG:
+            if (readByte(&r) && readByte(&g) && readByte(&b)) {
+                display->setFg(r, g, b);
+            }
+            break;
+
+        case COMMAND_SET_BG:
+            if (readByte(&r) && readByte(&g) && readByte(&b)) {
+                display->setBg(r, g, b);
+            }
+            break;
+        }
+    }
+}
+
+void processQueryCommand() {
+
+    uint8_t c1;
+    uint8_t c2;
+
+    if (readByte(&c1) && readByte(&c2)) {
+
+        commandType_t cmd = COMMAND_TYPE(c1, c2);
+
+        switch (cmd) {
+        case COMMAND_GET_COLORSUPPORT:
+            Serial.write(CMD_QUERY_RESULT);
+            Serial.write(display->colorSupport());
+            Serial.write(CMD_END);
+            break;
+
+        case COMMAND_GET_ROWS:
+            Serial.write(CMD_QUERY_RESULT);
+            Serial.write(display->getRows());
+            Serial.write(CMD_END);
+            break;
+
+        case COMMAND_GET_COLUMNS:
+            Serial.write(CMD_QUERY_RESULT);
+            Serial.write(display->getColumns());
+            Serial.write(CMD_END);
+            break;
+        }
+    }
+}
+
+bool readByte(uint8_t* b) {
+
+    /* Read with timeout */
+    return (Serial.readBytes(b, 1) == 1);
 }

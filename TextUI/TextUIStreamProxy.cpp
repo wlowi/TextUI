@@ -26,205 +26,245 @@
 
 #include "TextUIStreamProxy.h"
 
-TextUIStreamProxy::TextUIStreamProxy(Stream &s) : stream(s)
-{
-  currentMode = COMMAND_MODE;
+TextUIStreamProxy::TextUIStreamProxy(Stream& s) : stream(s) {
+
+    stream.setTimeout(10);
+    currentMode = COMMAND_MODE;
+    sync();
 }
 
 /* TextUIInput */
-bool TextUIStreamProxy::pending()
-{
-  /** @todo */
-  return false;
+bool TextUIStreamProxy::pending() {
+
+    checkInput();
+    return eventPending;
 }
 
-void TextUIStreamProxy::setEvent(Event *e)
-{
-  /** @todo */
+void TextUIStreamProxy::setEvent(Event* e) {
+
+    e->setNoEvent();
+
+    if (eventPending) {
+        e->setKeyEvent(key, count);
+        eventPending = false;
+    }
 }
 
 /* TextUILcd */
-void TextUIStreamProxy::clear()
-{
-  simpleCommand(COMMAND_CLEAR);
+void TextUIStreamProxy::clear() {
+
+    simpleCommand(CMD_CLEAR);
 }
 
-void TextUIStreamProxy::clearEOL()
-{
-  simpleCommand(COMMAND_CLEAR_EOL);
+void TextUIStreamProxy::clearEOL() {
+
+    simpleCommand(CMD_CLEAREOL);
 }
 
-bool TextUIStreamProxy::colorSupport()
-{
-  queryCommand( COMMAND_GET_COLORSUPPORT);
+bool TextUIStreamProxy::colorSupport() {
 
-  /** @todo */
-  return true;
+    queryCommand(COMMAND_GET_COLORSUPPORT);
+    return receiveData();
 }
 
-void TextUIStreamProxy::setBg(uint8_t r, uint8_t g, uint8_t b)
-{
-  byteCommand3(COMMAND_SET_BG, r, g, b);
+void TextUIStreamProxy::setBg(uint8_t r, uint8_t g, uint8_t b) {
+
+    byteCommand3(COMMAND_SET_BG, r, g, b);
 }
 
-void TextUIStreamProxy::setFg(uint8_t r, uint8_t g, uint8_t b)
-{
-  byteCommand3(COMMAND_SET_FG, r, g, b);
+void TextUIStreamProxy::setFg(uint8_t r, uint8_t g, uint8_t b) {
+
+    byteCommand3(COMMAND_SET_FG, r, g, b);
 }
 
-void TextUIStreamProxy::normalColors()
-{
-  simpleCommand(COMMAND_NORMAL_COLORS);
+void TextUIStreamProxy::normalColors() {
+
+    simpleCommand(CMD_SET_NORMAL);
 }
 
-void TextUIStreamProxy::selectedColors()
-{
-  simpleCommand(COMMAND_SELECTED_COLORS);
+void TextUIStreamProxy::selectedColors() {
+
+    simpleCommand(CMD_SET_SELECTED);
 }
 
-void TextUIStreamProxy::editColors()
-{
-  simpleCommand(COMMAND_EDIT_COLORS);
+void TextUIStreamProxy::editColors() {
+
+    simpleCommand(CMD_SET_EDIT);
 }
 
-void TextUIStreamProxy::setInvert(bool inv)
-{
-  byteCommand(COMMAND_SET_INVERT, (uint8_t)inv);
+void TextUIStreamProxy::setInvert(bool inv) {
+
+    byteCommand1(COMMAND_SET_INVERT, (uint8_t)inv);
 }
 
 /* FONT_SMALL .. FONT_LARGE */
-void TextUIStreamProxy::setFontSize(FontSize_t sz)
-{
-  byteCommand(COMMAND_SET_FONTSIZE, (uint8_t)sz);
+void TextUIStreamProxy::setFontSize(FontSize_t sz) {
+
+    byteCommand1(COMMAND_SET_FONTSIZE, (uint8_t)sz);
 }
 
-uint8_t TextUIStreamProxy::getRows()
-{
-  queryCommand( COMMAND_GET_ROWS);
+uint8_t TextUIStreamProxy::getRows() {
 
-  /** @todo */
-  return 8;
+    queryCommand(COMMAND_GET_ROWS);
+    return receiveData();
 }
 
-uint8_t TextUIStreamProxy::getColumns()
-{
-  queryCommand( COMMAND_GET_COLUMNS);
+uint8_t TextUIStreamProxy::getColumns() {
 
-  /** @todo */
-  return 13;
+    queryCommand(COMMAND_GET_COLUMNS);
+    return receiveData();
 }
 
 /* row and column in characters */
-void TextUIStreamProxy::setCursor(uint8_t r, uint8_t c)
-{
-  toCommandMode();
-  send(CMD_SET_CURSOR);
-  sendByte(r);
-  sendByte(c);
-  currentMode = PRINT_MODE;
-}
+void TextUIStreamProxy::setCursor(uint8_t r, uint8_t c) {
 
-void TextUIStreamProxy::setRow(uint8_t r)
-{
-  toCommandMode();
-  send(CMD_SET_ROW);
-  sendByte(r);
-  currentMode = PRINT_MODE;
-}
-
-void TextUIStreamProxy::setColumn(uint8_t c)
-{
-  toCommandMode();
-  send(CMD_SET_COLUMN);
-  sendByte(c);
-  currentMode = PRINT_MODE;
-}
-
-void TextUIStreamProxy::printChar(char ch)
-{
-  toPrintMode();
-  if (IS_PRINTABLE(ch))
-  {
-    send(ch);
-  }
-}
-
-void TextUIStreamProxy::toCommandMode()
-{
-  if (currentMode != COMMAND_MODE)
-  {
-    send(CMD_END);
-    currentMode = COMMAND_MODE;
-  }
-}
-
-void TextUIStreamProxy::toPrintMode()
-{
-  if (currentMode != PRINT_MODE)
-  {
-    send(CMD_PRINT);
+    toCommandMode();
+    send(CMD_SET_CURSOR);
+    sendByte(r);
+    sendByte(c);
     currentMode = PRINT_MODE;
-  }
 }
 
-void TextUIStreamProxy::simpleCommand(commandType_t cmd)
-{
-  toCommandMode();
-  send(CMD_COMMAND);
-  send(COMMAND_CH1(cmd));
-  send(COMMAND_CH2(cmd));
-  send(CMD_END);
+void TextUIStreamProxy::setRow(uint8_t r) {
+
+    toCommandMode();
+    send(CMD_SET_ROW);
+    sendByte(r);
+    currentMode = PRINT_MODE;
 }
 
-void TextUIStreamProxy::byteCommand(commandType_t cmd, uint8_t u)
-{
-  toCommandMode();
-  send(CMD_COMMAND);
-  send(COMMAND_CH1(cmd));
-  send(COMMAND_CH2(cmd));
-  sendByte(u);
-  send(CMD_END);
+void TextUIStreamProxy::setColumn(uint8_t c) {
+
+    toCommandMode();
+    send(CMD_SET_COLUMN);
+    sendByte(c);
+    currentMode = PRINT_MODE;
 }
 
-void TextUIStreamProxy::byteCommand2(commandType_t cmd, uint8_t u, uint8_t v)
-{
-  toCommandMode();
-  send(CMD_COMMAND);
-  send(COMMAND_CH1(cmd));
-  send(COMMAND_CH2(cmd));
-  sendByte(u);
-  sendByte(v);
-  send(CMD_END);
+void TextUIStreamProxy::printChar(char ch) {
+
+    toPrintMode();
+    if (IS_PRINTABLE(ch)) {
+        send(ch);
+    }
 }
 
-void TextUIStreamProxy::byteCommand3(commandType_t cmd, uint8_t u, uint8_t v, uint8_t w)
-{
-  toCommandMode();
-  send(CMD_COMMAND);
-  send(COMMAND_CH1(cmd));
-  send(COMMAND_CH2(cmd));
-  sendByte(u);
-  sendByte(v);
-  sendByte(w);
-  send(CMD_END);
+/** PRIVATE **/
+
+void TextUIStreamProxy::toCommandMode() {
+
+    if (currentMode != COMMAND_MODE) {
+        send(CMD_ATTN);
+        currentMode = COMMAND_MODE;
+    }
 }
 
-void TextUIStreamProxy::queryCommand( commandType_t cmd)
-{
-  toCommandMode();
-  send(CMD_QUERY);
-  send(COMMAND_CH1(cmd));
-  send(COMMAND_CH2(cmd));
-  send(CMD_END);
+void TextUIStreamProxy::toPrintMode() {
+
+    if (currentMode != PRINT_MODE) {
+        send(CMD_PRINT);
+        currentMode = PRINT_MODE;
+    }
 }
 
-void TextUIStreamProxy::send(char ch)
-{
-  stream.write(ch);
+void TextUIStreamProxy::simpleCommand(char cmd) {
+
+    toCommandMode();
+    send(cmd);
+    currentMode = PRINT_MODE;
 }
 
-void TextUIStreamProxy::sendByte(uint8_t ch)
-{
-  stream.print(ch);
-  stream.write(';');
+void TextUIStreamProxy::byteCommand1(commandType_t cmd, uint8_t u) {
+
+    toCommandMode();
+    send(CMD_COMMAND);
+    send(COMMAND_CH1(cmd));
+    send(COMMAND_CH2(cmd));
+    sendByte(u);
+    send(CMD_END);
+}
+
+void TextUIStreamProxy::byteCommand2(commandType_t cmd, uint8_t u, uint8_t v) {
+
+    toCommandMode();
+    send(CMD_COMMAND);
+    send(COMMAND_CH1(cmd));
+    send(COMMAND_CH2(cmd));
+    sendByte(u);
+    sendByte(v);
+    send(CMD_END);
+}
+
+void TextUIStreamProxy::byteCommand3(commandType_t cmd, uint8_t u, uint8_t v, uint8_t w) {
+
+    toCommandMode();
+    send(CMD_COMMAND);
+    send(COMMAND_CH1(cmd));
+    send(COMMAND_CH2(cmd));
+    sendByte(u);
+    sendByte(v);
+    sendByte(w);
+    send(CMD_END);
+}
+
+void TextUIStreamProxy::queryCommand(commandType_t cmd) {
+
+    toCommandMode();
+    send(CMD_QUERY);
+    send(COMMAND_CH1(cmd));
+    send(COMMAND_CH2(cmd));
+    send(CMD_END);
+}
+
+void TextUIStreamProxy::send(char ch) {
+
+    stream.write(ch);
+}
+
+void TextUIStreamProxy::sendByte(uint8_t ch) {
+
+    stream.write(ch);
+}
+
+void TextUIStreamProxy::sync() {
+
+    for( uint8_t i=0; i<4; i++) stream.write(CMD_ATTN);
+}
+
+void TextUIStreamProxy::checkInput() {
+
+    int ch;
+    uint8_t buffer[2];
+
+    if (stream.available()) {
+        ch = stream.read();
+        switch (ch) {
+        case CMD_QUERY_RESULT:
+            /* Read with timeout */
+            if (1 == stream.readBytes(buffer, 1)) {
+                data = buffer[0];
+                dataPending = true;
+            }
+            break;
+
+        case CMD_KBD:
+            if (2 == stream.readBytes(buffer, 2)) {
+                key = buffer[0];
+                count = buffer[1];
+                eventPending = true;
+            }
+            break;
+        }
+    }
+}
+
+uint8_t TextUIStreamProxy::receiveData() {
+
+    while (!dataPending) {
+        checkInput();
+    }
+
+    dataPending = false;
+
+    return data;
 }

@@ -27,27 +27,20 @@
 
 #include "TextUIStreamProxy.h"
 
-#include "TextUIRotaryEncoder.h"
-#define PIN_CLK     2
-#define PIN_DIR     3
-#define PIN_BUTTON  4
-
 #include "HomeScreen.h"
 
 TextUI textUI;
 
 void setup()
 {
-    delay(2000);
+    Serial1.begin(19200, SERIAL_8N1);
     
-    Serial.begin(19200);
-    
-    TextUIStreamProxy *streamProxy = new TextUIStreamProxy( Serial);
-    textUI.setDisplay( streamProxy);
+    TextUIStreamProxy *streamProxy = new TextUIStreamProxy( Serial1);
 
+    textUI.setDisplay( streamProxy);
     textUI.getDisplay()->setFontSize( TEXTUI_FONT_MEDIUM);
 
-    textUI.setInput( new TextUIRotaryEncoder( PIN_CLK, PIN_DIR, PIN_BUTTON));
+    textUI.setInput( streamProxy);
 
     textUI.setHomeScreen( new HomeScreen());
 }
