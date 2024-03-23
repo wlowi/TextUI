@@ -26,6 +26,9 @@
 
 #include "TextUIStreamProxy.h"
 
+
+// #define SERIAL_DEBUG
+
 TextUIStreamProxy::TextUIStreamProxy(Stream& s) : stream(s) {
 
     stream.setTimeout(100);
@@ -96,7 +99,7 @@ void TextUIStreamProxy::setInvert(bool inv) {
     byteCommand1(COMMAND_SET_INVERT, (uint8_t)inv);
 }
 
-/* FONT_SMALL .. FONT_LARGE */
+/* TEXTUI_FONT_SMALL .. TEXTUI_FONT_LARGE */
 void TextUIStreamProxy::setFontSize(FontSize_t sz) {
 
     byteCommand1(COMMAND_SET_FONTSIZE, (uint8_t)sz);
@@ -155,7 +158,7 @@ void TextUIStreamProxy::toCommandMode() {
     if (currentMode != COMMAND_MODE) {
         send(CMD_ATTN);
         currentMode = COMMAND_MODE;
-        delay(5); /** @TODO prevent overrunning UserTerm */
+        delay(10); /** @TODO prevents overrunning UserTerm */
     }
 }
 
@@ -164,7 +167,7 @@ void TextUIStreamProxy::toPrintMode() {
     if (currentMode != PRINT_MODE) {
         send(CMD_PRINT);
         currentMode = PRINT_MODE;
-        delay(5); /** @TODO prevent overrunning UserTerm */
+        delay(10); /** @TODO prevents overrunning UserTerm */
     }
 }
 
@@ -220,21 +223,29 @@ void TextUIStreamProxy::queryCommand(commandType_t cmd) {
 void TextUIStreamProxy::send(char ch) {
 
     stream.write(ch);
+    delay(2); /** @TODO prevents overrunning UserTerm */
 
-    //Serial.write(ch);
+#ifdef SERIAL_DEBUG
+    Serial.write(ch);
+#endif
 }
 
 void TextUIStreamProxy::sendByte(uint8_t ch) {
 
     stream.write(ch);
+    delay(2); /** @TODO prevents overrunning UserTerm */
 
-    //Serial.print(ch);
-    //Serial.write(';');
+#ifdef SERIAL_DEBUG
+    Serial.print(ch);
+    Serial.write(';');
+#endif
 }
 
 void TextUIStreamProxy::sync() {
 
-    //Serial.println("SYNC");
+#ifdef SERIAL_DEBUG
+    Serial.println("SYNC");
+#endif
 
     for (uint8_t i = 0; i < 4; i++) {
         stream.write(CMD_ATTN);
@@ -295,13 +306,17 @@ uint8_t TextUIStreamProxy::receiveData() {
 
     if (dataPending) {
         dataPending = false;
-        //Serial.write('=');
-        //Serial.println(data);
+#ifdef SERIAL_DEBUG
+        Serial.write('=');
+        Serial.println(data);
+#endif
         return data;
     }
     else {
-        //Serial.write('=');
-        //Serial.println(0);
+#ifdef SERIAL_DEBUG
+        Serial.write('=');
+        Serial.println(0);
+#endif
         return 0; /** @TODO fix */
     }
 }
