@@ -33,6 +33,7 @@ TextUI textUI;
 
 void setup()
 {
+    //Serial.begin(19200); /* to debug */
     Serial1.begin(19200, SERIAL_8N1);
     
     TextUIStreamProxy *streamProxy = new TextUIStreamProxy( Serial1);

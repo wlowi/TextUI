@@ -26,28 +26,44 @@
 #include "TextUI.h"
 #include "TextUIStreamProxy.h"
 
-/* ******************** */
-/* Enable one of these: */
+
+#define USER_TERM_VERSION "0.1.0"
+
+
+/* ****** LCD / TFT CONFIGURATION ************** */
+/* Enable ONE of these: */
 
 /* OLED 0.96 or 1.3 inch. SSD1306 or SH1106 controller */
 // #define USE_SSD1306
 
-/* TFT 128x128 / 160x80 / 160x128 */
+/* TFT 1.8 inch. 128x128 / 160x80 / 160x128 */
 #define USE_ST7735
 
 /* TFT 320x240 */
 // #define USE_ILI9341
-/* ******************** */
+
+/* ********************************************* */
+
+
+/* ****** INPUT CONFIGURATION ****************** */
+/* Enable ONE of these: */
+
+/* Rotary encoder, UP, DOWN, ENTER/CLEAR */
+#define USE_ROTARY_ENCODER
+
+/* 3 Buttons, UP, DOWN, ENTER/CLEAR */
+// #define USE_KEYBOARD
+
+/* ********************************************* */
+
 
 #ifdef USE_SSD1306
 # include "TextUILcdSSD1306.h"
 #endif
 
+
 #ifdef USE_ST7735
 # include "TextUILcdST7735.h"
-# define PIN_TFT_CS  10
-# define PIN_TFT_DC   9
-# define PIN_TFT_RST -1
 
 /* Pins for Arduino Nano and Pro Mini:
  *  CS               10
@@ -56,14 +72,15 @@
  *  SDA/MOSI         11
  *  SCK              13
  */
+# define PIN_TFT_CS  10
+# define PIN_TFT_DC   9
+# define PIN_TFT_RST -1
 
 #endif
+
 
 #ifdef USE_ILI9341
 # include "TextUILcdILI9341.h"
-# define PIN_TFT_CS  10
-# define PIN_TFT_DC   9
-# define PIN_TFT_RST -1
 
 /* Pins for Arduino Nano and Pro Mini:
  *  CS               10
@@ -72,15 +89,45 @@
  *  SDA/MOSI         11
  *  SCK              13
  */
+# define PIN_TFT_CS  10
+# define PIN_TFT_DC   9
+# define PIN_TFT_RST -1
 
 #endif
 
-#include "TextUIRotaryEncoder.h"
+
+#ifdef USE_ROTARY_ENCODER
+# include "TextUIRotaryEncoder.h"
+
 /* Pins for Arduino Nano and Pro Mini:
  */
-#define PIN_CLK     2
-#define PIN_DIR     3
-#define PIN_BUTTON  4
+# define PIN_CLK     2
+# define PIN_DIR     3
+# define PIN_BUTTON  4
+
+#endif
+
+
+#ifdef USE_KEYBOARD
+# include "TextUISimpleKbd.h"
+
+/* Pins for Arduino Nano and Pro Mini:
+ */
+# define BUTTONS     3
+
+# define PIN_UP      2
+# define PIN_ENTER   3
+# define PIN_DOWN    4
+
+uint8_t ports[BUTTONS] = { PIN_UP, PIN_ENTER, PIN_DOWN };
+uint8_t shortPress[BUTTONS] = { KEY_UP, KEY_ENTER, KEY_DOWN };
+uint8_t longPress[BUTTONS] = { KEY_BACK, KEY_CLEAR, KEY_RESET };
+
+#endif
+
+
+/* *************** END CONFIGURATION **************** */
+
 
 bool readByte(uint8_t* b);
 
@@ -103,7 +150,7 @@ void setup() {
 #ifdef USE_ST7735
     // INTR_144GREENTAB       TFT 128x128 pixel, 1.44 inch
     // INTR_BLACKTAB          TFT 160x128 pixel; 1.8 inch
-    display = new TextUILcdST7735(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST, INITR_144GREENTAB);
+    display = new TextUILcdST7735(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST, INITR_BLACKTAB);
 #endif
 
 #ifdef USE_ILI9341
@@ -113,12 +160,20 @@ void setup() {
     textUI.setDisplay(display);
     display->setFontSize(TEXTUI_FONT_SMALL);
 
+
+#ifdef USE_ROTARY_ENCODER
     textUI.setInput(new TextUIRotaryEncoder(PIN_CLK, PIN_DIR, PIN_BUTTON));
+#endif
+
+#ifdef USE_KEYBOARD
+    textUI.setInput(new TextUISimpleKbd( BUTTONS, ports, shortPress, longPress));
+#endif
 
     currentMode = COMMAND_MODE;
 
     display->clear();
-    display->printStr("UserTerm");
+    display->printStr("UserTerm ");
+    display->printStr(USER_TERM_VERSION);
 }
 
 void loop() {
@@ -243,13 +298,15 @@ void processSetCommand() {
     uint8_t c1;
     uint8_t c2;
 
+    commandType_t cmd;
+
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+
     if (readByte(&c1) && readByte(&c2)) {
 
-        commandType_t cmd = COMMAND_TYPE(c1, c2);
-
-        uint8_t r;
-        uint8_t g;
-        uint8_t b;
+        cmd = COMMAND_TYPE(c1, c2);
 
         switch (cmd) {
         case COMMAND_SET_INVERT:
@@ -284,9 +341,11 @@ void processQueryCommand() {
     uint8_t c1;
     uint8_t c2;
 
+    commandType_t cmd;
+
     if (readByte(&c1) && readByte(&c2)) {
 
-        commandType_t cmd = COMMAND_TYPE(c1, c2);
+        cmd = COMMAND_TYPE(c1, c2);
 
         switch (cmd) {
         case COMMAND_GET_COLORSUPPORT:

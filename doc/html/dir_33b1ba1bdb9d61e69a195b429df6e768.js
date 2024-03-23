@@ -5,5 +5,6 @@ var dir_33b1ba1bdb9d61e69a195b429df6e768 =
     [ "TextUILcdSSD1306.h", "_text_u_i_lcd_s_s_d1306_8h_source.html", null ],
     [ "TextUILcdST7735.h", "_text_u_i_lcd_s_t7735_8h_source.html", null ],
     [ "TextUIRotaryEncoder.h", "_text_u_i_rotary_encoder_8h_source.html", null ],
-    [ "TextUISimpleKbd.h", "_text_u_i_simple_kbd_8h_source.html", null ]
+    [ "TextUISimpleKbd.h", "_text_u_i_simple_kbd_8h_source.html", null ],
+    [ "TextUIStreamProxy.h", "_text_u_i_stream_proxy_8h_source.html", null ]
 ];

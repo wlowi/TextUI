@@ -11,6 +11,7 @@ var searchData=
   ['textuirotaryencoder_8',['TextUIRotaryEncoder',['../class_text_u_i_rotary_encoder.html',1,'TextUIRotaryEncoder'],['../class_text_u_i_rotary_encoder.html#ae8d77c1fc64ca1ba6fbc74f4251d825e',1,'TextUIRotaryEncoder::TextUIRotaryEncoder()']]],
   ['textuiscreen_9',['TextUIScreen',['../class_text_u_i_screen.html',1,'']]],
   ['textuisimplekbd_10',['TextUISimpleKbd',['../class_text_u_i_simple_kbd.html',1,'TextUISimpleKbd'],['../class_text_u_i_simple_kbd.html#a9c26684d903418a17d5ad9016f810bd4',1,'TextUISimpleKbd::TextUISimpleKbd()']]],
-  ['tohome_11',['toHome',['../class_text_u_i.html#aa9f2f3fbf3ef457a4f3fc5251ca2c130',1,'TextUI']]],
-  ['toscreen_12',['toScreen',['../class_text_u_i.html#a4362b6cc4cabfb208ce446c958df1f67',1,'TextUI']]]
+  ['textuistreamproxy_11',['TextUIStreamProxy',['../class_text_u_i_stream_proxy.html',1,'']]],
+  ['tohome_12',['toHome',['../class_text_u_i.html#aa9f2f3fbf3ef457a4f3fc5251ca2c130',1,'TextUI']]],
+  ['toscreen_13',['toScreen',['../class_text_u_i.html#a4362b6cc4cabfb208ce446c958df1f67',1,'TextUI']]]
 ];

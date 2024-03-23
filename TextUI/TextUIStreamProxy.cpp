@@ -28,15 +28,14 @@
 
 TextUIStreamProxy::TextUIStreamProxy(Stream& s) : stream(s) {
 
-    stream.setTimeout(10);
-    currentMode = COMMAND_MODE;
+    stream.setTimeout(100);
     sync();
 }
 
 /* TextUIInput */
 bool TextUIStreamProxy::pending() {
 
-    checkInput();
+    checkInput(true /* noWait */);
     return eventPending;
 }
 
@@ -156,6 +155,7 @@ void TextUIStreamProxy::toCommandMode() {
     if (currentMode != COMMAND_MODE) {
         send(CMD_ATTN);
         currentMode = COMMAND_MODE;
+        delay(5); /** @TODO prevent overrunning UserTerm */
     }
 }
 
@@ -164,6 +164,7 @@ void TextUIStreamProxy::toPrintMode() {
     if (currentMode != PRINT_MODE) {
         send(CMD_PRINT);
         currentMode = PRINT_MODE;
+        delay(5); /** @TODO prevent overrunning UserTerm */
     }
 }
 
@@ -219,31 +220,54 @@ void TextUIStreamProxy::queryCommand(commandType_t cmd) {
 void TextUIStreamProxy::send(char ch) {
 
     stream.write(ch);
+
+    //Serial.write(ch);
 }
 
 void TextUIStreamProxy::sendByte(uint8_t ch) {
 
     stream.write(ch);
+
+    //Serial.print(ch);
+    //Serial.write(';');
 }
 
 void TextUIStreamProxy::sync() {
 
-    for( uint8_t i=0; i<4; i++) stream.write(CMD_ATTN);
+    //Serial.println("SYNC");
+
+    for (uint8_t i = 0; i < 4; i++) {
+        stream.write(CMD_ATTN);
+    }
+
+    while(stream.available()) {
+        stream.read();
+    }
+
+    currentMode = COMMAND_MODE;
 }
 
-void TextUIStreamProxy::checkInput() {
+void TextUIStreamProxy::checkInput(bool noWait) {
 
     int ch;
     uint8_t buffer[2];
 
-    if (stream.available()) {
-        ch = stream.read();
+    if (noWait && !stream.available()) {
+        return;
+    }
+
+    if (1 == stream.readBytes(buffer, 1)) {
+        ch = buffer[0];
+
         switch (ch) {
         case CMD_QUERY_RESULT:
             /* Read with timeout */
             if (1 == stream.readBytes(buffer, 1)) {
                 data = buffer[0];
                 dataPending = true;
+            }
+            else {
+                sync();
             }
             break;
 
@@ -253,6 +277,9 @@ void TextUIStreamProxy::checkInput() {
                 count = buffer[1];
                 eventPending = true;
             }
+            else {
+                sync();
+            }
             break;
         }
     }
@@ -260,11 +287,21 @@ void TextUIStreamProxy::checkInput() {
 
 uint8_t TextUIStreamProxy::receiveData() {
 
-    while (!dataPending) {
-        checkInput();
+    uint8_t retry = 20;
+
+    while (!dataPending && (retry-- > 0)) {
+        checkInput(false /* wait */);
     }
 
-    dataPending = false;
-
-    return data;
+    if (dataPending) {
+        dataPending = false;
+        //Serial.write('=');
+        //Serial.println(data);
+        return data;
+    }
+    else {
+        //Serial.write('=');
+        //Serial.println(0);
+        return 0; /** @TODO fix */
+    }
 }

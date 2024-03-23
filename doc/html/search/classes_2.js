@@ -10,5 +10,6 @@ var searchData=
   ['textuimenu_7',['TextUIMenu',['../class_text_u_i_menu.html',1,'']]],
   ['textuirotaryencoder_8',['TextUIRotaryEncoder',['../class_text_u_i_rotary_encoder.html',1,'']]],
   ['textuiscreen_9',['TextUIScreen',['../class_text_u_i_screen.html',1,'']]],
-  ['textuisimplekbd_10',['TextUISimpleKbd',['../class_text_u_i_simple_kbd.html',1,'']]]
+  ['textuisimplekbd_10',['TextUISimpleKbd',['../class_text_u_i_simple_kbd.html',1,'']]],
+  ['textuistreamproxy_11',['TextUIStreamProxy',['../class_text_u_i_stream_proxy.html',1,'']]]
 ];

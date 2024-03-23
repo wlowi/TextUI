@@ -105,6 +105,28 @@ using commandType_t = uint16_t;
 /**
  * @brief A proxy driver that supports both TextUIInput, TextUILcd.
  * 
+ * This class supports communication with an external user terminal.
+ * It replaces both display and input classes of TextUI.
+ * 
+ *  Example:
+ * 
+ *      #include "TextUI.h"
+ *      #include "TextUIStreamProxy.h"
+ *      #include "HomeScreen.h"
+ *
+ *      TextUI textUI;
+ *
+ *      void setup()
+ *      {
+ *        Serial1.begin(19200, SERIAL_8N1);
+ *
+ *        TextUIStreamProxy *streamProxy = new TextUIStreamProxy( Serial1);
+ *
+ *        textUI.setDisplay( streamProxy);
+ *        textUI.setInput( streamProxy);
+ *        textUI.setHomeScreen( new HomeScreen());
+ *      }
+ * 
  */
 class TextUIStreamProxy : public TextUIInput, public TextUILcd {
     
@@ -120,7 +142,7 @@ private:
     uint8_t data;
     bool dataPending = false;
 
-    void checkInput();
+    void checkInput( bool noWait);
     uint8_t receiveData();
 
     void toCommandMode();

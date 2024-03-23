@@ -13,5 +13,6 @@ var annotated_dup =
     [ "TextUIMenu", "class_text_u_i_menu.html", "class_text_u_i_menu" ],
     [ "TextUIRotaryEncoder", "class_text_u_i_rotary_encoder.html", "class_text_u_i_rotary_encoder" ],
     [ "TextUIScreen", "class_text_u_i_screen.html", "class_text_u_i_screen" ],
-    [ "TextUISimpleKbd", "class_text_u_i_simple_kbd.html", "class_text_u_i_simple_kbd" ]
+    [ "TextUISimpleKbd", "class_text_u_i_simple_kbd.html", "class_text_u_i_simple_kbd" ],
+    [ "TextUIStreamProxy", "class_text_u_i_stream_proxy.html", "class_text_u_i_stream_proxy" ]
 ];
