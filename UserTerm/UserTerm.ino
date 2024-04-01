@@ -23,11 +23,13 @@
   SOFTWARE.
 */
 
+#include "avr/sleep.h"
+
 #include "TextUI.h"
 #include "TextUIStreamProxy.h"
+#include "ReliableStream.h"
 
-
-#define USER_TERM_VERSION "0.1.0"
+#define USER_TERM_VERSION "0.3.0"
 
 
 /* ****** LCD / TFT CONFIGURATION ************** */
@@ -134,11 +136,12 @@ bool readByte(uint8_t* b);
 TextUI textUI;
 uint8_t currentMode;
 TextUILcd* display;
+ReliableStream *stream;
 
 void setup() {
 
-    Serial.begin(19200, SERIAL_8N1);
-    Serial.setTimeout(100);
+    Serial.begin(57600, SERIAL_8N1);
+    stream = new ReliableStream( Serial, 64, 256);
 
 #ifdef USE_SSD1306
     /* SH1106 Controller */
@@ -178,13 +181,15 @@ void setup() {
 
 void loop() {
 
+    cpuSleep();
+
     Event* e = textUI.getEvent();
 
     if (e->getType() == EVENT_TYPE_KEY) {
-        Serial.write(CMD_KBD);
-        Serial.write(e->getKey());
-        Serial.write(e->getCount());
-        Serial.write(CMD_END);
+        stream->write(CMD_KBD);
+        sendByte(e->getKey());
+        sendByte(e->getCount());
+        stream->write(CMD_END);
     }
 
     e->markProcessed();
@@ -194,7 +199,7 @@ void loop() {
 
 void processSerial() {
 
-    while (Serial.available()) {
+    while (stream->available()) {
 
         switch (currentMode) {
         case COMMAND_MODE:
@@ -206,11 +211,13 @@ void processSerial() {
             break;
         }
     }
+
+    stream->handleComm();
 }
 
 void processCommandMode() {
 
-    int ch = Serial.read();
+    int ch = stream->read();
     uint8_t r;
     uint8_t c;
 
@@ -281,7 +288,7 @@ void processCommandMode() {
 
 void processPrintMode() {
 
-    int ch = Serial.read();
+    int ch = stream->read();
 
     if (ch == CMD_ATTN) {
         currentMode = COMMAND_MODE;
@@ -295,8 +302,8 @@ void processPrintMode() {
 
 void processSetCommand() {
 
-    uint8_t c1;
-    uint8_t c2;
+    char c1;
+    char c2;
 
     commandType_t cmd;
 
@@ -304,7 +311,7 @@ void processSetCommand() {
     uint8_t g;
     uint8_t b;
 
-    if (readByte(&c1) && readByte(&c2)) {
+    if (readChar(&c1) && readChar(&c2)) {
 
         cmd = COMMAND_TYPE(c1, c2);
 
@@ -338,39 +345,76 @@ void processSetCommand() {
 
 void processQueryCommand() {
 
-    uint8_t c1;
-    uint8_t c2;
+    char c1;
+    char c2;
 
     commandType_t cmd;
 
-    if (readByte(&c1) && readByte(&c2)) {
+    if (readChar(&c1) && readChar(&c2)) {
 
         cmd = COMMAND_TYPE(c1, c2);
 
         switch (cmd) {
         case COMMAND_GET_COLORSUPPORT:
-            Serial.write(CMD_QUERY_RESULT);
-            Serial.write(display->colorSupport());
-            Serial.write(CMD_END);
+            stream->write(CMD_QUERY_RESULT);
+            sendByte(display->colorSupport());
+            stream->write(CMD_END);
             break;
 
         case COMMAND_GET_ROWS:
-            Serial.write(CMD_QUERY_RESULT);
-            Serial.write(display->getRows());
-            Serial.write(CMD_END);
+            stream->write(CMD_QUERY_RESULT);
+            sendByte(display->getRows());
+            stream->write(CMD_END);
             break;
 
         case COMMAND_GET_COLUMNS:
-            Serial.write(CMD_QUERY_RESULT);
-            Serial.write(display->getColumns());
-            Serial.write(CMD_END);
+            stream->write(CMD_QUERY_RESULT);
+            sendByte(display->getColumns());
+            stream->write(CMD_END);
             break;
         }
     }
 }
 
-bool readByte(uint8_t* b) {
+bool readChar(char* b) {
 
     /* Read with timeout */
-    return (Serial.readBytes(b, 1) == 1);
+    return (stream->readBytes(b, 1) == 1);
+}
+
+void sendByte(uint8_t b) {
+
+    if( b < 64) {
+        stream->write(b + SINGLECHAR_OFFSET);
+    } else {
+        stream->write(((b >> 4) & 0x0f) + TWOCHAR_OFFSET);
+        stream->write((b & 0x0f) + TWOCHAR_OFFSET);
+    }
+}
+
+bool readByte(uint8_t* b) {
+
+    uint8_t buffer[2];
+
+    if( stream->readBytes( &buffer[0], 1) == 1) {
+        if( buffer[0] >= SINGLECHAR_OFFSET) {
+            *b = (buffer[0] - SINGLECHAR_OFFSET);
+            return true;
+        } else if( (buffer[0] >= TWOCHAR_OFFSET) && (stream->readBytes( &buffer[1], 1) == 1) ) {
+            *b = ((buffer[0] - TWOCHAR_OFFSET) << 4) | (buffer[1] - TWOCHAR_OFFSET);
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+void cpuSleep()  {
+
+    set_sleep_mode( SLEEP_MODE_IDLE);
+    cli();
+    sleep_enable();
+    sei();
+    sleep_cpu();
+    sleep_disable();
 }

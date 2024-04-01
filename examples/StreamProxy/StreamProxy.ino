@@ -26,6 +26,7 @@
 #include "TextUI.h"
 
 #include "TextUIStreamProxy.h"
+#include "ReliableStream.h"
 
 #include "HomeScreen.h"
 
@@ -33,10 +34,9 @@ TextUI textUI;
 
 void setup()
 {
-    //Serial.begin(19200); /* to debug */
-    Serial1.begin(19200, SERIAL_8N1);
-    
-    TextUIStreamProxy *streamProxy = new TextUIStreamProxy( Serial1);
+    Serial.begin(57600, SERIAL_8N1);
+    ReliableStream *stream = new ReliableStream( Serial, 256, 64);
+    TextUIStreamProxy *streamProxy = new TextUIStreamProxy( *stream);
 
     textUI.setDisplay( streamProxy);
     textUI.getDisplay()->setFontSize( TEXTUI_FONT_MEDIUM);

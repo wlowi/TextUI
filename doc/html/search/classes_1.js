@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['event_0',['Event',['../class_event.html',1,'']]]
+  ['cell_0',['Cell',['../class_cell.html',1,'']]],
+  ['cellvalue_5ft_1',['CellValue_t',['../struct_cell_value__t.html',1,'']]]
 ];

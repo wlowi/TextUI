@@ -1,8 +1,11 @@
 var annotated_dup =
 [
+    [ "buffer_t", "structbuffer__t.html", null ],
     [ "Cell", "class_cell.html", "class_cell" ],
     [ "CellValue_t", "struct_cell_value__t.html", "struct_cell_value__t" ],
     [ "Event", "class_event.html", "class_event" ],
+    [ "packet_t", "structpacket__t.html", "structpacket__t" ],
+    [ "ReliableStream", "class_reliable_stream.html", "class_reliable_stream" ],
     [ "TextUI", "class_text_u_i.html", "class_text_u_i" ],
     [ "TextUIHandler", "class_text_u_i_handler.html", "class_text_u_i_handler" ],
     [ "TextUIInput", "class_text_u_i_input.html", "class_text_u_i_input" ],

@@ -1,8 +1,13 @@
 var hierarchy =
 [
+    [ "buffer_t", "structbuffer__t.html", null ],
     [ "Cell", "class_cell.html", null ],
     [ "CellValue_t", "struct_cell_value__t.html", null ],
     [ "Event", "class_event.html", null ],
+    [ "packet_t", "structpacket__t.html", null ],
+    [ "Stream", null, [
+      [ "ReliableStream", "class_reliable_stream.html", null ]
+    ] ],
     [ "TextUI", "class_text_u_i.html", null ],
     [ "TextUIHandler", "class_text_u_i_handler.html", null ],
     [ "TextUIInput", "class_text_u_i_input.html", [
