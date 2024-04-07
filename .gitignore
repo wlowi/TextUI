@@ -3,5 +3,6 @@
 **/*.o
 **/*.sch-bak
 **/*.pcb-bak
+UserTerm_PCB/Arduino_Pro_Mini/userterm_arduino_pro_mini/userterm_arduino_pro_mini-backups
 test/EEPROM.DAT
 test/RunTest

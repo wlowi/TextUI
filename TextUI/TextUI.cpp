@@ -98,9 +98,9 @@ Event *TextUI::getEvent() {
 
   unsigned long now = millis();
   TextUIInput *lastInput;
-  
+
   event.setNoEvent(); 
-  
+
   /* First check input queues.
    * Queues are checked round robin.
    * If there are two queues and the first queue had an event pending,
@@ -139,7 +139,7 @@ Event *TextUI::getEvent() {
     
       nextTimer_msec += timer_msec;
       if( nextTimer_msec <= now) {
-	nextTimer_msec = now + timer_msec;
+        nextTimer_msec = now + timer_msec;
       }
       event.setTimerEvent();
     

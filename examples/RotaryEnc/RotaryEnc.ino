@@ -29,10 +29,10 @@
 /* Enable one of these: */
 
 /* OLED 0.96 or 1.3 inch. SSD1306 or SH1106 controller */
-#define USE_SSD1306
+// #define USE_SSD1306
 
 /* TFT 128x128 / 160x80 / 160x128 */
-// #define USE_ST7735
+#define USE_ST7735
 
 /* TFT 320x240 */
 // #define USE_ILI9341
@@ -75,9 +75,15 @@
 #endif
 
 #include "TextUIRotaryEncoder.h"
-#define PIN_CLK     2
-#define PIN_DIR     3
-#define PIN_BUTTON  4
+#if defined( ARDUINO_ARCH_AVR )
+# define PIN_CLK     2
+# define PIN_DIR     3
+# define PIN_BUTTON  4
+#elif defined( ARDUINO_ARCH_ESP32 )
+# define PIN_CLK     22
+# define PIN_DIR     21
+# define PIN_BUTTON  19
+#endif
 
 #include "HomeScreen.h"
 
@@ -95,7 +101,12 @@ void setup()
 #ifdef USE_ST7735
     // INTR_144GREENTAB       TFT 128x128 pixel, 1.44 inch
     // INTR_BLACKTAB          TFT 160x128 pixel; 1.8 inch
+#if defined( ARDUINO_ARCH_AVR )
     textUI.setDisplay( new TextUILcdST7735(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST, INITR_144GREENTAB));
+#elif defined( ARDUINO_ARCH_ESP32 )
+    textUI.setDisplay( new TextUILcdST7735(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST));
+#endif
+    
 #endif
 
 #ifdef USE_ILI9341
@@ -112,6 +123,5 @@ void setup()
 void loop()
 {
     Event *e = textUI.getEvent();
-
     textUI.handle(e);
 }
