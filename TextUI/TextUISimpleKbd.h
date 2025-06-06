@@ -93,8 +93,8 @@ public:
     TextUISimpleKbd( uint8_t count, uint8_t ports[], uint8_t skey[], uint8_t lkey[]);
 
     /* TextUIInput */
-    bool pending();
-    void setEvent( Event *e);
+    bool pending() final;
+    void setEvent( Event *e) final;
 };
 
 #endif

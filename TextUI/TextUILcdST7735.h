@@ -121,32 +121,32 @@ class TextUILcdST7735 : public TextUILcd
        */
       TextUILcdST7735( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst, uint8_t option);
     
-      void clear();
-      void clearEOL();
+      void clear() final;
+      void clearEOL() final;
 
-      bool colorSupport();
+      bool colorSupport() final;
     
-      void setBg( uint8_t r, uint8_t g, uint8_t b);
-      void setFg( uint8_t r, uint8_t g, uint8_t b);
+      void setBg( uint8_t r, uint8_t g, uint8_t b) final;
+      void setFg( uint8_t r, uint8_t g, uint8_t b) final;
 
-      void normalColors();
-      void selectedColors();
-      void editColors();
+      void normalColors() final;
+      void selectedColors() final;
+      void editColors() final;
 
-      void setInvert( bool inv);
+      void setInvert( bool inv) final;
 
       /* FONT_SMALL .. FONT_LARGE */
-      void setFontSize( FontSize_t sz);
+      void setFontSize( FontSize_t sz) final;
     
-      uint8_t getRows();
-      uint8_t getColumns();
+      uint8_t getRows() final;
+      uint8_t getColumns() final;
 
       /* row and column in characters */
-      void setCursor( uint8_t r, uint8_t c);
-      void setRow( uint8_t r);
-      void setColumn( uint8_t c);
+      void setCursor( uint8_t r, uint8_t c) final;
+      void setRow( uint8_t r) final;
+      void setColumn( uint8_t c) final;
 
-      void printChar( char ch);
+      void printChar( char ch) final;
 };
 
 #endif

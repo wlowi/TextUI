@@ -119,8 +119,8 @@ class TextUIRotaryEncoder : public TextUIInput
          * for different keys. setEvent() clears the pending
          * state only for the key returned.
          */
-        bool pending();
-        void setEvent(Event *e);
+        bool pending() final;
+        void setEvent(Event *e) final;
 };
 
 #endif

@@ -48,10 +48,12 @@
 static TextUIRotaryEncoder* rotEnc = nullptr;
 
 /*
- * The pin change interrupt is fixed to PCINT2.
+ * The pin change interrupt is fixed to PCINT2 for Atmel Mega 328 and
+ * Atmel Mega 2560 and PCINT0 for Atmel Mega 16U4 / 32U4.
+ *
  * If you want to use different pins you need to change the interrupt service routine vector.
  *
- * Arduino Nano (ATmega328):
+ * Atmel Mega 328                      (Arduino Nano):
  *
  *  Interrupt          Chip Port       Arduino Port
  *  -----------------  --------------  -------------------------
@@ -59,7 +61,7 @@ static TextUIRotaryEncoder* rotEnc = nullptr;
  *  PCINT1 PCINT8-14   (Port C0 - C6)  (PCINT8-13:  Pin A0 - A5)
  *  PCINT2 PCINT16-23  (Port D0 - D7)  (PCINT16-23: Pin D0 - D7)
  *
- * Arduino Mega 2560:
+ * Atmel Mega 2560
  *
  *  Interrupt          Chip Port       Arduino Port
  *  -----------------  --------------  -------------------------
@@ -67,9 +69,27 @@ static TextUIRotaryEncoder* rotEnc = nullptr;
  *  PCINT1 PCINT8      (Port E0)       (PCINT8:     Pin D0)
  *  PCINT1 PCINT9-15   (Port J0 - J6)  (PCINT9-10:  Pin D15, D14)
  *  PCINT2 PCINT16-23  (Port K0 - K7)  (PCINT16-23: Pin A8 -A15)
+ *
+ * Atmel Mega 16U4 / 32U4             (Arduino Pro Micro)
+ *
+ *  Interrupt          Chip Port       Arduino Port
+ *  -----------------  --------------  -------------------------
+ *  PCINT0 PCINT0-7    (Port B0 - B7)  (PCINT1:     Pin D15
+ *                                      PCINT2:     Pin D16
+ *                                      PCINT3:     Pin D14
+ *                                      PCINT4:     Pin D8
+ *                                      PCINT5:     Pin D9
+ *                                      PCINT6:     Pin D10
+ *                                      PCINT6:     Pin D11
  */
 #if defined( ARDUINO_ARCH_AVR )
+
+#ifdef PCINT2_vect
 ISR(PCINT2_vect)
+#else
+ISR(PCINT0_vect)
+#endif
+
 #elif defined( ARDUINO_ARCH_ESP32 )
 static void TextUIRotaryEncoder_runISR()
 #endif
@@ -113,15 +133,19 @@ TextUIRotaryEncoder::TextUIRotaryEncoder(uint8_t pinClock, uint8_t pinDir, uint8
             | bit(digitalPinToPCMSKbit(pinDir))
             | bit(digitalPinToPCMSKbit(pinButton));
 
+#ifdef PCINT2_vect
         PCMSK2 |= pcintMask;
         PCICR |= bit(PCIE2);
+#else
+        PCMSK0 |= pcintMask;
+        PCICR |= bit(PCIE0);
+#endif
     }
 
 #elif defined( ARDUINO_ARCH_ESP32 )
     attachInterrupt(pinClock, TextUIRotaryEncoder_runISR, CHANGE);
     attachInterrupt(pinDir, TextUIRotaryEncoder_runISR, CHANGE);
     attachInterrupt(pinButton, TextUIRotaryEncoder_runISR, CHANGE);
-
 #endif
 }
 
