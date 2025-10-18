@@ -92,6 +92,10 @@ ISR(PCINT0_vect)
 
 #elif defined( ARDUINO_ARCH_ESP32 )
 static void TextUIRotaryEncoder_runISR()
+#elif defined( ARDUINO_ARCH_RP2040 )
+static void TextUIRotaryEncoder_runISR()
+#else
+# error No valid architecture in TextUIRotaryEncoder
 #endif
 {
     if (rotEnc != nullptr) {
@@ -146,6 +150,12 @@ TextUIRotaryEncoder::TextUIRotaryEncoder(uint8_t pinClock, uint8_t pinDir, uint8
     attachInterrupt(pinClock, TextUIRotaryEncoder_runISR, CHANGE);
     attachInterrupt(pinDir, TextUIRotaryEncoder_runISR, CHANGE);
     attachInterrupt(pinButton, TextUIRotaryEncoder_runISR, CHANGE);
+#elif defined( ARDUINO_ARCH_RP2040 )
+    attachInterrupt(pinClock, TextUIRotaryEncoder_runISR, CHANGE);
+    attachInterrupt(pinDir, TextUIRotaryEncoder_runISR, CHANGE);
+    attachInterrupt(pinButton, TextUIRotaryEncoder_runISR, CHANGE);
+#else
+# error No valid architecture in TextUIRotaryEncoder
 #endif
 }
 

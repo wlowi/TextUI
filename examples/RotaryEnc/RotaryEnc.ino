@@ -60,10 +60,7 @@
 
 #ifdef USE_ILI9341
 # include "TextUILcdILI9341.h"
-# define PIN_TFT_CS  10
-# define PIN_TFT_DC   9
-# define PIN_TFT_RST -1
-
+#if defined( ARDUINO_ARCH_AVR )
 /* Pins for Arduino Nano:
  *  CS               10
  *  A0/DC             9
@@ -71,6 +68,31 @@
  *  SDA/MOSI         11
  *  SCK              13
  */
+# define PIN_TFT_CS  10
+# define PIN_TFT_DC   9
+# define PIN_TFT_RST -1
+#elif defined( ARDUINO_ARCH_ESP32 )
+# define PIN_TFT_CS  
+# define PIN_TFT_DC  
+# define PIN_TFT_RST 
+#elif defined( ARDUINO_ARCH_RP2040 )
+/* RP2040 (SPI0)
+ *  
+ * CS                 5
+ * DC                15
+ * RESET             14
+ * SDA/MOSI           7
+ * SCK                6
+ */
+# define PIN_TFT_SDA  7
+# define PIN_TFT_SCK  6
+ 
+# define PIN_TFT_CS  13
+# define PIN_TFT_DC  15
+# define PIN_TFT_RST 14
+#else
+# error No valid architecture
+#endif
  
 #endif
 
@@ -83,6 +105,12 @@
 # define PIN_CLK     22
 # define PIN_DIR     21
 # define PIN_BUTTON  19
+#elif defined( ARDUINO_ARCH_RP2040 )
+# define PIN_CLK     10
+# define PIN_DIR     11
+# define PIN_BUTTON  12
+#else
+# error No valid architecture
 #endif
 
 #include "HomeScreen.h"
@@ -110,6 +138,14 @@ void setup()
 #endif
 
 #ifdef USE_ILI9341
+
+#if defined( ARDUINO_ARCH_RP2040 )
+    SPI.setRX(NOPIN);
+    SPI.setTX(PIN_TFT_SDA);
+//    SPI.setCS(PIN_TFT_CS);  Unused, software defined
+    SPI.setSCK(PIN_TFT_SCK);
+#endif
+
     textUI.setDisplay( new TextUILcdILI9341(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST));
 #endif
 
