@@ -4,9 +4,11 @@ var class_text_u_i_lcd =
     [ "clear", "class_text_u_i_lcd.html#a3c11150d51b8c90899044c84af04e3fc", null ],
     [ "clearEOL", "class_text_u_i_lcd.html#aa1224f5e1cae7ae162c63fd76d311ac0", null ],
     [ "colorSupport", "class_text_u_i_lcd.html#a726b995fbdee7d684d84b26cea9f6cc1", null ],
+    [ "displayOn", "class_text_u_i_lcd.html#a9563a82c579943ed9242b12c54e24134", null ],
     [ "editColors", "class_text_u_i_lcd.html#aa03942db140f1a0c06fd1f18ef8f22e1", null ],
     [ "getColumns", "class_text_u_i_lcd.html#a844d155f83e695d6a27b6481a8a61576", null ],
     [ "getRows", "class_text_u_i_lcd.html#a3fee0481500ecf72a7d73f69d65ee506", null ],
+    [ "inverseSupport", "class_text_u_i_lcd.html#a377c83558c2442ab3f6c7a127eb22afb", null ],
     [ "normalColors", "class_text_u_i_lcd.html#a4c247efc0d7a4de66b2b791688af41be", null ],
     [ "printChar", "class_text_u_i_lcd.html#a13ef3a275cb3eb820cda28bfd8eeec16", null ],
     [ "printFixFloat1", "class_text_u_i_lcd.html#a6dd484d847dbbf4f585dc987f5ed9da6", null ],
@@ -32,6 +34,6 @@ var class_text_u_i_lcd =
     [ "setCursor", "class_text_u_i_lcd.html#ac2558a7fe5e8153127349e078e829507", null ],
     [ "setFg", "class_text_u_i_lcd.html#a7a6f093c2e2a5b818f608ae1c11fbb1c", null ],
     [ "setFontSize", "class_text_u_i_lcd.html#af4addf948650a74144abe8d46083b5db", null ],
-    [ "setInvert", "class_text_u_i_lcd.html#acac952422f0863c1631968db40a86f4b", null ],
+    [ "setInverse", "class_text_u_i_lcd.html#ad9c4b66e54277ee9065eea118311c2ec", null ],
     [ "setRow", "class_text_u_i_lcd.html#a9804e2e67ef68bce05fd9f2039b3202f", null ]
 ];

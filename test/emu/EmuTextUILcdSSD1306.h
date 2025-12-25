@@ -3,7 +3,7 @@
 #define _EmuTextUILcdSSD1306_h_
 
 #include <wx/wxprec.h>
- 
+
 #ifndef WX_PRECOMP
     #include <wx/wx.h>
 #endif
@@ -27,7 +27,7 @@ class EmuTextUILcdSSD1306 : public TextUILcd, public wxPanel
         wxBrush fgBrush;
         wxPen bgPen;
         wxBrush bgBrush;
-        
+
         wxPen whitePen;
         wxBrush whiteBrush;
         wxPen blackPen;
@@ -47,6 +47,8 @@ class EmuTextUILcdSSD1306 : public TextUILcd, public wxPanel
     public:
         EmuTextUILcdSSD1306( wxWindow *parent, wxWindowID id);
 
+        void displayOn( boolean b) {}
+
         void OnSize( wxSizeEvent& event);
         void OnPaint( wxPaintEvent& event);
 
@@ -64,13 +66,14 @@ class EmuTextUILcdSSD1306 : public TextUILcd, public wxPanel
         void selectedColors();
 	void editColors();
 
-        void setInvert( bool inv);
+        bool inverseSupport();
+        void setInverse( bool inv);
 
         void setFontSize( FontSize_t sz);
-    
+
         uint8_t getRows();
         uint8_t getColumns();
-    
+
         void setCursor( uint8_t r, uint8_t c);
         void setRow( uint8_t r);
         void setColumn( uint8_t c);

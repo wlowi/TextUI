@@ -16,6 +16,5 @@ var class_text_u_i_stream_proxy =
     [ "setEvent", "class_text_u_i_stream_proxy.html#a337adbb291dc4ebc7b8633a8cda7f007", null ],
     [ "setFg", "class_text_u_i_stream_proxy.html#ab66efe9c862aeaca25dae0781de82974", null ],
     [ "setFontSize", "class_text_u_i_stream_proxy.html#a528862d8f98e634392a5677a82d6f5ff", null ],
-    [ "setInvert", "class_text_u_i_stream_proxy.html#aeca65032e0400968b000a4d9f8f34dfa", null ],
     [ "setRow", "class_text_u_i_stream_proxy.html#aa74ebceecb1260bff391ced8de3213a0", null ]
 ];

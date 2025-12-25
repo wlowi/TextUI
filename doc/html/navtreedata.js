@@ -44,7 +44,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_reliable_stream_8h_source.html",
-"functions_func.html"
+"class_text_u_i_stream_proxy.html#a05cda590b5c507c6459734161d1fe9cc"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

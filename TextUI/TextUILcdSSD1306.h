@@ -41,14 +41,14 @@ const uint8_t DISPLAY_I2C_ADDRESS = 0x3C;
 
 /**
  * @brief A driver for OLED displays with SSD1306 / SH1106 and similar controller.
- * 
+ *
  * This drivers requires the SSD1306Ascii lilbrary.
- * 
+ *
  * Example:
  *
  *      #include "TextUI.h"
  *      #include "TextUILcdSSD1306.h"
- *  
+ *
  *      TextUI textUi;
  *      textUi.setDisplay( new TextUILcdSSD1306( &SH1106_128x64));
  *      // Use Adafruit128x64 for SSD1306 controllers
@@ -66,19 +66,21 @@ class TextUILcdSSD1306 : public TextUILcd {
   public:
     /**
      * @brief Construct a new TextUILcdSSD1306 driver.
-     * 
-     * For device structures see 
+     *
+     * For device structures see
      * Arduino/libraries/SSD1306Ascii/src/SSD1306init.h
-     * 
+     *
      * @param device Pointer to a OLED controller device structure.
      */
     TextUILcdSSD1306( const DevType *device );
-    
+
+    void displayOn( boolean b) {}
+
     void clear() final;
     void clearEOL() final;
 
     bool colorSupport() final;
-    
+
     void setBg( uint8_t r, uint8_t g, uint8_t b) final;
     void setFg( uint8_t r, uint8_t g, uint8_t b) final;
 
@@ -86,11 +88,12 @@ class TextUILcdSSD1306 : public TextUILcd {
     void selectedColors() final;
     void editColors() final;
 
-    void setInvert( bool inv) final;
+    bool inverseSupport() final;
+    void setInverse( bool inv) final;
 
     /* FONT_SMALL .. FONT_LARGE */
     void setFontSize( FontSize_t sz) final;
-    
+
     uint8_t getRows() final;
     uint8_t getColumns() final;
 

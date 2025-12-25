@@ -39,14 +39,14 @@ TextUILcdSSD1306::TextUILcdSSD1306( const DevType *device ) {
   Wire.setClock(400000L);
 
   Wire.beginTransmission( DISPLAY_I2C_ADDRESS);
-  
+
   if (Wire.endTransmission() == 0) {
     lcd.begin( device, DISPLAY_I2C_ADDRESS);
   }
 
 #endif
   delay(100);
-  
+
   lcd.setFont(Adafruit5x7);
   setFontSize( TEXTUI_FONT_SMALL);           // Normal 1:1 pixel scale
 
@@ -68,7 +68,7 @@ bool TextUILcdSSD1306::colorSupport() {
 
   return false;
 }
-    
+
 void TextUILcdSSD1306::setBg( uint8_t r, uint8_t g, uint8_t b) {
 
   /* noop */
@@ -94,7 +94,12 @@ void TextUILcdSSD1306::editColors() {
   setInvert( true);
 }
 
-void TextUILcdSSD1306::setInvert( bool inv) {
+bool TextUILcdSSD1306::inverseSupport() {
+
+    return true;
+}
+
+void TextUILcdSSD1306::setInverse( bool inv) {
 
   lcd.setInvertMode( inv);
 }
@@ -107,7 +112,7 @@ void TextUILcdSSD1306::setFontSize( FontSize_t sz) {
     lcd.set2X();
   }
 }
-    
+
 uint8_t TextUILcdSSD1306::getRows() {
 
   return lcd.displayHeight() / (8 * lcd.fontRows());
@@ -117,7 +122,7 @@ uint8_t TextUILcdSSD1306::getColumns() {
 
   return lcd.displayWidth() / (lcd.fontWidth() + lcd.letterSpacing());
 }
-    
+
 void TextUILcdSSD1306::setCursor( uint8_t r, uint8_t c) {
 
   setRow( r);

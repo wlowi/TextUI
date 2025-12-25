@@ -140,8 +140,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9464a907ae841206d4542541d2eed0ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_stream_proxy.html#a9464a907ae841206d4542541d2eed0ca">editColors</a> ()</td></tr>
 <tr class="memdesc:a9464a907ae841206d4542541d2eed0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch to predefined set of colors for items that are currently edited.  <a href="class_text_u_i_stream_proxy.html#a9464a907ae841206d4542541d2eed0ca">More...</a><br /></td></tr>
 <tr class="separator:a9464a907ae841206d4542541d2eed0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeca65032e0400968b000a4d9f8f34dfa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_stream_proxy.html#aeca65032e0400968b000a4d9f8f34dfa">setInvert</a> (bool inv)</td></tr>
-<tr class="memdesc:aeca65032e0400968b000a4d9f8f34dfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable/disable inverted mode.  <a href="class_text_u_i_stream_proxy.html#aeca65032e0400968b000a4d9f8f34dfa">More...</a><br /></td></tr>
+<tr class="memitem:aeca65032e0400968b000a4d9f8f34dfa"><td class="memItemLeft" align="right" valign="top"><a id="aeca65032e0400968b000a4d9f8f34dfa" name="aeca65032e0400968b000a4d9f8f34dfa"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setInvert</b> (bool inv)</td></tr>
 <tr class="separator:aeca65032e0400968b000a4d9f8f34dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a528862d8f98e634392a5677a82d6f5ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_stream_proxy.html#a528862d8f98e634392a5677a82d6f5ff">setFontSize</a> (FontSize_t sz)</td></tr>
 <tr class="memdesc:a528862d8f98e634392a5677a82d6f5ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the font size.  <a href="class_text_u_i_stream_proxy.html#a528862d8f98e634392a5677a82d6f5ff">More...</a><br /></td></tr>
@@ -175,6 +175,9 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>TextUILcd</b> ()</td></tr>
 <tr class="memdesc:a0eb065d353f32982833a5d3d4d264380 inherit pub_methods_class_text_u_i_lcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_text_u_i_lcd.html" title="Base class for all LCD displays.">TextUILcd</a>. <br /></td></tr>
 <tr class="separator:a0eb065d353f32982833a5d3d4d264380 inherit pub_methods_class_text_u_i_lcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9563a82c579943ed9242b12c54e24134 inherit pub_methods_class_text_u_i_lcd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd.html#a9563a82c579943ed9242b12c54e24134">displayOn</a> (bool bl)=0</td></tr>
+<tr class="memdesc:a9563a82c579943ed9242b12c54e24134 inherit pub_methods_class_text_u_i_lcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turn display (backlight) on or off.  <a href="class_text_u_i_lcd.html#a9563a82c579943ed9242b12c54e24134">More...</a><br /></td></tr>
+<tr class="separator:a9563a82c579943ed9242b12c54e24134 inherit pub_methods_class_text_u_i_lcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c11150d51b8c90899044c84af04e3fc inherit pub_methods_class_text_u_i_lcd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd.html#a3c11150d51b8c90899044c84af04e3fc">clear</a> ()=0</td></tr>
 <tr class="memdesc:a3c11150d51b8c90899044c84af04e3fc inherit pub_methods_class_text_u_i_lcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the display.  <a href="class_text_u_i_lcd.html#a3c11150d51b8c90899044c84af04e3fc">More...</a><br /></td></tr>
 <tr class="separator:a3c11150d51b8c90899044c84af04e3fc inherit pub_methods_class_text_u_i_lcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,9 +202,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa03942db140f1a0c06fd1f18ef8f22e1 inherit pub_methods_class_text_u_i_lcd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd.html#aa03942db140f1a0c06fd1f18ef8f22e1">editColors</a> ()=0</td></tr>
 <tr class="memdesc:aa03942db140f1a0c06fd1f18ef8f22e1 inherit pub_methods_class_text_u_i_lcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switch to predefined set of colors for items that are currently edited.  <a href="class_text_u_i_lcd.html#aa03942db140f1a0c06fd1f18ef8f22e1">More...</a><br /></td></tr>
 <tr class="separator:aa03942db140f1a0c06fd1f18ef8f22e1 inherit pub_methods_class_text_u_i_lcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acac952422f0863c1631968db40a86f4b inherit pub_methods_class_text_u_i_lcd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd.html#acac952422f0863c1631968db40a86f4b">setInvert</a> (bool inv)=0</td></tr>
-<tr class="memdesc:acac952422f0863c1631968db40a86f4b inherit pub_methods_class_text_u_i_lcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable/disable inverted mode.  <a href="class_text_u_i_lcd.html#acac952422f0863c1631968db40a86f4b">More...</a><br /></td></tr>
-<tr class="separator:acac952422f0863c1631968db40a86f4b inherit pub_methods_class_text_u_i_lcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a377c83558c2442ab3f6c7a127eb22afb inherit pub_methods_class_text_u_i_lcd"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd.html#a377c83558c2442ab3f6c7a127eb22afb">inverseSupport</a> ()=0</td></tr>
+<tr class="memdesc:a377c83558c2442ab3f6c7a127eb22afb inherit pub_methods_class_text_u_i_lcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for inverse character support.  <a href="class_text_u_i_lcd.html#a377c83558c2442ab3f6c7a127eb22afb">More...</a><br /></td></tr>
+<tr class="separator:a377c83558c2442ab3f6c7a127eb22afb inherit pub_methods_class_text_u_i_lcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9c4b66e54277ee9065eea118311c2ec inherit pub_methods_class_text_u_i_lcd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd.html#ad9c4b66e54277ee9065eea118311c2ec">setInverse</a> (bool inv)=0</td></tr>
+<tr class="memdesc:ad9c4b66e54277ee9065eea118311c2ec inherit pub_methods_class_text_u_i_lcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable/disable inverted mode.  <a href="class_text_u_i_lcd.html#ad9c4b66e54277ee9065eea118311c2ec">More...</a><br /></td></tr>
+<tr class="separator:ad9c4b66e54277ee9065eea118311c2ec inherit pub_methods_class_text_u_i_lcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4addf948650a74144abe8d46083b5db inherit pub_methods_class_text_u_i_lcd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd.html#af4addf948650a74144abe8d46083b5db">setFontSize</a> (FontSize_t sz)=0</td></tr>
 <tr class="memdesc:af4addf948650a74144abe8d46083b5db inherit pub_methods_class_text_u_i_lcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the font size.  <a href="class_text_u_i_lcd.html#af4addf948650a74144abe8d46083b5db">More...</a><br /></td></tr>
 <tr class="separator:af4addf948650a74144abe8d46083b5db inherit pub_methods_class_text_u_i_lcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -859,42 +865,6 @@ void setup()
 </dl>
 
 <p>Implements <a class="el" href="class_text_u_i_lcd.html#af4addf948650a74144abe8d46083b5db">TextUILcd</a>.</p>
-
-</div>
-</div>
-<a id="aeca65032e0400968b000a4d9f8f34dfa" name="aeca65032e0400968b000a4d9f8f34dfa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeca65032e0400968b000a4d9f8f34dfa">&#9670;&nbsp;</a></span>setInvert()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void TextUIStreamProxy::setInvert </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>inv</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Enable/disable inverted mode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">inv</td><td>bool: 'true' switch to inverted colors. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="class_text_u_i_lcd.html#acac952422f0863c1631968db40a86f4b">TextUILcd</a>.</p>
 
 </div>
 </div>

@@ -42,17 +42,17 @@ typedef uint16_t pixel;
 
 /**
  * @brief A driver for TFT displays with ST7735 controller.
- * 
+ *
  * Example:
- * 
+ *
  *      #include "TextUI.h"
  *      #include "TextUILcdST7735.h"
- * 
+ *
  *      #define TFT_CS        10
  *      #define TFT_DC         9
  *      #define TFT_RST       -1 // Or set to -1 and connect to Arduino RESET pin
  *      // It also uses the board specific hardware SPI pins.
- * 
+ *
  *      TextUI textUi;
  *      textUi.setDisplay( new TextUILcdST7735( TFT_CS, TFT_DC, TFT_RST));
  */
@@ -62,7 +62,7 @@ class TextUILcdST7735 : public TextUILcd
 #if defined( ARDUINO_ARCH_AVR )
         Adafruit_ST7735 *tft;
 #elif defined( ARDUINO_ARCH_ESP32 )
-        TFT_eSPI *tft;    
+        TFT_eSPI *tft;
 #endif
 
         unsigned int width;
@@ -82,12 +82,12 @@ class TextUILcdST7735 : public TextUILcd
     public:
       /**
        * @brief Construct a new TextUILcdST7735 driver.
-       * 
-       * This driver used the board specific hardware SPI interface 
+       *
+       * This driver used the board specific hardware SPI interface
        * and its corresponding pins.
-       * 
+       *
        * Default display type is INITR_BLACKTAB supporting 160x128 pixel
-       * 
+       *
        * @param tft_cs uint8_t: Chip select
        * @param tft_dc uint8_t: Data/Command select
        * @param tft_rst uint8_t: Reset pin ( can be -1 )
@@ -96,10 +96,10 @@ class TextUILcdST7735 : public TextUILcd
 
       /**
        * @brief Construct a new TextUILcdST7735 driver.
-       * 
-       * This driver used the board specific hardware SPI interface 
+       *
+       * This driver used the board specific hardware SPI interface
        * and its corresponding pins.
-       * 
+       *
        * Display type options:
        * ~~~~
        *   INITR_GREENTAB           160x128
@@ -113,19 +113,21 @@ class TextUILcdST7735 : public TextUILcd
        *   INTTR_HALLOWING          128x128
        *   INITR_MINI160x80_PLUGIN  160x80
        * ~~~~
-       * 
+       *
        * @param tft_cs uint8_t: Chip select
        * @param tft_dc uint8_t: Data/Command select
        * @param tft_rst uint8_t: Reset pin ( can be -1 )
        * @param options uint8_t: Display type option
        */
       TextUILcdST7735( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst, uint8_t option);
-    
+
+      void displayOn( boolean b) {}
+
       void clear() final;
       void clearEOL() final;
 
       bool colorSupport() final;
-    
+
       void setBg( uint8_t r, uint8_t g, uint8_t b) final;
       void setFg( uint8_t r, uint8_t g, uint8_t b) final;
 
@@ -133,11 +135,12 @@ class TextUILcdST7735 : public TextUILcd
       void selectedColors() final;
       void editColors() final;
 
-      void setInvert( bool inv) final;
+      bool inverseSupport() final;
+      void setInverse( bool inv) final;
 
       /* FONT_SMALL .. FONT_LARGE */
       void setFontSize( FontSize_t sz) final;
-    
+
       uint8_t getRows() final;
       uint8_t getColumns() final;
 

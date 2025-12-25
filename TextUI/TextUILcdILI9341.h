@@ -36,17 +36,17 @@ typedef uint16_t pixel;
 
 /**
  * @brief A driver for TFT displays with ILI9341 controller.
- * 
+ *
  * Example:
- * 
+ *
  *      #include "TextUI.h"
  *      #include "TextUILcdILI9341.h"
- * 
+ *
  *      #define TFT_CS        10
  *      #define TFT_DC         9
  *      #define TFT_RST       -1 // Or set to -1 and connect to Arduino RESET pin
  *      // It also uses the board specific hardware SPI pins.
- * 
+ *
  *      TextUI textUi;
  *      textUi.setDisplay( new TextUILcdILI9341( TFT_CS, TFT_DC, TFT_RST));
  */
@@ -72,21 +72,23 @@ class TextUILcdILI9341 : public TextUILcd
     public:
       /**
        * @brief Construct a new TextUILcdILI9341 driver.
-       * 
-       * This driver used the board specific hardware SPI interface 
+       *
+       * This driver used the board specific hardware SPI interface
        * and its corresponding pins.
-       *        * 
+       *        *
        * @param tft_cs uint8_t: Chip select
        * @param tft_dc uint8_t: Data/Command select
        * @param tft_rst uint8_t: Reset pin ( can be -1 )
        */
       TextUILcdILI9341( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rst);
-    
+
+      void displayOn( boolean b) {}
+
       void clear() final;
       void clearEOL() final;
 
       bool colorSupport() final;
-    
+
       void setBg( uint8_t r, uint8_t g, uint8_t b) final;
       void setFg( uint8_t r, uint8_t g, uint8_t b) final;
 
@@ -94,11 +96,12 @@ class TextUILcdILI9341 : public TextUILcd
       void selectedColors() final;
       void editColors() final;
 
-      void setInvert( bool inv) final;
+      bool inverseSupport() final;
+      void setInverse( bool inv) final;
 
       /* FONT_SMALL .. FONT_LARGE */
       void setFontSize( FontSize_t sz) final;
-    
+
       uint8_t getRows() final;
       uint8_t getColumns() final;
 

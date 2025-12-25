@@ -42,7 +42,7 @@ void TextUILcdILI9341::initTFT()
     tft->begin();
 
     tft->setRotation( 3);
-    
+
     width = tft->width();
     height = tft->height();
 
@@ -53,7 +53,7 @@ void TextUILcdILI9341::initTFT()
     setBg( 0, 0, 0);
     setFontSize( TEXTUI_FONT_MEDIUM);
     invers = false;
-    
+
     clear();
     setCursor(0, 0);
 }
@@ -102,7 +102,12 @@ void TextUILcdILI9341::editColors() {
     setFg(0,0,0);
 }
 
-void TextUILcdILI9341::setInvert( bool inv) {
+bool TextUILcdILI9341::inverseSupport() {
+
+    return true;
+}
+
+void TextUILcdILI9341::setInverse( bool inv) {
 
     invers = inv;
 }
@@ -173,5 +178,5 @@ pixel TextUILcdILI9341::rgbToCol565( uint8_t r, uint8_t g, uint8_t b)
                 | ((g >> 2) << 5)
                 | (b >> 3);
 
-    return col565;  
+    return col565;
 }

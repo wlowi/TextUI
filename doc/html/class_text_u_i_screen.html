@@ -212,6 +212,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 
 <p>Screen activation callback. </p>
 <p >Called before the screen gets activated and painted for the first time.</p>
+<p >The default implementation does nothing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ui</td><td>Pointer to <a class="el" href="class_text_u_i.html" title="Main user interface class.">TextUI</a>. </td></tr>
@@ -247,6 +248,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 
 <p>Screen deactivation callback. </p>
 <p >Called before the screen is deactivated and another screen is activated.</p>
+<p >The default implementation does nothing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ui</td><td>Pointer to <a class="el" href="class_text_u_i.html" title="Main user interface class.">TextUI</a>. </td></tr>
@@ -309,6 +311,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Get the number of screen columns. </p>
+<p >This method need to be overwritten by classes derived from <a class="el" href="class_text_u_i_screen.html" title="Base class for all screens.">TextUIScreen</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">row</td><td>Return number of columns for this row.</td></tr>
@@ -345,7 +348,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Get the screen header (first line of the screen). </p>
-<p >If this function returns 'nullptr', the screen has no header.</p>
+<p >If this function returns 'nullptr', the screen has no header. This method need to be overwritten by classes derived from <a class="el" href="class_text_u_i_screen.html" title="Base class for all screens.">TextUIScreen</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>const char* </dd></dl>
 
 <p>Implemented in <a class="el" href="class_text_u_i_menu.html#a2f10fd0f6d9340b42fb3d6d99a0e0bc6">TextUIMenu</a>.</p>
@@ -376,6 +379,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Get the name how the screen appears in a Menu. </p>
+<p >This method need to be overwritten by classes derived from <a class="el" href="class_text_u_i_screen.html" title="Base class for all screens.">TextUIScreen</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>const char* </dd></dl>
 
 <p>Implemented in <a class="el" href="class_text_u_i_menu.html#a03a9789e3f93a3ecffa4c0e6b0eb4884">TextUIMenu</a>.</p>
@@ -406,6 +410,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Get the number of screen rows. </p>
+<p >This method need to be overwritten by classes derived from <a class="el" href="class_text_u_i_screen.html" title="Base class for all screens.">TextUIScreen</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>uint8_t: Number of rows. </dd></dl>
 
 <p>Implemented in <a class="el" href="class_text_u_i_menu.html#a3ff8fc51ced958e4f20a4dff2ce18e56">TextUIMenu</a>.</p>
@@ -437,6 +442,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Get the name of a row. </p>
+<p >This method need to be overwritten by classes derived from <a class="el" href="class_text_u_i_screen.html" title="Base class for all screens.">TextUIScreen</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">row</td><td>Return name of this row.</td></tr>
@@ -473,6 +479,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Get the current selected row. </p>
+<p >Can be called from derived classes to get the currently selected row.</p>
+<p >NOTE: The row number includes the optional "go back" item.</p>
 <dl class="section return"><dt>Returns</dt><dd>uint8_t: Current selected row. </dd></dl>
 
 </div>
@@ -519,6 +527,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 
 <p>Callback to fetch current cell value. </p>
 <p >The user interface used this callback to fetch the current cell value for rendering and editing.</p>
+<p >This method need to be overwritten by classes derived from <a class="el" href="class_text_u_i_screen.html" title="Base class for all screens.">TextUIScreen</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">row</td><td>uint8_t: Row number. </td></tr>
@@ -556,7 +565,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Check whether the screen wants a 'Go Back' item. </p>
-<p >If this method returns 'true' the user interface includes a 'Go Back' item in the screen.</p>
+<p >A callback method. If this method returns 'true' the user interface includes a 'Go Back' item in the screen.</p>
+<p >The default implementation returns 'false'.</p>
 <dl class="section return"><dt>Returns</dt><dd>bool: 'true' to include the 'Go Back' item. </dd></dl>
 
 <p>Reimplemented in <a class="el" href="class_text_u_i_menu.html#aaf9bb745f02fa0abe6129337d09662d3">TextUIMenu</a>.</p>
@@ -598,7 +608,9 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Process key and other events. </p>
+<p >Called because of user interactions or because of a timer tick or a timer timeout.</p>
 <p >If the event was handled e-&gt;markProcessed() should be called to prevent the UI from also handle the same event again.</p>
+<p >The default implementation does nothing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ui</td><td>Pointer to <a class="el" href="class_text_u_i.html" title="Main user interface class.">TextUI</a>. </td></tr>
@@ -644,7 +656,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Check if a cell value has changed. </p>
-<p >Return true if a value has changed without user interaction. Default implementation always returns 'false'.</p>
+<p >A callback method. Return true if a value has changed without user interaction.</p>
+<p >Default implementation always returns 'false'.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">row</td><td><a class="el" href="class_cell.html" title="A class to hold editable values of various types.">Cell</a> row nummber starting at 0. </td></tr>
@@ -691,7 +704,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Check if a cell is editable. </p>
-<p >The default implementation returns 'false'.</p>
+<p >A callback method. The default implementation returns 'false'.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">row</td><td>uint8_t: Row number. </td></tr>
@@ -727,7 +740,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Check whether the module itself is executable. </p>
-<p >This will call <a class="el" href="class_text_u_i_screen.html#a18062e1a2fb7154b8c0aa70cdd74e553" title="Execute call of a screen.">moduleExecute()</a> of the module if it is activated within a menu. The default implementation returns 'false'.</p>
+<p >A callback method. This will call <a class="el" href="class_text_u_i_screen.html#a18062e1a2fb7154b8c0aa70cdd74e553" title="Execute call of a screen.">moduleExecute()</a> of the module if it is activated within a menu.</p>
+<p >The default implementation returns 'false'.</p>
 <dl class="section return"><dt>Returns</dt><dd>bool: 'true' if the module is executable. </dd></dl>
 
 </div>
@@ -757,7 +771,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Check if values of the row are editable. </p>
-<p >The default implementation returns 'true'.</p>
+<p >A callback method. The default implementation returns 'true'.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">row</td><td>uint8_t: Row number. </td></tr>
@@ -793,7 +807,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Return true if rowExecute should be called when this row is activated. </p>
-<p >A row gets activated when it is the currently selected row and key ENTER is pressed.</p>
+<p >A callback method. A row gets activated when it is the currently selected row and key ENTER is pressed.</p>
+<p >The default implementation returns 'false'.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">row</td><td>uint8_t: row number. </td></tr>
@@ -831,7 +846,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Execute call of a screen. </p>
-<p >Called when <a class="el" href="class_text_u_i_screen.html#ac1b89ebc4a43c9400370816ae5969f34" title="Check whether the module itself is executable.">isModuleExecutable()</a> returns true and the user presses the ENTER key in the menu. The default implementation does nothing.</p>
+<p >Called when <a class="el" href="class_text_u_i_screen.html#ac1b89ebc4a43c9400370816ae5969f34" title="Check whether the module itself is executable.">isModuleExecutable()</a> returns true and the user presses the ENTER key in the menu.</p>
+<p >The default implementation does nothing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ui</td><td>Pointer to <a class="el" href="class_text_u_i.html" title="Main user interface class.">TextUI</a>. </td></tr>
@@ -865,7 +881,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Screen requests full repaint. </p>
-<p >If this method returns true the UI clears and repaints the screen. The default implemetation returns 'false'.</p>
+<p >A callback method. If this method returns true the UI clears and repaints the screen.</p>
+<p >The default implemetation returns 'false'.</p>
 <dl class="section return"><dt>Returns</dt><dd>bool: 'true' to indicate need for repaint. </dd></dl>
 
 </div>
@@ -943,6 +960,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>TextUIMenu</b></td><
 </div><div class="memdoc">
 
 <p>Set the selected row. </p>
+<p >Can be called from derived classes to programatically set the selected (highlighted) row.</p>
+<p >NOTE: The row number includes the optional "go back" item.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sel</td><td>Row number starting at 0. </td></tr>

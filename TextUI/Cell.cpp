@@ -26,9 +26,9 @@
 
 #include "TextUI.h"
 
-void Cell::render( TextUILcd *lcd, bool edit) {
+void Cell::render( TextUILcd *lcd, uint8_t screenRow, bool edit) {
 
-    lcd->setColumn( screenCol);
+    lcd->setCursor( screenRow, screenCol);
 
     if( edit) {
         lcd->editColors();
@@ -65,6 +65,10 @@ void Cell::render( TextUILcd *lcd, bool edit) {
             lcd->printFixFloat2( value.intV, value.size);
             break;
 
+        case CHAR_T:
+            lcd->printChar( value.character);
+            break;
+
         case STRING_T:
             if( edit) {
                 lcd->printStr( value.string, value.size, (int8_t)value.intV);
@@ -90,11 +94,19 @@ void Cell::render( TextUILcd *lcd, bool edit) {
             // ignore
             break;
     }
+
+    /* Set column to first column of this cell.
+     * If one of above print statements exceed screen width
+     * it will wrap and increase the row number.
+     * This sets the cursor to one line below intended line.
+     */
+    lcd->setCursor( screenRow, screenCol);
 }
 
 bool Cell::edit( Event *event) {
 
     bool changed = false;
+    int16_t ch_val;
 
     if( !event->pending() || (event->getType() != EVENT_TYPE_KEY)) {
         return changed;
@@ -135,6 +147,37 @@ bool Cell::edit( Event *event) {
             value.intV = numericMin;
         }
 
+        break;
+
+    case CHAR_T:
+        ch_val = value.character;
+
+        if( event->getKey() == KEY_ENTER) {
+            break;
+        } else if( event->getKey() == KEY_DOWN) {
+            /* Previous letter in alphabet. */
+            ch_val -= event->getCount();
+            event->markProcessed();
+            changed = true;
+        } else if( event->getKey() == KEY_UP) {
+            /* Next letter in alphabet. */
+            ch_val += event->getCount();
+            event->markProcessed();
+            changed = true;
+        } else if( event->getKey() == KEY_CLEAR) {
+            /* Space character. */
+            ch_val = ' ';
+            event->markProcessed();
+            changed = true;
+        }
+
+        if( ch_val < ' ') {
+            ch_val = ' ';
+        }
+        if( ch_val > 126) {
+            ch_val = 126;
+        }
+        value.character = (char)ch_val;
         break;
 
     case STRING_T:
@@ -270,6 +313,14 @@ void Cell::setFloat2( uint8_t screenX, fixfloat2_t v, uint8_t width, fixfloat2_t
     numericMax = nmax;
 }
 
+void Cell::setChar(uint8_t screenX, char v) {
+
+    screenCol = screenX;
+    type = CHAR_T;
+    value.character = v;
+    value.size = 1;
+}
+
 void Cell::setString( uint8_t screenX, char *v, uint8_t sz) {
 
     screenCol = screenX;
@@ -344,6 +395,11 @@ fixfloat1_t Cell::getFloat1() const {
 fixfloat2_t Cell::getFloat2() const {
 
     return (fixfloat2_t)value.intV;
+}
+
+char Cell::getChar() const {
+
+    return value.character;
 }
 
 char *Cell::getString() const {

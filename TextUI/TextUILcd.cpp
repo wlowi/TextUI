@@ -124,11 +124,11 @@ void TextUILcd::printStr( const char str[], uint8_t width, int8_t editIdx) {
 
   while( str[p] && p < width) {
     if( editIdx >= 0 && p == editIdx) {
-      setInvert( true);
+      setInverse( true);
     }
     printChar( str[p]);
     if( editIdx >= 0 && p == editIdx) {
-      setInvert( false);
+      setInverse( false);
     }
     p++;
   }

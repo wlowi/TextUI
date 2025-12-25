@@ -109,12 +109,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9c26684d903418a17d5ad9016f810bd4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_simple_kbd.html#a9c26684d903418a17d5ad9016f810bd4">TextUISimpleKbd</a> (uint8_t count, uint8_t ports[], uint8_t skey[], uint8_t lkey[])</td></tr>
 <tr class="memdesc:a9c26684d903418a17d5ad9016f810bd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_text_u_i_simple_kbd.html" title="A driver for buttons attached to Arduino input pins.">TextUISimpleKbd</a> object.  <a href="class_text_u_i_simple_kbd.html#a9c26684d903418a17d5ad9016f810bd4">More...</a><br /></td></tr>
 <tr class="separator:a9c26684d903418a17d5ad9016f810bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6e366d870560db092380be253a1f340"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_simple_kbd.html#ae6e366d870560db092380be253a1f340">pending</a> ()</td></tr>
-<tr class="memdesc:ae6e366d870560db092380be253a1f340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for pending event.  <a href="class_text_u_i_simple_kbd.html#ae6e366d870560db092380be253a1f340">More...</a><br /></td></tr>
-<tr class="separator:ae6e366d870560db092380be253a1f340"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ef89c8468c0b43a591e0bf05ac94677"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_simple_kbd.html#a9ef89c8468c0b43a591e0bf05ac94677">setEvent</a> (<a class="el" href="class_event.html">Event</a> *e)</td></tr>
-<tr class="memdesc:a9ef89c8468c0b43a591e0bf05ac94677"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set event if there is an event pending.  <a href="class_text_u_i_simple_kbd.html#a9ef89c8468c0b43a591e0bf05ac94677">More...</a><br /></td></tr>
-<tr class="separator:a9ef89c8468c0b43a591e0bf05ac94677"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8be6f34baf1538213f979f3442f551f2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_simple_kbd.html#a8be6f34baf1538213f979f3442f551f2">pending</a> () final</td></tr>
+<tr class="memdesc:a8be6f34baf1538213f979f3442f551f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for pending event.  <a href="class_text_u_i_simple_kbd.html#a8be6f34baf1538213f979f3442f551f2">More...</a><br /></td></tr>
+<tr class="separator:a8be6f34baf1538213f979f3442f551f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8170e3152c384085df9047e16c9ce063"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_simple_kbd.html#a8170e3152c384085df9047e16c9ce063">setEvent</a> (<a class="el" href="class_event.html">Event</a> *e) final</td></tr>
+<tr class="memdesc:a8170e3152c384085df9047e16c9ce063"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set event if there is an event pending.  <a href="class_text_u_i_simple_kbd.html#a8170e3152c384085df9047e16c9ce063">More...</a><br /></td></tr>
+<tr class="separator:a8170e3152c384085df9047e16c9ce063"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60e5564ab52b8b75325cb3649d18bc9b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_input.html#a60e5564ab52b8b75325cb3649d18bc9b">pending</a> ()=0</td></tr>
 <tr class="memdesc:a60e5564ab52b8b75325cb3649d18bc9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check for pending event.  <a href="class_text_u_i_input.html#a60e5564ab52b8b75325cb3649d18bc9b">More...</a><br /></td></tr>
 <tr class="separator:a60e5564ab52b8b75325cb3649d18bc9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -192,8 +192,8 @@ textUI.setInput( new TextUISimpleKbd( BUTTON_COUNT, buttons, shortKeys, longKeys
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae6e366d870560db092380be253a1f340" name="ae6e366d870560db092380be253a1f340"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6e366d870560db092380be253a1f340">&#9670;&nbsp;</a></span>pending()</h2>
+<a id="a8be6f34baf1538213f979f3442f551f2" name="a8be6f34baf1538213f979f3442f551f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8be6f34baf1538213f979f3442f551f2">&#9670;&nbsp;</a></span>pending()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,22 +210,22 @@ textUI.setInput( new TextUISimpleKbd( BUTTON_COUNT, buttons, shortKeys, longKeys
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Check for pending event. </p>
-<p >Note that there may be multiple events pending for different keys. <a class="el" href="class_text_u_i_simple_kbd.html#a9ef89c8468c0b43a591e0bf05ac94677" title="Set event if there is an event pending.">setEvent()</a> clears the pending state only for the key returned.</p>
-<p ><a class="el" href="class_text_u_i_simple_kbd.html#a9ef89c8468c0b43a591e0bf05ac94677" title="Set event if there is an event pending.">setEvent()</a> clears the pending state.</p>
+<p >Note that there may be multiple events pending for different keys. <a class="el" href="class_text_u_i_simple_kbd.html#a8170e3152c384085df9047e16c9ce063" title="Set event if there is an event pending.">setEvent()</a> clears the pending state only for the key returned.</p>
+<p ><a class="el" href="class_text_u_i_simple_kbd.html#a8170e3152c384085df9047e16c9ce063" title="Set event if there is an event pending.">setEvent()</a> clears the pending state.</p>
 <dl class="section return"><dt>Returns</dt><dd>boolean: 'true' if there is an event pending. </dd></dl>
 
 <p>Implements <a class="el" href="class_text_u_i_input.html#a60e5564ab52b8b75325cb3649d18bc9b">TextUIInput</a>.</p>
 
 </div>
 </div>
-<a id="a9ef89c8468c0b43a591e0bf05ac94677" name="a9ef89c8468c0b43a591e0bf05ac94677"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ef89c8468c0b43a591e0bf05ac94677">&#9670;&nbsp;</a></span>setEvent()</h2>
+<a id="a8170e3152c384085df9047e16c9ce063" name="a8170e3152c384085df9047e16c9ce063"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8170e3152c384085df9047e16c9ce063">&#9670;&nbsp;</a></span>setEvent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,7 +243,7 @@ textUI.setInput( new TextUISimpleKbd( BUTTON_COUNT, buttons, shortKeys, longKeys
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

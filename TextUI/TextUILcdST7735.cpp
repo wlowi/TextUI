@@ -37,7 +37,7 @@ TextUILcdST7735::TextUILcdST7735( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rs
     tft = new Adafruit_ST7735(tft_cs, tft_dc, tft_rst);
     tft->initR(INITR_BLACKTAB);
 #elif defined( ARDUINO_ARCH_ESP32 )
-    tft = new TFT_eSPI();    
+    tft = new TFT_eSPI();
     tft->init();
 #endif
 
@@ -60,7 +60,7 @@ TextUILcdST7735::TextUILcdST7735( uint8_t tft_cs, uint8_t tft_dc, uint8_t tft_rs
 void TextUILcdST7735::initTFT()
 {
     tft->setRotation( 3);
-    
+
     width = tft->width();
     height = tft->height();
 
@@ -75,7 +75,7 @@ void TextUILcdST7735::initTFT()
     setBg( 0, 0, 0);
     setFontSize( TEXTUI_FONT_MEDIUM);
     invers = false;
-    
+
     clear();
     setCursor(0, 0);
 }
@@ -124,7 +124,12 @@ void TextUILcdST7735::editColors() {
     setFg(0,0,0);
 }
 
-void TextUILcdST7735::setInvert( bool inv) {
+bool TextUILcdST7735::inverseSupport() {
+
+    return true;
+}
+
+void TextUILcdST7735::setInverse( bool inv) {
 
     invers = inv;
 }
@@ -203,5 +208,5 @@ pixel TextUILcdST7735::rgbToCol565( uint8_t r, uint8_t g, uint8_t b)
                  | ((g >> 2) << 5)
                  | (b >> 3);
 
-    return col565;  
+    return col565;
 }

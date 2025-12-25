@@ -3,7 +3,7 @@
 #define _EmuTextUILcdST7735_h_
 
 #include <wx/wxprec.h>
- 
+
 #ifndef WX_PRECOMP
     #include <wx/wx.h>
 #endif
@@ -22,7 +22,7 @@ class EmuTextUILcdST7735 : public TextUILcd, public wxPanel
         pixel *buffer;
         pixel fgCol565;
         pixel bgCol565;
-        
+
 	wxColor fgCol;
 	wxColor bgCol;
         unsigned int fontSz; // 1 - 3
@@ -38,6 +38,8 @@ class EmuTextUILcdST7735 : public TextUILcd, public wxPanel
 
     public:
         EmuTextUILcdST7735( wxWindow *parent, wxWindowID id);
+
+        void displayOn( boolean b) {}
 
         void OnSize( wxSizeEvent& event);
         void OnPaint( wxPaintEvent& event);
@@ -56,13 +58,14 @@ class EmuTextUILcdST7735 : public TextUILcd, public wxPanel
         void selectedColors();
 	void editColors();
 
-        void setInvert( bool inv);
+        bool inverseSupport();
+        void setInverse( bool inv);
 
         void setFontSize( FontSize_t sz);
-    
+
         uint8_t getRows();
         uint8_t getColumns();
-    
+
         void setCursor( uint8_t r, uint8_t c);
         void setRow( uint8_t r);
         void setColumn( uint8_t c);

@@ -25,27 +25,8 @@
 */
 
 #include "TextUI.h"
+#include <cstdint>
 
-void TextUIHandler::clear(TextUI *ui)
-{
-    if (screen)
-    {
-        screen->deactivate(ui);
-        screen = nullptr;
-    }
-
-    useBackItem = false;
-    screenTableRows = 0;
-    screenHeaderOffs = 0;
-    tableRows = 0;
-    tableTopRow = 0;
-    tableVisibleRows = 0;
-    tableRow = 0;
-    tableOldRow = 0;
-    tableCol = 0;
-    refresh = REFRESH_FULL;
-    mode = MODE_RENDER;
-}
 
 void TextUIHandler::set(TextUI *ui, TextUIScreen *scr)
 {
@@ -60,6 +41,7 @@ void TextUIHandler::set(TextUI *ui, TextUIScreen *scr)
         tableRows = screen->getRowCount() + (useBackItem ? 1 : 0);
         screenHeaderOffs = screen->getHeader() ? 1 : 0;
 
+        screen->setSelection(tableRow);
         screen->activate(ui);
     }
 }
@@ -76,12 +58,15 @@ void TextUIHandler::set(TextUI *ui, TextUIScreen *scr, uint8_t currentSelected)
             currentSelected = screen->getRowCount() - 1;
         }
         tableRow = useBackItem ? currentSelected + 1 : currentSelected;
+        screen->setSelection(tableRow);
     }
 }
 
 void TextUIHandler::process(TextUI *ui, TextUILcd *lcd, Event *event)
 {
     uint8_t row; // real table row number, excluding back item
+
+    tableRow = screen->getSelection();
 
     /* Let the screen handle events first.
      * The screen may or may not mark the event as "processed".
@@ -183,9 +168,9 @@ void TextUIHandler::process(TextUI *ui, TextUILcd *lcd, Event *event)
     else if ( event->getType() == EVENT_TYPE_TICK)
     { /* Periodic check if a cell was updated in the background */
 	    if( mode == MODE_EDIT)
-        {    
+        {
             editCurrentCell( lcd, event);
-            
+
             if( refresh != REFRESH_OK)
             {
                 updateRow(lcd);
@@ -193,9 +178,47 @@ void TextUIHandler::process(TextUI *ui, TextUILcd *lcd, Event *event)
                 refresh = REFRESH_OK;
             }
         }
-        
+
         onDemandRefresh(lcd);
     }
+
+    screen->setSelection(tableRow);
+}
+
+void TextUIHandler::cancelEdit(TextUIScreen *toCancel)
+{
+    if ((screen != nullptr) && (screen == toCancel))
+    {
+        mode = MODE_RENDER;
+    }
+}
+
+boolean TextUIHandler::inEditMode()
+{
+    return mode == MODE_EDIT;
+}
+
+/* private */
+
+void TextUIHandler::clear(TextUI *ui)
+{
+    if (screen)
+    {
+        screen->deactivate(ui);
+        screen = nullptr;
+    }
+
+    useBackItem = false;
+    screenTableRows = 0;
+    screenHeaderOffs = 0;
+    tableRows = 0;
+    tableTopRow = 0;
+    tableVisibleRows = 0;
+    tableRow = 0;
+    tableOldRow = 0;
+    tableCol = 0;
+    refresh = REFRESH_FULL;
+    mode = MODE_RENDER;
 }
 
 void TextUIHandler::onDemandRefresh(TextUILcd *lcd)
@@ -254,19 +277,6 @@ void TextUIHandler::editCurrentCell( TextUILcd *lcd, Event *event)
             break;
         }
     }
-}
-
-void TextUIHandler::cancelEdit(TextUIScreen *toCancel)
-{
-    if ((screen != nullptr) && (screen == toCancel))
-    {
-        mode = MODE_RENDER;
-    }
-}
-
-boolean TextUIHandler::inEditMode()
-{
-    return mode == MODE_EDIT;
 }
 
 void TextUIHandler::firstEditableCol(uint8_t row)
@@ -342,8 +352,6 @@ void TextUIHandler::next(uint8_t count)
     }
 }
 
-/* private */
-
 void TextUIHandler::updateScreen(TextUILcd *lcd)
 {
     UILOG("TextUIHandler::updateScreen():\n");
@@ -390,6 +398,10 @@ void TextUIHandler::updateTable(TextUILcd *lcd)
         refreshLine(lcd, row);
     }
 
+    /* If not in edit mode, set cursor to begin of current line */
+    if( mode != MODE_EDIT)
+        lcd->setCursor(tableRow - tableTopRow + screenHeaderOffs, 0);
+
     tableOldRow = tableRow;
     refresh = REFRESH_OK;
 
@@ -406,6 +418,11 @@ void TextUIHandler::updateRow(TextUILcd *lcd)
     {
         refreshLine(lcd, tableOldRow);
         refreshLine(lcd, tableRow);
+
+        /* If not in edit mode, set cursor to begin of current line */
+        if( mode != MODE_EDIT)
+            lcd->setCursor(tableRow - tableTopRow + screenHeaderOffs, 0);
+
         tableOldRow = tableRow;
     }
 }
@@ -444,7 +461,7 @@ bool TextUIHandler::adjustTopRow(TextUILcd *lcd)
 void TextUIHandler::refreshLine(TextUILcd *lcd, uint8_t row)
 {
     uint8_t renderRow;
-    
+
     UILOGV("TextUIHandler::refreshLine(): row=%d tableRows=%d refr=%d\n", row, tableRows, refresh);
 
     lcd->setCursor(row - tableTopRow + screenHeaderOffs, 0);
@@ -491,19 +508,20 @@ void TextUIHandler::refreshCell( TextUILcd *lcd, uint8_t row, uint8_t col)
 {
     Cell renderCell;
     bool edit = (mode == MODE_EDIT && row == tableRow && col == tableCol);
+    uint8_t screenRow;
 
     UILOGV("TextUIHandler::refreshCell(): edit=%d [%d, %d] [%d, %d]\n", edit, tableRow, tableCol, row, col);
-    
-    lcd->setRow( row - tableTopRow + screenHeaderOffs);
-        
+
+    screenRow = row - tableTopRow + screenHeaderOffs;
+
     if (edit)
     {
-        editCell.render( lcd, edit);
+        editCell.render( lcd, screenRow, edit);
     }
     else
     {
         screen->getValue( useBackItem ? row-1: row, col, &renderCell);
-        renderCell.render( lcd, edit);
+        renderCell.render( lcd, screenRow, edit);
     }
 }
 
