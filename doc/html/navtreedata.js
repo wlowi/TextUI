@@ -25,6 +25,7 @@
 var NAVTREE =
 [
   [ "TextUI", "index.html", [
+    [ "Todo List", "todo.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -44,7 +45,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_reliable_stream_8h_source.html",
-"class_text_u_i_stream_proxy.html#a05cda590b5c507c6459734161d1fe9cc"
+"class_text_u_i_screen.html#a0c18d374793b58b02a33876871290027"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

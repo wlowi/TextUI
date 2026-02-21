@@ -18,6 +18,7 @@ var hierarchy =
       [ "TextUIStreamProxy", "class_text_u_i_stream_proxy.html", null ]
     ] ],
     [ "TextUILcd", "class_text_u_i_lcd.html", [
+      [ "TextUILcdGxEPD2", "class_text_u_i_lcd_gx_e_p_d2.html", null ],
       [ "TextUILcdHD44780_I2C", "class_text_u_i_lcd_h_d44780___i2_c.html", null ],
       [ "TextUILcdILI9341", "class_text_u_i_lcd_i_l_i9341.html", null ],
       [ "TextUILcdSSD1306", "class_text_u_i_lcd_s_s_d1306.html", null ],

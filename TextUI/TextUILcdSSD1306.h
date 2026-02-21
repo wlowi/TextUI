@@ -76,6 +76,8 @@ class TextUILcdSSD1306 : public TextUILcd {
 
     void displayOn( boolean b) {}
 
+    void commit() {}
+
     void clear() final;
     void clearEOL() final;
 

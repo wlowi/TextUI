@@ -33,28 +33,31 @@ class HomeScreen : public TextUIScreen
   private:
     const char *key;
     uint8_t count;
-    bool refresh = false;
     uint16_t rows;
     uint16_t cols;
-      
+
+    #define TEXT_MAXLEN 4
+    char text[TEXT_MAXLEN+1];
+
   public:
     HomeScreen();
 
     void activate( TextUI *ui);
-    
+
     const char *getHeader() { return "RotEncText"; }
-    const char *getMenuName() { return nullptr; }
+    const char *getMenuName() { return getHeader(); }
+    bool goBackItem() { return true; }
 
     void handleEvent( TextUI *ui, Event *e);
+
+    bool isColEditable(uint8_t row, uint8_t col);
 
     uint8_t getRowCount();
     const char *getRowName( uint8_t row);
     uint8_t getColCount( uint8_t row);
 
-    bool needsRefresh();
-    void endRefresh();
-    
     void getValue( uint8_t row, uint8_t col, Cell *cell);
+    void setValue(uint8_t row, uint8_t col, Cell *cell);
 };
 
 #endif

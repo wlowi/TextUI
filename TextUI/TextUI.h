@@ -30,7 +30,7 @@
 #include "Arduino.h"
 #include <cstdint>
 
-#define TEXTUI_DEBUG
+#undef TEXTUI_DEBUG
 
 #ifdef TEXTUI_DEBUG
     #if defined( ARDUINO_ARCH_AVR )
@@ -38,8 +38,8 @@
         #define UILOGV(f, ...)
 
     #elif defined( ARDUINO_ARCH_ESP32 )
-        #define UILOG(f)
-        #define UILOGV(f, ...)
+        #define UILOG(f) Serial.printf(f)
+        #define UILOGV(f, ...) Serial.printf(f, __VA_ARGS__)
 
     #else
         #include "stdio.h"
@@ -296,6 +296,12 @@ public:
      * @param bl Turn display on if true.
      */
     virtual void displayOn(bool bl) = 0;
+
+    /**
+     * @brief For ePaper displays. Commit changes to display.
+     *
+     */
+    virtual void commit() = 0;
 
     /**
      * @brief Clear the display.

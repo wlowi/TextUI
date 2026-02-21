@@ -4,6 +4,7 @@ var class_text_u_i_lcd_i_l_i9341 =
     [ "clear", "class_text_u_i_lcd_i_l_i9341.html#a95152cc10a6ef65c42f2f3a4460e7484", null ],
     [ "clearEOL", "class_text_u_i_lcd_i_l_i9341.html#a240e08231d5f47b6c818e094862d28f4", null ],
     [ "colorSupport", "class_text_u_i_lcd_i_l_i9341.html#a0f5a0f3b759e0afab800e8992e6d2664", null ],
+    [ "commit", "class_text_u_i_lcd_i_l_i9341.html#ac7e3befadc42017ff0089775bc6fddc6", null ],
     [ "editColors", "class_text_u_i_lcd_i_l_i9341.html#a9ede70a3ee661651b11453ff2ac22833", null ],
     [ "getColumns", "class_text_u_i_lcd_i_l_i9341.html#a5ba05c87e5887bc1457a20bdefa26203", null ],
     [ "getRows", "class_text_u_i_lcd_i_l_i9341.html#a50450ffe645b29d09b153195fe562b42", null ],

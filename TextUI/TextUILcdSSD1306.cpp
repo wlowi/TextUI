@@ -81,17 +81,17 @@ void TextUILcdSSD1306::setFg( uint8_t r, uint8_t g, uint8_t b) {
 
 void TextUILcdSSD1306::normalColors() {
 
-  setInvert( false);
+  setInverse( false);
 }
 
 void TextUILcdSSD1306::selectedColors() {
 
-  setInvert( true);
+  setInverse( true);
 }
 
 void TextUILcdSSD1306::editColors() {
 
-  setInvert( true);
+  setInverse( true);
 }
 
 bool TextUILcdSSD1306::inverseSupport() {

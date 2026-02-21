@@ -123,6 +123,9 @@ public:
     TextUILcdHD44780_I2C(TwoWire* twi, byte addr);
 
     void displayOn( boolean b);
+
+    void commit() {}
+
     void cursorOn( boolean b);
     void cursorBlink( boolean b);
 

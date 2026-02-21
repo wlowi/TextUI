@@ -12,6 +12,7 @@ var annotated_dup =
     [ "TextUIHandler", "class_text_u_i_handler.html", "class_text_u_i_handler" ],
     [ "TextUIInput", "class_text_u_i_input.html", "class_text_u_i_input" ],
     [ "TextUILcd", "class_text_u_i_lcd.html", "class_text_u_i_lcd" ],
+    [ "TextUILcdGxEPD2", "class_text_u_i_lcd_gx_e_p_d2.html", "class_text_u_i_lcd_gx_e_p_d2" ],
     [ "TextUILcdHD44780_I2C", "class_text_u_i_lcd_h_d44780___i2_c.html", "class_text_u_i_lcd_h_d44780___i2_c" ],
     [ "TextUILcdILI9341", "class_text_u_i_lcd_i_l_i9341.html", "class_text_u_i_lcd_i_l_i9341" ],
     [ "TextUILcdSSD1306", "class_text_u_i_lcd_s_s_d1306.html", "class_text_u_i_lcd_s_s_d1306" ],

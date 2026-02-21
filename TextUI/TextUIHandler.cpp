@@ -245,6 +245,7 @@ void TextUIHandler::onDemandRefresh(TextUILcd *lcd)
             }
         }
     }
+    lcd->commit();
 
     screen->endRefresh();
 }
@@ -257,6 +258,7 @@ void TextUIHandler::editCurrentCell( TextUILcd *lcd, Event *event)
     {
         screen->setValue(row, tableCol, &editCell);
         refreshCell( lcd, tableRow, tableCol);
+        lcd->commit();
     }
     else
     {
@@ -388,7 +390,7 @@ void TextUIHandler::updateTable(TextUILcd *lcd)
         tableRow = tableRows-1;
     }
 
-    UILOGV("TextUIHandler::updateTable(): rows %d topRow %d row%d\n", tableRows, tableTopRow, tableRow);
+    UILOGV("TextUIHandler::updateTable(): rows %d topRow %d row %d\n", tableRows, tableTopRow, tableRow);
 
     adjustTopRow(lcd);
     refresh = REFRESH_ROW;
@@ -405,6 +407,8 @@ void TextUIHandler::updateTable(TextUILcd *lcd)
     tableOldRow = tableRow;
     refresh = REFRESH_OK;
 
+    lcd->commit();
+
     screen->endRefresh();
 }
 
@@ -417,6 +421,7 @@ void TextUIHandler::updateRow(TextUILcd *lcd)
     else
     {
         refreshLine(lcd, tableOldRow);
+        lcd->commit(); /** @todo Why is this required to prevent screen artifacts ?? */
         refreshLine(lcd, tableRow);
 
         /* If not in edit mode, set cursor to begin of current line */
@@ -424,6 +429,8 @@ void TextUIHandler::updateRow(TextUILcd *lcd)
             lcd->setCursor(tableRow - tableTopRow + screenHeaderOffs, 0);
 
         tableOldRow = tableRow;
+
+        lcd->commit();
     }
 }
 
@@ -524,4 +531,3 @@ void TextUIHandler::refreshCell( TextUILcd *lcd, uint8_t row, uint8_t col)
         renderCell.render( lcd, screenRow, edit);
     }
 }
-

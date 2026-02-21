@@ -26,17 +26,19 @@
 #include "HomeScreen.h"
 
 const char* KEYS[] = {
-  "none",
-  "up",
-  "down",
-  "enter",
-  "clear"
+  "None",
+  "Up",
+  "Down",
+  "Enter",
+  "Clear"
 };
 
 HomeScreen::HomeScreen() {
-  
+
   key = KEYS[0];
   count = 0;
+
+  strncpy( text, "ABC", TEXT_MAXLEN+1);
 }
 
 void HomeScreen::activate( TextUI *ui) {
@@ -66,52 +68,61 @@ void HomeScreen::handleEvent(TextUI *ui, Event *e) {
     }
 
     count = e->getCount();
-    
-    e->markProcessed();
-
-    refresh = true;
   }
 }
 
-bool HomeScreen::needsRefresh() {
-
-  return refresh;
-}
-
-void HomeScreen::endRefresh() {
-
-  refresh = false;
-}
-
 uint8_t HomeScreen::getRowCount() {
-  return 3;
+
+    return 4;
 }
 
 const char *HomeScreen::getRowName( uint8_t row) {
-  return "";
+
+    if( row == 0) {
+      return key;
+    } else if( row == 1) {
+      return "Rows";
+    } else if( row == 2) {
+      return "Cols";
+    } else if( row == 3) {
+      return "Text";
+    }
+
+    return "";
 }
 
 uint8_t HomeScreen::getColCount( uint8_t row) {
-  return 2;
+
+    return 1;
+}
+
+bool HomeScreen::isColEditable(uint8_t row, uint8_t col) {
+
+    return row >= 1 && row <= 3;
 }
 
 void HomeScreen::getValue(uint8_t row, uint8_t col, Cell *cell) {
 
   if( col == 0) {
     if( row == 0) {
-      cell->setLabel( 0, key, 5);
+      cell->setInt8( 5, count, 4, 0, 255);
     } else if( row == 1) {
-      cell->setLabel( 0, "rows", 5);
+      cell->setInt16( 5, rows, 4, 0, 255);
     } else if( row == 2) {
-      cell->setLabel( 0, "cols", 5);
-    }
-  } else if( col == 1) {
-    if( row == 0) {
-      cell->setInt8( 6, count, 4, 0, 255);
-    } else if( row == 1) {
-      cell->setInt16( 6, rows, 4, 0, 255);
-    } else if( row == 2) {
-      cell->setInt16( 6, cols, 4, 0, 255);
+      cell->setInt16( 5, cols, 4, 0, 255);
+    } else if( row == 3) {
+      cell->setString( 5, text, TEXT_MAXLEN);
     }
   }
+}
+
+void HomeScreen::setValue(uint8_t row, uint8_t col, Cell *cell) {
+
+    if( col == 0) {
+      if( row == 1) {
+        rows = cell->getInt16();
+      } else if( row == 2) {
+        cols = cell->getInt16();
+      } /* row 3: String is edited in place. */
+    }
 }

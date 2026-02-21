@@ -50,7 +50,7 @@ class TextUIRotaryEncoder : public TextUIInput
 	boolean buttonIsDown;
 	byte button;
 	
-	volatile int enc;
+	int enc;
 	
     public:
         /**

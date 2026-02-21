@@ -1,4 +1,7 @@
 **/.vscode
+**/.zed
+**/.clangd
+**/.clang-format
 **/*~
 **/*.o
 **/*.sch-bak

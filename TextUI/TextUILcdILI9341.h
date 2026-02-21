@@ -84,6 +84,8 @@ class TextUILcdILI9341 : public TextUILcd
 
       void displayOn( boolean b) {}
 
+      void commit() {}
+
       void clear() final;
       void clearEOL() final;
 

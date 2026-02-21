@@ -123,6 +123,8 @@ class TextUILcdST7735 : public TextUILcd
 
       void displayOn( boolean b) {}
 
+      void commit() {}
+
       void clear() final;
       void clearEOL() final;
 

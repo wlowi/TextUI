@@ -27,7 +27,7 @@
 #include "TextUI.h"
 
 void TextUILcd::printInt( int val) {
-  
+
   printInt( val, 0, ' ');
 }
 
@@ -57,12 +57,12 @@ void TextUILcd::printUInt( unsigned int val)  {
 }
 
 void TextUILcd::printUInt( unsigned int val, uint8_t width) {
-  
+
   printLongGeneric( val, 0, width, 0, ' ');
 }
 
 void TextUILcd::printUInt( unsigned int val, uint8_t width, char filler) {
-  
+
   printLongGeneric( val, 0, width, 0, filler);
 }
 
@@ -102,22 +102,24 @@ void TextUILcd::printULong( unsigned long val, uint8_t width) {
 }
 
 void TextUILcd::printULong( unsigned long val, uint8_t width, char filler) {
-  
+
   printLongGeneric( val, 0, width, 0, filler);
 }
 
 void TextUILcd::printStr( const char str[]) {
-  
+
+  if( !str) { return; }
   printStr( str, strlen( str), -1);
 }
 
 void TextUILcd::printStr( const char str[], uint8_t width) {
-  
+
+  if( !str) { return; }
   printStr( str, width, -1);
 }
 
 void TextUILcd::printStr( const char str[], uint8_t width, int8_t editIdx) {
-     
+
   uint8_t p = 0;
 
   if( !str) { return; }
@@ -136,13 +138,13 @@ void TextUILcd::printStr( const char str[], uint8_t width, int8_t editIdx) {
   while( p < width) {
     printChar( ' ');
     p++;
-  } 
+  }
 }
 
 #ifdef ARDUINO
 
 void TextUILcd::printStr( const __FlashStringHelper *str) {
-  
+
   printStr( str, 0);
 }
 
@@ -181,7 +183,7 @@ void TextUILcd::printFixFloat1( fixfloat1_t val, uint8_t width) {
   } else {
     uval = val;
   }
-  
+
   printLongGeneric( uval, neg, width, 1, ' ');
 }
 
@@ -196,7 +198,7 @@ void TextUILcd::printFixFloat2( fixfloat2_t val, uint8_t width) {
   } else {
     uval = val;
   }
-  
+
   printLongGeneric( uval, neg, width, 2, ' ');
 }
 
@@ -261,4 +263,4 @@ void TextUILcd::printLongGeneric( unsigned long val, int8_t neg, uint8_t width, 
   }
 
   printStr( &buff[p] );
-}    
+}

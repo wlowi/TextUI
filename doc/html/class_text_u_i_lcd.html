@@ -100,11 +100,12 @@ Inheritance diagram for TextUILcd:</div>
  <div class="center">
   <img src="class_text_u_i_lcd.png" usemap="#TextUILcd_map" alt=""/>
   <map id="TextUILcd_map" name="TextUILcd_map">
-<area href="class_text_u_i_lcd_h_d44780___i2_c.html" title="A driver for OLED displays with HD44780 and similar controller." alt="TextUILcdHD44780_I2C" shape="rect" coords="0,56,146,80"/>
-<area href="class_text_u_i_lcd_i_l_i9341.html" title="A driver for TFT displays with ILI9341 controller." alt="TextUILcdILI9341" shape="rect" coords="156,56,302,80"/>
-<area href="class_text_u_i_lcd_s_s_d1306.html" title="A driver for OLED displays with SSD1306 / SH1106 and similar controller." alt="TextUILcdSSD1306" shape="rect" coords="312,56,458,80"/>
-<area href="class_text_u_i_lcd_s_t7735.html" title="A driver for TFT displays with ST7735 controller." alt="TextUILcdST7735" shape="rect" coords="468,56,614,80"/>
-<area href="class_text_u_i_stream_proxy.html" title="A proxy driver that supports both TextUIInput, TextUILcd." alt="TextUIStreamProxy" shape="rect" coords="624,56,770,80"/>
+<area href="class_text_u_i_lcd_gx_e_p_d2.html" title="A driver for ePaper displays." alt="TextUILcdGxEPD2" shape="rect" coords="0,56,146,80"/>
+<area href="class_text_u_i_lcd_h_d44780___i2_c.html" title="A driver for OLED displays with HD44780 and similar controller." alt="TextUILcdHD44780_I2C" shape="rect" coords="156,56,302,80"/>
+<area href="class_text_u_i_lcd_i_l_i9341.html" title="A driver for TFT displays with ILI9341 controller." alt="TextUILcdILI9341" shape="rect" coords="312,56,458,80"/>
+<area href="class_text_u_i_lcd_s_s_d1306.html" title="A driver for OLED displays with SSD1306 / SH1106 and similar controller." alt="TextUILcdSSD1306" shape="rect" coords="468,56,614,80"/>
+<area href="class_text_u_i_lcd_s_t7735.html" title="A driver for TFT displays with ST7735 controller." alt="TextUILcdST7735" shape="rect" coords="624,56,770,80"/>
+<area href="class_text_u_i_stream_proxy.html" title="A proxy driver that supports both TextUIInput, TextUILcd." alt="TextUIStreamProxy" shape="rect" coords="780,56,926,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -117,6 +118,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9563a82c579943ed9242b12c54e24134"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd.html#a9563a82c579943ed9242b12c54e24134">displayOn</a> (bool bl)=0</td></tr>
 <tr class="memdesc:a9563a82c579943ed9242b12c54e24134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turn display (backlight) on or off.  <a href="class_text_u_i_lcd.html#a9563a82c579943ed9242b12c54e24134">More...</a><br /></td></tr>
 <tr class="separator:a9563a82c579943ed9242b12c54e24134"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f26cc11316705aa405372b0c319857f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd.html#a6f26cc11316705aa405372b0c319857f">commit</a> ()=0</td></tr>
+<tr class="memdesc:a6f26cc11316705aa405372b0c319857f"><td class="mdescLeft">&#160;</td><td class="mdescRight">For ePaper displays. Commit changes to display.  <a href="class_text_u_i_lcd.html#a6f26cc11316705aa405372b0c319857f">More...</a><br /></td></tr>
+<tr class="separator:a6f26cc11316705aa405372b0c319857f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c11150d51b8c90899044c84af04e3fc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_u_i_lcd.html#a3c11150d51b8c90899044c84af04e3fc">clear</a> ()=0</td></tr>
 <tr class="memdesc:a3c11150d51b8c90899044c84af04e3fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear the display.  <a href="class_text_u_i_lcd.html#a3c11150d51b8c90899044c84af04e3fc">More...</a><br /></td></tr>
 <tr class="separator:a3c11150d51b8c90899044c84af04e3fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -248,7 +252,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Clear the display. </p>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#aadb32fe5828fc338e872dc0d0724bc52">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a8a807bb05369ae1689982291a4b1dc49">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a95152cc10a6ef65c42f2f3a4460e7484">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#aaa6d207a97f5f0c08844f2f274e8e8f1">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a33d4c75deffe313ae82d5a79eb8f18ef">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#aadb32fe5828fc338e872dc0d0724bc52">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a2a36bbbf93b92f95197addbf74d1f0f0">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a8a807bb05369ae1689982291a4b1dc49">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a95152cc10a6ef65c42f2f3a4460e7484">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#aaa6d207a97f5f0c08844f2f274e8e8f1">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a33d4c75deffe313ae82d5a79eb8f18ef">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -277,7 +281,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Clear current line to end of line. </p>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#abe8eec4157cb262a8582ed8f17bb9d3b">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a4fde535c1167bdd3c43bf1ffa997ab0e">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a240e08231d5f47b6c818e094862d28f4">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a8e81bedea1c259859f553f137179f2f5">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a1ed3431cb31c126aaad2ecd329df845c">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#abe8eec4157cb262a8582ed8f17bb9d3b">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a5610bed58a9d081cae87b233ba0c54d2">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a4fde535c1167bdd3c43bf1ffa997ab0e">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a240e08231d5f47b6c818e094862d28f4">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a8e81bedea1c259859f553f137179f2f5">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a1ed3431cb31c126aaad2ecd329df845c">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -307,7 +311,36 @@ Public Member Functions</h2></td></tr>
 <p>Check for color support. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool: 'true' if the display supports colors. </dd></dl>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#a4cbd7af12bd4f6688c4899c2fdcfaf60">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#af38d2b3670e076db82d7a4324165eda4">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a0f5a0f3b759e0afab800e8992e6d2664">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a8f5a84d2e0c6a3922e8f3df22ac6dfe7">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#aca86f6385c63aca34406c23d344a1c0c">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#a4cbd7af12bd4f6688c4899c2fdcfaf60">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#aff73c6b0b2d98f5c11f82d41b66eeb78">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#af38d2b3670e076db82d7a4324165eda4">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a0f5a0f3b759e0afab800e8992e6d2664">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a8f5a84d2e0c6a3922e8f3df22ac6dfe7">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#aca86f6385c63aca34406c23d344a1c0c">TextUILcdST7735</a>.</p>
+
+</div>
+</div>
+<a id="a6f26cc11316705aa405372b0c319857f" name="a6f26cc11316705aa405372b0c319857f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f26cc11316705aa405372b0c319857f">&#9670;&nbsp;</a></span>commit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void TextUILcd::commit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>For ePaper displays. Commit changes to display. </p>
+
+<p>Implemented in <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a1e31da5a4d8149d8262c470b2f0fea27">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#ac7e3befadc42017ff0089775bc6fddc6">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#af55873234862d4433eaab494b5dae541">TextUILcdSSD1306</a>, <a class="el" href="class_text_u_i_lcd_s_t7735.html#ab99ada384781e0e95f2d446775d1b9a0">TextUILcdST7735</a>, and <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a81b151e376bf34caa1db07488eca9e69">TextUILcdGxEPD2</a>.</p>
 
 </div>
 </div>
@@ -370,7 +403,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Switch to predefined set of colors for items that are currently edited. </p>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#a9464a907ae841206d4542541d2eed0ca">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a51b411d606c494bfa7685fa2da5230a8">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a9ede70a3ee661651b11453ff2ac22833">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a94c77a0b42730b5f3f21048f12bddbf8">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a825b138287962f91093b6b3dcfbd4854">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#a9464a907ae841206d4542541d2eed0ca">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a04ecb9c90d97cd8aba9e5690d49ac92e">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a51b411d606c494bfa7685fa2da5230a8">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a9ede70a3ee661651b11453ff2ac22833">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a94c77a0b42730b5f3f21048f12bddbf8">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a825b138287962f91093b6b3dcfbd4854">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -400,7 +433,7 @@ Public Member Functions</h2></td></tr>
 <p>Get number of text columns. </p>
 <dl class="section return"><dt>Returns</dt><dd>uint8_t </dd></dl>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#ad18330b4592dd932e6497fe7dfc07637">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a7b28064400e2869b5bbd0b3242110dd6">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a5ba05c87e5887bc1457a20bdefa26203">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a0003914e52e9b32d02b64b6bbbd4e398">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a4597b5c9a3146f4d2dfd2a45b89c5ac9">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#ad18330b4592dd932e6497fe7dfc07637">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a5f178490d3d6d094f1f68835e87e84ac">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a7b28064400e2869b5bbd0b3242110dd6">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a5ba05c87e5887bc1457a20bdefa26203">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a0003914e52e9b32d02b64b6bbbd4e398">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a4597b5c9a3146f4d2dfd2a45b89c5ac9">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -430,7 +463,7 @@ Public Member Functions</h2></td></tr>
 <p>Get number of text rows. </p>
 <dl class="section return"><dt>Returns</dt><dd>uint8_t </dd></dl>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#aadc7e440c1636f59a5b6b1c75bcd58a6">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#aea19c305399f4ed9a57e614b0c96ecc3">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a50450ffe645b29d09b153195fe562b42">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a5b937199dfb3a9b1420f33280da79939">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a6599fa1465f20f145ec913101b29d1a8">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#aadc7e440c1636f59a5b6b1c75bcd58a6">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a38406fe95fc89be45cbe24b91d336680">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#aea19c305399f4ed9a57e614b0c96ecc3">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a50450ffe645b29d09b153195fe562b42">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a5b937199dfb3a9b1420f33280da79939">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a6599fa1465f20f145ec913101b29d1a8">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -460,7 +493,7 @@ Public Member Functions</h2></td></tr>
 <p>Check for inverse character support. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool: 'true' if the display supports inverse painting. </dd></dl>
 
-<p>Implemented in <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a733eff411a60195386d9067135553ec5">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a6c6df855e8bd85682c96b880d849b7c8">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a573beaa5307fc1450ef51a3fddec15e3">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a3ca898f181e1edced0de9ceee702dc33">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a2bf7e4def43920efa69122fdc827f0c8">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a733eff411a60195386d9067135553ec5">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a6c6df855e8bd85682c96b880d849b7c8">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a573beaa5307fc1450ef51a3fddec15e3">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a3ca898f181e1edced0de9ceee702dc33">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -489,7 +522,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Switch to predefined set of colors. </p>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#ae1f7b9f986fe58390526fc44e5d285de">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a4a28a279c6465bcc5ee66a2744aaa614">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a9c11613905a31216a65d78459d524481">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#ab3e16c6cb5a5ea78f0926f275f40f221">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#aab1c32988843ece0a1b35c462e4ba16d">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#ae1f7b9f986fe58390526fc44e5d285de">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a2440cc7198095aafa9b16c18695c3a66">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a4a28a279c6465bcc5ee66a2744aaa614">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a9c11613905a31216a65d78459d524481">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#ab3e16c6cb5a5ea78f0926f275f40f221">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#aab1c32988843ece0a1b35c462e4ba16d">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -525,7 +558,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#a24068e7eabc5fb30a690c973b11943f0">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#ad04235dc7c53fdd916267fc8503ed496">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#aa11a189960ad500221e81407f357852a">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a09d849a5551a75cd9f5daab1cfcc84bc">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a9cea8e18545be1b6acbddfc221ec3eee">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#a24068e7eabc5fb30a690c973b11943f0">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a6616801fd5654e71c32a0f86c9d9017b">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#ad04235dc7c53fdd916267fc8503ed496">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#aa11a189960ad500221e81407f357852a">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a09d849a5551a75cd9f5daab1cfcc84bc">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a9cea8e18545be1b6acbddfc221ec3eee">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -1180,7 +1213,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Switch to predefined set of colors for selected items. </p>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#aa70aa9d9ea67b6ebdd9d18c2ad15f66a">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a14355eb4396d696b049024daf2d97131">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#aff70473fe6d9a7b846ff27bb72ce8275">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a5cad159b955a38b40e389fa021ae79e5">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a53972f1cece848ff89f226d26993d911">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#aa70aa9d9ea67b6ebdd9d18c2ad15f66a">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a2faed31730957f3782617e2dc6c589b7">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a14355eb4396d696b049024daf2d97131">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#aff70473fe6d9a7b846ff27bb72ce8275">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a5cad159b955a38b40e389fa021ae79e5">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a53972f1cece848ff89f226d26993d911">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -1234,7 +1267,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#a10d17a4c1ad2b365e0841abdb5eed734">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#aea1cd00013f3994785574e703bf991f3">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a24e83a4f679e1329fe205601b8834b09">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a5d7f402ad3014f056720d9336c95bfec">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a744cf058d4873be91cdef8120f11fa76">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#a10d17a4c1ad2b365e0841abdb5eed734">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a96c10bc3cd0d3eee7cb83ffb97ba41d7">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#aea1cd00013f3994785574e703bf991f3">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a24e83a4f679e1329fe205601b8834b09">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a5d7f402ad3014f056720d9336c95bfec">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a744cf058d4873be91cdef8120f11fa76">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -1270,7 +1303,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#af5ef3b27a9e32f4b3c74a62f71e7eeba">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#aaa429e11aae90735b2542e7d43e3bc9c">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a3f53645c6c270ec27fdcdbd37103b1d1">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a256852f401408c50cf0a225c4efd1589">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a64dec5aed05cd6ac54727cba7477932e">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#af5ef3b27a9e32f4b3c74a62f71e7eeba">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#ab53d8a3db6806184857d921d0ddac770">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#aaa429e11aae90735b2542e7d43e3bc9c">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a3f53645c6c270ec27fdcdbd37103b1d1">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a256852f401408c50cf0a225c4efd1589">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a64dec5aed05cd6ac54727cba7477932e">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -1318,7 +1351,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#a05cda590b5c507c6459734161d1fe9cc">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a12ebac89ae6bb5dc8809dedda668bf9f">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a2a454aebf158365ff0b45a08f801de78">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#abf7148b7848869e296a42a5137c9ef21">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a878a332762fa24fb774abb8a85458d20">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#a05cda590b5c507c6459734161d1fe9cc">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a05f1d65a85f3c49382389a9be3b00841">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#a12ebac89ae6bb5dc8809dedda668bf9f">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a2a454aebf158365ff0b45a08f801de78">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#abf7148b7848869e296a42a5137c9ef21">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a878a332762fa24fb774abb8a85458d20">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -1372,7 +1405,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#ab66efe9c862aeaca25dae0781de82974">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#ab4fa4b48f3fb543915d54cb78b2fe68e">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#abe1a2283f673e5b47fba93ca8b71912d">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#aef543630158de269064be1559db8e744">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a675cbe5e6fc7b80038119e45e7aacd94">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#ab66efe9c862aeaca25dae0781de82974">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#af4bd2f05e43462bb7a7d27521ecd56a2">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#ab4fa4b48f3fb543915d54cb78b2fe68e">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#abe1a2283f673e5b47fba93ca8b71912d">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#aef543630158de269064be1559db8e744">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a675cbe5e6fc7b80038119e45e7aacd94">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -1408,7 +1441,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#a528862d8f98e634392a5677a82d6f5ff">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#aa166a5bc634c7e82803315d429bb425e">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a22a464ffaffc50d798a2410e3c9ba333">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#ac370fa605b65d35acb34ce94b94edaf4">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a1a675391a735dbdd3bccf898ba1b2a51">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#a528862d8f98e634392a5677a82d6f5ff">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a3e5d56fe02a5138326cb17236d2dc22f">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#aa166a5bc634c7e82803315d429bb425e">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a22a464ffaffc50d798a2410e3c9ba333">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#ac370fa605b65d35acb34ce94b94edaf4">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a1a675391a735dbdd3bccf898ba1b2a51">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -1444,7 +1477,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#aa4e56202b807b75bc9eac9268b1cb533">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a571fdb6f0170e0bee4bb0184f1360613">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a868e68ce9bd6094bbaad4147630336d5">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a9ee3719045b3a488a561ee848eaff009">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a1e4d7937cdfde6a76c2d79ebd7a1eed7">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#aa4e56202b807b75bc9eac9268b1cb533">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a571fdb6f0170e0bee4bb0184f1360613">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a868e68ce9bd6094bbaad4147630336d5">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#a9ee3719045b3a488a561ee848eaff009">TextUILcdST7735</a>.</p>
 
 </div>
 </div>
@@ -1480,7 +1513,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#aa74ebceecb1260bff391ced8de3213a0">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#aecfd5a6d3d87f2ba9e677ccf03fa5342">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a2b88a7e6bd8cd6f578e136016a6c1056">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a94e7443fa68547f22c783d6e8c1825f1">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#aea035efac4e898771452cb1df4aec239">TextUILcdST7735</a>.</p>
+<p>Implemented in <a class="el" href="class_text_u_i_stream_proxy.html#aa74ebceecb1260bff391ced8de3213a0">TextUIStreamProxy</a>, <a class="el" href="class_text_u_i_lcd_gx_e_p_d2.html#a119aed85607c95ef000862ee1f4a11fa">TextUILcdGxEPD2</a>, <a class="el" href="class_text_u_i_lcd_h_d44780___i2_c.html#aecfd5a6d3d87f2ba9e677ccf03fa5342">TextUILcdHD44780_I2C</a>, <a class="el" href="class_text_u_i_lcd_i_l_i9341.html#a2b88a7e6bd8cd6f578e136016a6c1056">TextUILcdILI9341</a>, <a class="el" href="class_text_u_i_lcd_s_s_d1306.html#a94e7443fa68547f22c783d6e8c1825f1">TextUILcdSSD1306</a>, and <a class="el" href="class_text_u_i_lcd_s_t7735.html#aea035efac4e898771452cb1df4aec239">TextUILcdST7735</a>.</p>
 
 </div>
 </div>

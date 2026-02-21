@@ -32,22 +32,26 @@
 // #define USE_SSD1306
 
 /* TFT 128x128 / 160x80 / 160x128 */
-#define USE_ST7735
+//#define USE_ST7735
 
 /* TFT 320x240 */
 // #define USE_ILI9341
+
+/* ePaper Display */
+#define USE_GXEPD2
+
 /* ******************** */
 
 #ifdef USE_SSD1306
 # include "TextUILcdSSD1306.h"
 #endif
 
+
 #ifdef USE_ST7735
 # include "TextUILcdST7735.h"
 # define PIN_TFT_CS  10
 # define PIN_TFT_DC   9
 # define PIN_TFT_RST -1
-
 /* Pins for Arduino Nano:
  *  CS               10
  *  A0/DC             9
@@ -55,8 +59,8 @@
  *  SDA/MOSI         11
  *  SCK              13
  */
- 
 #endif
+
 
 #ifdef USE_ILI9341
 # include "TextUILcdILI9341.h"
@@ -72,12 +76,12 @@
 # define PIN_TFT_DC   9
 # define PIN_TFT_RST -1
 #elif defined( ARDUINO_ARCH_ESP32 )
-# define PIN_TFT_CS  
-# define PIN_TFT_DC  
-# define PIN_TFT_RST 
+# define PIN_TFT_CS
+# define PIN_TFT_DC
+# define PIN_TFT_RST
 #elif defined( ARDUINO_ARCH_RP2040 )
 /* RP2040 (SPI0)
- *  
+ *
  * CS                 5
  * DC                15
  * RESET             14
@@ -86,15 +90,31 @@
  */
 # define PIN_TFT_SDA  7
 # define PIN_TFT_SCK  6
- 
+
 # define PIN_TFT_CS  13
 # define PIN_TFT_DC  15
 # define PIN_TFT_RST 14
 #else
 # error No valid architecture
 #endif
- 
 #endif
+
+
+#ifdef USE_GXEPD2
+# include "TextUILcdGxEPD2.h"
+# define PIN_TFT_CS   5
+# define PIN_TFT_DC   4
+# define PIN_TFT_RST  2
+# define PIN_TFT_BSY 15
+/* Pins for ESP32:
+ *  CS                5
+ *  A0/DC             4
+ *  RESET             2
+ *  SDA/MOSI         23
+ *  SCK              18
+ */
+#endif
+
 
 #include "TextUIRotaryEncoder.h"
 #if defined( ARDUINO_ARCH_AVR )
@@ -113,12 +133,14 @@
 # error No valid architecture
 #endif
 
-#include "HomeScreen.h"
+#include "Menu.h"
 
 TextUI textUI;
 
 void setup()
 {
+    Serial.begin(115200);
+
 #ifdef USE_SSD1306
     /* SH1106 Controller */
     // textUI.setDisplay( new TextUILcdSSD1306( &SH1106_128x64));
@@ -134,7 +156,7 @@ void setup()
 #elif defined( ARDUINO_ARCH_ESP32 )
     textUI.setDisplay( new TextUILcdST7735(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST));
 #endif
-    
+
 #endif
 
 #ifdef USE_ILI9341
@@ -149,11 +171,18 @@ void setup()
     textUI.setDisplay( new TextUILcdILI9341(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST));
 #endif
 
-    textUI.getDisplay()->setFontSize( TEXTUI_FONT_MEDIUM);
+#ifdef USE_GXEPD2
+    textUI.setDisplay( new TextUILcdGxEPD2(PIN_TFT_CS, PIN_TFT_DC, PIN_TFT_RST, PIN_TFT_BSY));
+#endif
 
+    textUI.getDisplay()->setFontSize( TEXTUI_FONT_SMALL);
+
+    // Workaround to provide 3.3V for Rotary Encoder on pin 17
+    pinMode(17,OUTPUT);
+    digitalWrite(17,HIGH);
     textUI.setInput( new TextUIRotaryEncoder( PIN_CLK, PIN_DIR, PIN_BUTTON));
 
-    textUI.setHomeScreen( new HomeScreen());
+    textUI.setHomeScreen( new Menu());
 }
 
 void loop()
